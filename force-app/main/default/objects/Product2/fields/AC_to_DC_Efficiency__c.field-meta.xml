@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AC_to_DC_Efficiency__c</fullName>
+    <defaultValue>96</defaultValue>
+    <description>Battery&apos;s AC to DC efficiency</description>
+    <inlineHelpText>Battery&apos;s AC to DC efficiency</inlineHelpText>
+    <label>AC to DC Efficiency</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Address__c</columns>
+    <columns>State__c</columns>
+    <columns>Postal_Code__c</columns>
+    <columns>LSE_Id__c</columns>
+    <columns>Average_Monthly_Bill__c</columns>
+    <columns>Initiate_Solar_Estimate_Process__c</columns>
+    <columns>Failed_Solar_Estimate_Process__c</columns>
+    <columns>Solar_Estimate_Process_Last_Run__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

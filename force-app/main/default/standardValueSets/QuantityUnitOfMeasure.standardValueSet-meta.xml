@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Each</fullName>
+        <default>false</default>
+        <label>Each</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Per Watt</fullName>
+        <default>false</default>
+        <label>Per Watt</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Flat Fee</fullName>
+        <default>false</default>
+        <label>Flat Fee</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Bid Price</fullName>
+        <default>false</default>
+        <label>Bid Price</label>
+    </standardValue>
+</StandardValueSet>

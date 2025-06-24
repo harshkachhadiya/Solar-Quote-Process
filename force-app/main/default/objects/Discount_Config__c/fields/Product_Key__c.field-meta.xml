@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Key__c</fullName>
+    <description>Product Key for sorting based on Product Name, State and Quantity</description>
+    <externalId>false</externalId>
+    <formula>UPPER(Product_Family__c) &amp; &quot;|| &quot; &amp;
+Product__r.Name &amp; 
+IF(ISBLANK( State__c ), &quot; --ALL-- &quot;, &quot; --&quot; &amp;  State__r.Name  &amp; &quot;-- &quot;) &amp;
+IF(INCLUDES(Finance_Type__c, &quot;CASH&quot;), &quot;CASH &quot;, null) &amp; IF(INCLUDES(Finance_Type__c, &quot;LOAN&quot;), &quot;LOAN &quot;, null) &amp; IF(INCLUDES(Finance_Type__c, &quot;TPO&quot;), &quot;TPO &quot;, null) &amp;
+&quot;Qty: &quot; &amp; TEXT(Min_Quantity__c)</formula>
+    <inlineHelpText>Product Key for sorting based on Product Name, State and Quantity</inlineHelpText>
+    <label>Product Key</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

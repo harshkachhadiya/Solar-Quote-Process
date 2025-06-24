@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Financier</fullName>
+    <active>true</active>
+    <description>A company that provides the funding necessary for homeowners to install solar energy systems through financing solutions like loans, leases, or PPAs</description>
+    <label>Financier</label>
+</RecordType>

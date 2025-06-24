@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DC_Coupled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is the battery DC Coupled?</description>
+    <inlineHelpText>Is the battery DC Coupled?</inlineHelpText>
+    <label>DC Coupled?</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

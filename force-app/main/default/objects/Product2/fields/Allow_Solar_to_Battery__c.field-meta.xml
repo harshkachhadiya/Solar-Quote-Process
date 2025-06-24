@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Solar_to_Battery__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Allow solar generation to charge the battery</description>
+    <inlineHelpText>Allow solar generation to charge the battery</inlineHelpText>
+    <label>Allow Solar to Battery</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

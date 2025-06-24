@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Adder</fullName>
+    <active>true</active>
+    <label>Adder</label>
+    <picklistValues>
+        <picklist>Cost_Basis__c</picklist>
+        <values>
+            <fullName>Add-on</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Adjust Base PPW</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Family</picklist>
+        <values>
+            <fullName>Administrative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Electrical Upgrades</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equipment Upgrades</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post-PTO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-Construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Smart Home</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Made_In__c</picklist>
+        <values>
+            <fullName>USA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>QuantityUnitOfMeasure</picklist>
+        <values>
+            <fullName>Bid Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Each</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flat Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Per Watt</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Recommended__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

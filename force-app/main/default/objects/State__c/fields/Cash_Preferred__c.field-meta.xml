@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cash_Preferred__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Preferred Cash option pricing cube for cash purchases</description>
+    <label>Cash (Preferred)</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Cash record type required</errorMessage>
+        <filterItems>
+            <field>Pricing_Cube__c.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Cash</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Pricing_Cube__c</referenceTo>
+    <relationshipLabel>States (Cash (Preferred))</relationshipLabel>
+    <relationshipName>States_Cash</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

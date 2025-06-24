@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligible_Financiers__c</fullName>
+    <description>List of all eligible financiers for the discount config.</description>
+    <externalId>false</externalId>
+    <formula>IF(Cash__c, &quot;Cash&quot;, &quot;&quot;) &amp; 
+IF(Cash__c &amp;&amp; (EnFin__c || Everbright__c || Mosaic__c || Sunrun__c || Goodleap__c), &quot;, &quot;, &quot;&quot;) &amp;
+IF(EnFin__c, &quot;Enfin&quot;, &quot;&quot;) &amp; 
+IF(EnFin__c &amp;&amp; (Everbright__c || Mosaic__c || Sunrun__c || Goodleap__c), &quot;, &quot;, &quot;&quot;) &amp;
+IF(Everbright__c, &quot;Everbright&quot;, &quot;&quot;) &amp; 
+IF(Everbright__c &amp;&amp; (Mosaic__c || Sunrun__c || Goodleap__c), &quot;, &quot;, &quot;&quot;) &amp;
+IF(Mosaic__c, &quot;Mosaic&quot;, &quot;&quot;) &amp; 
+IF(Mosaic__c &amp;&amp; (Sunrun__c || Goodleap__c), &quot;, &quot;, &quot;&quot;) &amp;
+IF(Sunrun__c, &quot;Sunrun&quot;, &quot;&quot;) &amp; 
+IF(Sunrun__c &amp;&amp; Goodleap__c, &quot;, &quot;, &quot;&quot;) &amp;
+IF(Goodleap__c, &quot;Goodleap&quot;, &quot;&quot;)</formula>
+    <inlineHelpText>List of all eligible financiers for the discount config.</inlineHelpText>
+    <label>Eligible Financiers</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

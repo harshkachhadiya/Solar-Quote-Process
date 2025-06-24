@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Grid_to_Battery__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Allow charging the battery from the grid</description>
+    <inlineHelpText>Allow charging the battery from the grid</inlineHelpText>
+    <label>Allow Grid to Battery?</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

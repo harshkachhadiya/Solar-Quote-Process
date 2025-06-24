@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Base_PPW__c</fullName>
+    <description>If this record is the default, compares the Base PPW from the related State and the PPW of this record to make sure the State has been updated</description>
+    <formula>IF( AND(PPW__c &lt;&gt;  State_Base_PPW__c,  Is_Default__c ) , TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Check Base PPW</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

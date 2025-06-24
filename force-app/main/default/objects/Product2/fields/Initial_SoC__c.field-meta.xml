@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_SoC__c</fullName>
+    <defaultValue>50</defaultValue>
+    <description>Battery initial state of charge</description>
+    <inlineHelpText>Battery initial state of charge</inlineHelpText>
+    <label>Initial SoC</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
+</CustomField>

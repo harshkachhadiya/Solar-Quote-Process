@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Preferred__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Loan (Preferred)</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Pricing_Cube__c.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>Loan</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Pricing_Cube__c</referenceTo>
+    <relationshipLabel>States</relationshipLabel>
+    <relationshipName>States_Loan_Preferred</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

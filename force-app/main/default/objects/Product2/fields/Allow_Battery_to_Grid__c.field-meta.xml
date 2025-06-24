@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Battery_to_Grid__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Permit battery to export energy to the grid</description>
+    <inlineHelpText>Permit battery to export energy to the grid</inlineHelpText>
+    <label>Allow Battery to Grid?</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

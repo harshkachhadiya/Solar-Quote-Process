@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Provider_Account_Id__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(Storage_Account__c = TRUE, &quot;STO-&quot;, &quot;STD-&quot;) &amp; Genability_Monthly_Limit__r.Year__c &amp; &quot;-&quot; &amp; Genability_Monthly_Limit__r.Month__c &amp; &quot;-&quot; &amp; Name</formula>
+    <label>Provider Account Id</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

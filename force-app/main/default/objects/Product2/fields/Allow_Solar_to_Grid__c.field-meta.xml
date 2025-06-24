@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allow_Solar_to_Grid__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Permit solar generation to export excess to the grid</description>
+    <inlineHelpText>Permit solar generation to export excess to the grid</inlineHelpText>
+    <label>Allow Solar to Grid</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

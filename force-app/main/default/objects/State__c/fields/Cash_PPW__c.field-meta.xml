@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cash_PPW__c</fullName>
+    <formula>IF( Cash_Base_PPW__c +  Cash_Margin__c &gt;0, Cash_Base_PPW__c +  Cash_Margin__c, null)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Cash Base + Cash Margin</inlineHelpText>
+    <label>Cash PPW</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

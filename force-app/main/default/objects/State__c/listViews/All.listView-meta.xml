@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Auto_Recommend_Battery__c</columns>
+    <columns>TPO_Type__c</columns>
+    <columns>TPO_Financier__c</columns>
+    <columns>TPO_Base_PPW__c</columns>
+    <columns>TPO_PPW__c</columns>
+    <columns>TPO_Panel__c</columns>
+    <columns>TPO_Battery__c</columns>
+    <columns>Loan_Product__c</columns>
+    <columns>Loan_Panel__c</columns>
+    <columns>Cash_Panel__c</columns>
+    <columns>Cash_Battery__c</columns>
+    <columns>Cash_Product__c</columns>
+    <columns>Loan_Battery__c</columns>
+    <columns>Loan_Competitor__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Active Records</label>
+</ListView>

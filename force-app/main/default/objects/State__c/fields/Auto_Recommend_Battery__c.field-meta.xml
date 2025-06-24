@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Auto_Recommend_Battery__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checked if the inclusion of a battery is recommended based on utility or state policies.</description>
+    <inlineHelpText>Checked if the inclusion of a battery is recommended based on utility or state policies.</inlineHelpText>
+    <label>Auto Recommend Battery</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

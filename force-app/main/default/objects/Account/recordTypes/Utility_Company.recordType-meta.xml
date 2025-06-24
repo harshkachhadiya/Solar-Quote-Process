@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utility_Company</fullName>
+    <active>true</active>
+    <description>Organization responsible for generating, transmitting, and distributing electricity to consumers</description>
+    <label>Utility Company</label>
+</RecordType>

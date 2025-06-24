@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TPO_Panel__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <inlineHelpText>NOTE: This is field is required, with the associated Production from the Product, in order for a TPO product to show on the online estimate page.</inlineHelpText>
+    <label>TPO Panel</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Product must be a &quot;Panel&quot; record type</errorMessage>
+        <filterItems>
+            <field>Product2.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Panel</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>States (TPO Panel)</relationshipLabel>
+    <relationshipName>States_TPO</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

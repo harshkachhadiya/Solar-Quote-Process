@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Learn_More__c</fullName>
+    <inlineHelpText>Customer-facing description. Note, content typed here may be available on externally facing websites like the Quoting page.</inlineHelpText>
+    <label>Learn More</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>
