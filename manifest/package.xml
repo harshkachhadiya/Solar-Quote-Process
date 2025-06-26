@@ -318,6 +318,14 @@
 		<name>CustomObject</name>
 	</types>
 	<types>
+		<members>Discount_Config__c</members>
+		<members>Genability_Monthly_Limit__c</members>
+		<members>Pricing_Cube__c</members>
+		<members>Solar_Estimate_Address__c</members>
+		<members>State__c</members>
+		<name>CustomTab</name>
+	</types>
+	<types>
 		<members>Discount_Config_Record_Page</members>
 		<members>Genability_Monthly_Limit_Record_Page</members>
 		<members>Genability_Provider_Account_Id_Record_Page</members>

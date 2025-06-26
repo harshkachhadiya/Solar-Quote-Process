@@ -2,15 +2,10 @@ public without sharing class SolarEstimateAddressTriggerHelper {
     
     public static void updateFields(List<Solar_Estimate_Address__c> newList, Map<Id, Solar_Estimate_Address__c> oldMap) {
         
+        updateState(newList, oldMap);
+        
         for(Solar_Estimate_Address__c solarEstimateAddress : newList) {
             Solar_Estimate_Address__c oldSolarEstimateAddress = Trigger.isUpdate ? oldMap.get(solarEstimateAddress.Id) : null;
-            
-            if(String.isNotBlank(solarEstimateAddress.State__c)) {
-                solarEstimateAddress.State_Lookup__c = [SELECT Id 
-                                                        FROM State__c 
-                                                        WHERE Name = :solarEstimateAddress.State__c 
-                                                        LIMIT 1]?.Id;
-            }
             
             /*if(Trigger.isInsert 
                || (Trigger.isUpdate 
@@ -191,6 +186,49 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             }
         }
     }
+    
+    public static void updateState(List<Solar_Estimate_Address__c> newList, Map<Id, Solar_Estimate_Address__c> oldMap) {
+        
+        List<Solar_Estimate_Address__c> solarEstimateAddressesToProcess = new List<Solar_Estimate_Address__c>();
+        Set<String> stateNames = new Set<String>();
+        
+        for(Solar_Estimate_Address__c solarEstimateAddress : newList) {
+            
+            if((Trigger.isInsert 
+                || (Trigger.isUpdate 
+                    && solarEstimateAddress.State__c != oldMap.get(solarEstimateAddress.Id).State__c))) 
+            {
+                solarEstimateAddressesToProcess.add(solarEstimateAddress);
+                
+                if(String.isNotBlank(solarEstimateAddress.State__c)) {
+                    stateNames.add(solarEstimateAddress.State__c);
+                }
+            }
+        }
+        
+        if(solarEstimateAddressesToProcess.isEmpty()) {
+            return;
+        }
+        
+        Map<String, Id> stateNameToStateId = new Map<String, Id>();
+        
+        if(!stateNames.isEmpty()) {
+            
+            for(State__c state : [SELECT Id, Name 
+                                  FROM State__c 
+                                  WHERE Name IN :stateNames]) 
+            {
+                stateNameToStateId.put(state.Name, state.Id);
+            }
+        }
+        
+        for(Solar_Estimate_Address__c solarEstimateAddress : solarEstimateAddressesToProcess) {
+            
+            solarEstimateAddress.State_Lookup__c = String.isNotBlank(solarEstimateAddress.State__c)
+                ? stateNameToStateId.get(solarEstimateAddress.State__c)
+                : null;
+        }
+    } 
     
     public static void initiateSolarEstimateProcess(List<Solar_Estimate_Address__c> newList, Map<Id, Solar_Estimate_Address__c> oldMap) {
         
