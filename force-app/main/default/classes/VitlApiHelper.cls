@@ -43,7 +43,7 @@ public without sharing class VitlApiHelper {
         Logger.saveLog();
         
         if(String.isNotBlank(errorMessage)) {
-            throw new AuraHandledException(errorMessage);        
+            throw new GenericException(errorMessage);        
         }
         
         return null;

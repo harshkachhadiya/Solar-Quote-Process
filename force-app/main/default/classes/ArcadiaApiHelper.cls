@@ -688,7 +688,10 @@ public without sharing class ArcadiaApiHelper {
             
             solarEstimateAddress.Run_Typical_Analysis__c = solarEstimateAddress.City_Tier__c == null 
                 || solarEstimateAddress.City_Tier__c < 1
-                || solarEstimateAddress.City_Tier__c > 3;
+                || solarEstimateAddress.City_Tier__c > 3
+                || (!solarEstimateAddress.Finance_Type_Available_Cash__c
+                    && !solarEstimateAddress.Finance_Type_Available_Loan__c
+                    && !solarEstimateAddress.Finance_Type_Available_TPO__c);
             
             if(solarEstimateAddress.Run_Typical_Analysis__c || Test.isRunningTest()) {
                 
