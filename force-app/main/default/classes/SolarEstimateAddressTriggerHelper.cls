@@ -83,7 +83,8 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             {
                 solarEstimateAddress.Initiate_Solar_Estimate_Process__c = false;
                 solarEstimateAddress.Manual_Initiate_Solar_Estimate_Process__c = false;
-                solarEstimateAddress.Last_Process_Run_Timestamp__c = DateTime.now();
+                solarEstimateAddress.Last_Successful_Process_Run_Timestamp__c = DateTime.now();
+                solarEstimateAddress.Last_Process_Run_Timestamp__c = solarEstimateAddress.Last_Successful_Process_Run_Timestamp__c;
             }
             
             if(!solarEstimateAddress.Initiate_Solar_Estimate_Process__c

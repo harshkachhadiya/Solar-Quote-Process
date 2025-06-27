@@ -715,7 +715,7 @@ public without sharing class ArcadiaApiHelper {
             if(!solarEstimateAddress.Run_Typical_Analysis__c) {
                 
                 if(state.Auto_Recommend_Battery__c 
-                   && solarEstimateAddress.Last_Process_Run_Timestamp__c == null) 
+                   && solarEstimateAddress.Last_Successful_Process_Run_Timestamp__c == null) 
                 {
                     if(solarEstimateAddress.Batteries_Count_Cash__c == null) {
                         solarEstimateAddress.Batteries_Count_Cash__c = 1;
