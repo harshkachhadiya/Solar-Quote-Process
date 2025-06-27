@@ -63,7 +63,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             {
                 solarEstimateAddress.Initiate_Solar_Estimate_Process__c = false;
                 solarEstimateAddress.Manual_Initiate_Solar_Estimate_Process__c = false;
-                solarEstimateAddress.Solar_Estimate_Process_Last_Run__c = DateTime.now();
+                solarEstimateAddress.Last_Process_Run_Timestamp__c = DateTime.now();
                 solarEstimateAddress.Finance_Type_Available_Cash__c = false;
                 solarEstimateAddress.Finance_Type_Available_Loan__c = false;
                 solarEstimateAddress.Finance_Type_Available_TPO__c = false;
@@ -83,7 +83,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             {
                 solarEstimateAddress.Initiate_Solar_Estimate_Process__c = false;
                 solarEstimateAddress.Manual_Initiate_Solar_Estimate_Process__c = false;
-                solarEstimateAddress.Solar_Estimate_Process_Last_Run__c = DateTime.now();
+                solarEstimateAddress.Last_Process_Run_Timestamp__c = DateTime.now();
             }
             
             if(!solarEstimateAddress.Initiate_Solar_Estimate_Process__c

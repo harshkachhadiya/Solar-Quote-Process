@@ -1801,8 +1801,18 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Solar_Estimate_Process_Last_Run__c</fieldItem>
-                <identifier>RecordSolar_Estimate_Process_Last_Run_cField</identifier>
+                <fieldItem>Record.Last_Successful_Process_Run_Timestamp__c</fieldItem>
+                <identifier>RecordLast_Successful_Process_Run_Timestamp_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Last_Process_Run_Timestamp__c</fieldItem>
+                <identifier>RecordLast_Process_Run_Timestamp_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-19a3e941-872b-4583-b8b3-e9fc60c0ff5c</name>

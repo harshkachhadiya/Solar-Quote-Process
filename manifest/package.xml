@@ -234,7 +234,8 @@
 		<members>Solar_Estimate_Address__c.Run_Typical_Analysis__c</members>
 		<members>Solar_Estimate_Address__c.Safe_Streets__c</members>
 		<members>Solar_Estimate_Address__c.Set_Best_Electrical_Offset__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Estimate_Process_Last_Run__c</members>
+		<members>Solar_Estimate_Address__c.Last_Process_Run_Timestamp__c</members>
+		<members>Solar_Estimate_Address__c.Last_Successful_Process_Run_Timestamp__c</members>
 		<members>Solar_Estimate_Address__c.Solar_Offset_Cash__c</members>
 		<members>Solar_Estimate_Address__c.Solar_Offset_Loan__c</members>
 		<members>Solar_Estimate_Address__c.Solar_Offset_TPO__c</members>
