@@ -23,13 +23,13 @@ public with sharing class SolarEstimateProcessHelperTest {
         insert genabilityProviderAccountId2;
         
         Product2 panel = new Product2();
-        panel.RecordTypeId = SObjectHelper.getRecordTypeIdByName('Product2', 'Panel');
+        panel.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Product2', 'Panel');
         panel.Name = 'Test Panel';
         panel.Production__c = 100;
         insert panel;
         
         Product2 battery = new Product2();
-        battery.RecordTypeId = SObjectHelper.getRecordTypeIdByName('Product2', 'Battery');
+        battery.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Product2', 'Battery');
         battery.Name = 'Test Battery';
         battery.Family = 'Battery';
         battery.IsActive = true;
@@ -50,26 +50,26 @@ public with sharing class SolarEstimateProcessHelperTest {
         insert battery;
         
         Product2 solarTaxFilingService = new Product2();
-        solarTaxFilingService.RecordTypeId = SObjectHelper.getRecordTypeIdByName('Product2', 'Adder');
+        solarTaxFilingService.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Product2', 'Adder');
         solarTaxFilingService.Name = 'Solar Tax Filing Service';
         solarTaxFilingService.Family = 'Administrative';
         solarTaxFilingService.IsActive = true;
         insert solarTaxFilingService;
         
         Product2 safeStreetsBasicsPackage = new Product2();
-        safeStreetsBasicsPackage.RecordTypeId = SObjectHelper.getRecordTypeIdByName('Product2', 'Adder');
+        safeStreetsBasicsPackage.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Product2', 'Adder');
         safeStreetsBasicsPackage.Name = 'SafeStreets / Google Smart Home: Basics Package';
         safeStreetsBasicsPackage.Family = 'Smart Home';
         safeStreetsBasicsPackage.IsActive = true;
         insert safeStreetsBasicsPackage;
         
         Pricing_Cube__c cashPreferred = new Pricing_Cube__c();
-        cashPreferred.RecordTypeId = SObjectHelper.getRecordTypeIdByName('Pricing_Cube__c', 'Cash');
+        cashPreferred.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Pricing_Cube__c', 'Cash');
         cashPreferred.Dealer_Fee__c = 1.5;
         insert cashPreferred;
         
         Pricing_Cube__c loanPreferred = new Pricing_Cube__c();
-        loanPreferred.RecordTypeId = SObjectHelper.getRecordTypeIdByName('Pricing_Cube__c', 'Loan');
+        loanPreferred.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Pricing_Cube__c', 'Loan');
         loanPreferred.Dealer_Fee__c = 1.5;
         loanPreferred.Payment_Factor_1__c = 0.1;
         insert loanPreferred;

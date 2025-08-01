@@ -53,11 +53,11 @@ public without sharing class SolarEstimateProcessHelper {
     @AuraEnabled
     public static Solar_Estimate_Address__c upsertSolarEstimateAddress(Id recordId) {
         
-        String sObjectApiName = SObjectHelper.getSObjectApiNameById(recordId);
+        String sObjectApiName = SObjectUtil.getSObjectApiNameById(recordId);
         
         if(sObjectApiName == 'Lead') {
             
-            Lead ld = (Lead) SObjectHelper.getSObjectDetailsById(recordId);
+            Lead ld = (Lead) SObjectUtil.getSObjectDetailsById(recordId);
             
             Solar_Estimate_Address__c solarEstimateAddress = new Solar_Estimate_Address__c();
             solarEstimateAddress.Id = ld.Solar_Estimate_Address__c;
@@ -87,7 +87,7 @@ public without sharing class SolarEstimateProcessHelper {
     @AuraEnabled
     public static void startGeneralProcess(Id solarEstimateAddressId) { 
         
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddressId);
+        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId);
         String errorMessage;
         
         try {
@@ -104,7 +104,7 @@ public without sharing class SolarEstimateProcessHelper {
             
             if(genabilityProviderAccountIds.isEmpty()) { 
                 
-                State__c state = (State__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c);
+                State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c);
                 
                 if(state.Auto_Recommend_Battery__c) {
                     genabilityProviderAccountIds = [SELECT Id, Provider_Account_Id__c, First_Used_Date_Time__c 

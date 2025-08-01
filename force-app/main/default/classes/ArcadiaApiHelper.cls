@@ -8,7 +8,7 @@ public without sharing class ArcadiaApiHelper {
         HttpRequest request;
         HttpResponse response;
         String errorMessage;
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddressId, 'Lead__r.Account_Name__c');
+        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId, 'Lead__r.Account_Name__c');
         
         try {
             
@@ -328,7 +328,7 @@ public without sharing class ArcadiaApiHelper {
     @AuraEnabled
     public static void createSolarProfiles(Id solarEstimateAddressId, String financeType) {
         
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddressId);
+        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId);
         String errorMessage;
         
         try {
@@ -337,7 +337,7 @@ public without sharing class ArcadiaApiHelper {
                 return;
             }
             
-            State__c state = (State__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
+            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
                                                                             + 'Loan_Panel__r.Production__c,'
                                                                             + 'TPO_Panel__r.Production__c');
             
@@ -663,7 +663,7 @@ public without sharing class ArcadiaApiHelper {
     @AuraEnabled
     public static void getAnalysis(Id solarEstimateAddressId) {
         
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddressId);
+        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId);
         String errorMessage;
         
         try {
@@ -672,7 +672,7 @@ public without sharing class ArcadiaApiHelper {
                 return;
             }
             
-            State__c state = (State__c) SObjectHelper.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
+            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
                                                                             + 'Loan_Panel__r.Production__c,'
                                                                             + 'TPO_Panel__r.Production__c,'
                                                                             + 'Cash_Battery__r.Standard_Price__c,'
