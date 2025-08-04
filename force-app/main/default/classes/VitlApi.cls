@@ -17,7 +17,11 @@ public without sharing class VitlApi {
         request.setTimeout(120000);
         request.setHeader('Content-Type', 'application/json');
         
-        if((method == 'PUT' || method == 'POST' || method == 'PATCH') && String.isNotBlank(payload)) {
+        if((method == 'PUT' 
+            || method == 'POST' 
+            || method == 'PATCH') 
+           && String.isNotBlank(payload)) 
+        {
             request.setBody(payload);
         }
         
