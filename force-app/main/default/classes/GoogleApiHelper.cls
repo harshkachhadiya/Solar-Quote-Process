@@ -17,7 +17,7 @@ public without sharing class GoogleApiHelper {
             
             if(statusCode == 200 || statusCode == 201) {
                 
-                GoogleApiWrapper.GeocodeResponse result = (GoogleApiWrapper.GeocodeResponse) JSON.deserialize(responseBody, GoogleApiWrapper.GeocodeResponse.Class);
+                GoogleApiWrapper.GeocodeResponse apiResponse = (GoogleApiWrapper.GeocodeResponse) JSON.deserialize(responseBody, GoogleApiWrapper.GeocodeResponse.Class);
                 
                 if(result != null && !result.results.isEmpty() && result.results[0].geometry != null && result.results[0].geometry.location != null) {
                     return result.results[0].geometry.location;
@@ -55,7 +55,7 @@ public without sharing class GoogleApiHelper {
             String responseBody = response.getBody();
             
             if(statusCode == 200 || statusCode == 201) {                
-                GoogleApiWrapper.BuildingInsightsResponse result = (GoogleApiWrapper.BuildingInsightsResponse) JSON.deserialize(responseBody, GoogleApiWrapper.BuildingInsightsResponse.Class);
+                GoogleApiWrapper.BuildingInsightsResponse apiResponse = (GoogleApiWrapper.BuildingInsightsResponse) JSON.deserialize(responseBody, GoogleApiWrapper.BuildingInsightsResponse.Class);
                 
                 return result;
                 

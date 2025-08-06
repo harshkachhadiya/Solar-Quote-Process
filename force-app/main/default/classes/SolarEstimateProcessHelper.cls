@@ -614,49 +614,49 @@ public without sharing class SolarEstimateProcessHelper {
             Date installDate = Date.today().addDays(-60);
             Integer yearClaimed = installDate.year();
             
-            DepreciationRequest wrapper = new DepreciationRequest();
-            wrapper.key = 'a53dbdd6-46be-ef11-96cd-002248041955';
+            DepreciationRequest apiPayload = new DepreciationRequest();
+            apiPayload.key = 'a53dbdd6-46be-ef11-96cd-002248041955';
             
             if(financeType == 'Cash') {
-                wrapper.systemprice = solarEstimateAddress.Gross_System_Cost_Cash__c;
-                wrapper.kilowatts = solarEstimateAddress.System_Size_kW_Cash__c ;
-                wrapper.purchased = true;
-                wrapper.amountfinanced = 0; 
-                wrapper.interestrate = 0;
-                wrapper.loanterm = 0;
+                apiPayload.systemprice = solarEstimateAddress.Gross_System_Cost_Cash__c;
+                apiPayload.kilowatts = solarEstimateAddress.System_Size_kW_Cash__c ;
+                apiPayload.purchased = true;
+                apiPayload.amountfinanced = 0; 
+                apiPayload.interestrate = 0;
+                apiPayload.loanterm = 0;
             }
             
             if(financeType == 'Loan') {
-                wrapper.systemprice = solarEstimateAddress.Gross_System_Cost_Loan__c;
-                wrapper.kilowatts = solarEstimateAddress.System_Size_kW_Loan__c;
-                wrapper.purchased = true;
-                wrapper.amountfinanced = solarEstimateAddress.Gross_System_Cost_Loan__c; 
-                wrapper.interestrate = state.Loan_Preferred__r.APR__c;
-                wrapper.loanterm = 25;
+                apiPayload.systemprice = solarEstimateAddress.Gross_System_Cost_Loan__c;
+                apiPayload.kilowatts = solarEstimateAddress.System_Size_kW_Loan__c;
+                apiPayload.purchased = true;
+                apiPayload.amountfinanced = solarEstimateAddress.Gross_System_Cost_Loan__c; 
+                apiPayload.interestrate = state.Loan_Preferred__r.APR__c;
+                apiPayload.loanterm = 25;
             }
             
             if(financeType == 'TPO') {
-                wrapper.systemprice = solarEstimateAddress.Final_Price_TPO__c;
-                wrapper.kilowatts = solarEstimateAddress.System_Size_kW_TPO__c;
-                wrapper.purchased = false; 
-                wrapper.leasepayment = 290; 
-                wrapper.leaseyears = 25;
-                wrapper.escalatorrate =  0;
+                apiPayload.systemprice = solarEstimateAddress.Final_Price_TPO__c;
+                apiPayload.kilowatts = solarEstimateAddress.System_Size_kW_TPO__c;
+                apiPayload.purchased = false; 
+                apiPayload.leasepayment = 290; 
+                apiPayload.leaseyears = 25;
+                apiPayload.escalatorrate =  0;
             }
             
-            wrapper.incentiveamount = 0;
-            wrapper.installcomplete = String.valueOf(installDate);
-            wrapper.yearclaimed = yearClaimed;
-            wrapper.formprepamount = 0;
-            wrapper.netmetering = true;
-            wrapper.businessintent = true;
+            apiPayload.incentiveamount = 0;
+            apiPayload.installcomplete = String.valueOf(installDate);
+            apiPayload.yearclaimed = yearClaimed;
+            apiPayload.formprepamount = 0;
+            apiPayload.netmetering = true;
+            apiPayload.businessintent = true;
             
             request = new HttpRequest();
             request.setMethod('POST');
             request.setEndpoint('https://app.411core.com/solar/calculate');
             request.setTimeout(120000);
             request.setHeader('Content-Type', 'application/json');
-            request.setBody(JSON.serialize(wrapper));
+            request.setBody(JSON.serialize(apiPayload));
             
             Integer statusCode = 200;
             String responseBody = '{"depreciationexpense":100}';
@@ -670,7 +670,7 @@ public without sharing class SolarEstimateProcessHelper {
             
             if(statusCode == 200 || statusCode == 201) {
                 
-                DepreciationResponse result = (DepreciationResponse) JSON.deserialize(responseBody, DepreciationResponse.Class);
+                DepreciationResponse apiResponse = (DepreciationResponse) JSON.deserialize(responseBody, DepreciationResponse.Class);
                 
                 if(result.depreciationexpense != 0) {
                     return result.depreciationexpense;

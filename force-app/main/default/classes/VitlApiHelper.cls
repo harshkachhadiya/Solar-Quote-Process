@@ -24,7 +24,7 @@ public without sharing class VitlApiHelper {
             
             if(statusCode == 200 || statusCode == 201) {
                 
-                VitlApiWrapper.CitiesResponse result = (VitlApiWrapper.CitiesResponse) JSON.deserialize(responseBody, VitlApiWrapper.CitiesResponse.Class);
+                VitlApiWrapper.CitiesResponse apiResponse = (VitlApiWrapper.CitiesResponse) JSON.deserialize(responseBody, VitlApiWrapper.CitiesResponse.Class);
                 
                 return result;
                 
