@@ -24,10 +24,6 @@
         <name>ApexTrigger</name>
     </types>
 	<types>
-        <members>SolarEstimateAddressTrigger</members>
-        <name>ApexTrigger</name>
-    </types>
-	<types>
 		<members>Arcadia_Api_Configuration__mdt.Base_Endpoint__c</members>
 		<members>Arcadia_Api_Configuration__mdt.Password__c</members>
 		<members>Arcadia_Api_Configuration__mdt.Username__c</members>
