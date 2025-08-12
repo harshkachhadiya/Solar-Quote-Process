@@ -49,12 +49,12 @@ public without sharing class ArcadiaApiHelper {
             if(statusCode == 200 || statusCode == 201) {
                 ArcadiaApiWrapper.CreateAccountResponse apiResponse = (ArcadiaApiWrapper.CreateAccountResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateAccountResponse.Class);
                 
-                if(result.status == 'Success') {
+                if(apiResponse.status == 'Success') {
                     
-                    solarEstimateAddress.Account_Id__c = result.results[0].accountId;
-                    solarEstimateAddress.Master_Tariff_Id__c = result.results[0].tariffs[0].masterTariffId;
-                    solarEstimateAddress.Tariff_Name__c = result.results[0].tariffs[0].tariffName;
-                    solarEstimateAddress.Tariff_Code__c = result.results[0].tariffs[0].tariffCode;
+                    solarEstimateAddress.Account_Id__c = apiResponse.results[0].accountId;
+                    solarEstimateAddress.Master_Tariff_Id__c = apiResponse.results[0].tariffs[0].masterTariffId;
+                    solarEstimateAddress.Tariff_Name__c = apiResponse.results[0].tariffs[0].tariffName;
+                    solarEstimateAddress.Tariff_Code__c = apiResponse.results[0].tariffs[0].tariffCode;
                     solarEstimateAddress.Completed_Account_Process__c  = true;
                     
                     setProperties(solarEstimateAddress);
@@ -118,7 +118,7 @@ public without sharing class ArcadiaApiHelper {
             if(statusCode == 200 || statusCode == 201) {
                 ArcadiaApiWrapper.SetPropertyResponse apiResponse = (ArcadiaApiWrapper.SetPropertyResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.SetPropertyResponse.Class);
                 
-                if(result.status == 'Success') {
+                if(apiResponse.status == 'Success') {
                     
                     solarEstimateAddress.Completed_Properties_Process__c = true;
                     
@@ -203,10 +203,10 @@ public without sharing class ArcadiaApiHelper {
             if(statusCode == 200 || statusCode == 201) {
                 ArcadiaApiWrapper.CalculateKwhResponse apiResponse = (ArcadiaApiWrapper.CalculateKwhResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CalculateKwhResponse.Class);
                 
-                if(result.status == 'Success') {
+                if(apiResponse.status == 'Success') {
                     
-                    solarEstimateAddress.Annual_kWh_Arcadia__c = result.results[0].summary.kWh;
-                    solarEstimateAddress.Annual_Bill__c = result.results[0].summary.totalCost;
+                    solarEstimateAddress.Annual_kWh_Arcadia__c = apiResponse.results[0].summary.kWh;
+                    solarEstimateAddress.Annual_Bill__c = apiResponse.results[0].summary.totalCost;
                     solarEstimateAddress.Completed_kWh_Process__c = true;
                     
                     createElectricityProfile(solarEstimateAddress);
@@ -292,7 +292,7 @@ public without sharing class ArcadiaApiHelper {
             if(statusCode == 200 || statusCode == 201) {
                 ArcadiaApiWrapper.CreateElectricityProfileResponse apiResponse = (ArcadiaApiWrapper.CreateElectricityProfileResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateElectricityProfileResponse.Class);
                 
-                if(result.status == 'Success') {
+                if(apiResponse.status == 'Success') {
                     
                     solarEstimateAddress.Completed_Electricity_Profile_Process__c = true;
                     
@@ -616,11 +616,11 @@ public without sharing class ArcadiaApiHelper {
                 if(statusCode == 200 || statusCode == 201) {
                     ArcadiaApiWrapper.CreateSolarProfileResponse apiResponse = (ArcadiaApiWrapper.CreateSolarProfileResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateSolarProfileResponse.Class);
                     
-                    if(result.status == 'Success') {   
+                    if(apiResponse.status == 'Success') {   
                         
-                        solarProviderProfileIds.add(result.results[0].providerProfileId);
+                        solarProviderProfileIds.add(apiResponse.results[0].providerProfileId);
                         
-                        totalBaselineMeasures += result.results[0].baselineMeasures[0].v;
+                        totalBaselineMeasures += apiResponse.results[0].baselineMeasures[0].v;
                         
                     } else {
                         Logger.error('Bad Response From API').setHttpRequestDetails(request).setHttpResponseDetails(response);
@@ -938,9 +938,9 @@ public without sharing class ArcadiaApiHelper {
                     if(statusCode == 200 || statusCode == 201) {
                         ArcadiaApiWrapper.CreateStorageProfileResponse apiResponse = (ArcadiaApiWrapper.CreateStorageProfileResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateStorageProfileResponse.Class);
                         
-                        if(result.status == 'Success') {
+                        if(apiResponse.status == 'Success') {
                             
-                            storageProviderProfileId = result.results[0].usageProfile.providerProfileId;
+                            storageProviderProfileId = apiResponse.results[0].usageProfile.providerProfileId;
                             
                         } else {
                             Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
@@ -1122,9 +1122,9 @@ public without sharing class ArcadiaApiHelper {
             if(statusCode == 200 || statusCode == 201) {
                 ArcadiaApiWrapper.AnalysisResponse apiResponse = (ArcadiaApiWrapper.AnalysisResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.AnalysisResponse.Class);
                 
-                if(result.status == 'Success') {
+                if(apiResponse.status == 'Success') {
                     
-                    ArcadiaApiWrapper.AnalysisSummary summary = result.results[0].summary;
+                    ArcadiaApiWrapper.AnalysisSummary summary = apiResponse.results[0].summary;
                     
                     Decimal oldLifetimeUtilityCost = summary.lifetimeWithoutCost;
                     Decimal newLifetimeSolarCost = summary.lifetimeSolarCost;
@@ -1282,9 +1282,9 @@ public without sharing class ArcadiaApiHelper {
             if(statusCode == 200 || statusCode == 201) {
                 ArcadiaApiWrapper.AnalysisResponse apiResponse = (ArcadiaApiWrapper.AnalysisResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.AnalysisResponse.Class);
                 
-                if(result.status == 'Success') {
+                if(apiResponse.status == 'Success') {
                     
-                    ArcadiaApiWrapper.AnalysisSummary summary = result.results[0].summary;
+                    ArcadiaApiWrapper.AnalysisSummary summary = apiResponse.results[0].summary;
                     
                     Decimal oldLifetimeUtilityCost = summary.lifetimeWithoutCost;
                     Decimal newLifetimeSolarCost = summary.lifetimeSolarCost;

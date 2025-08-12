@@ -19,8 +19,8 @@ public without sharing class GoogleApiHelper {
                 
                 GoogleApiWrapper.GeocodeResponse apiResponse = (GoogleApiWrapper.GeocodeResponse) JSON.deserialize(responseBody, GoogleApiWrapper.GeocodeResponse.Class);
                 
-                if(result != null && !result.results.isEmpty() && result.results[0].geometry != null && result.results[0].geometry.location != null) {
-                    return result.results[0].geometry.location;
+                if(apiResponse != null && !apiResponse.results.isEmpty() && apiResponse.results[0].geometry != null && apiResponse.results[0].geometry.location != null) {
+                    return apiResponse.results[0].geometry.location;
                     
                 } else {
                     Logger.error('Bad Response From API').setHttpRequestDetails(request).setHttpResponseDetails(response);
@@ -57,7 +57,7 @@ public without sharing class GoogleApiHelper {
             if(statusCode == 200 || statusCode == 201) {                
                 GoogleApiWrapper.BuildingInsightsResponse apiResponse = (GoogleApiWrapper.BuildingInsightsResponse) JSON.deserialize(responseBody, GoogleApiWrapper.BuildingInsightsResponse.Class);
                 
-                return result;
+                return apiResponse;
                 
             } else {
                 Logger.error('Bad Response From API').setHttpRequestDetails(request).setHttpResponseDetails(response);

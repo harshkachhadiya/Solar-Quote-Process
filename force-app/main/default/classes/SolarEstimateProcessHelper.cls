@@ -672,8 +672,8 @@ public without sharing class SolarEstimateProcessHelper {
                 
                 DepreciationResponse apiResponse = (DepreciationResponse) JSON.deserialize(responseBody, DepreciationResponse.Class);
                 
-                if(result.depreciationexpense != 0) {
-                    return result.depreciationexpense;
+                if(apiResponse.depreciationexpense != 0) {
+                    return apiResponse.depreciationexpense;
                 }               
                 
             } else {

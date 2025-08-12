@@ -26,7 +26,7 @@ public without sharing class VitlApiHelper {
                 
                 VitlApiWrapper.CitiesResponse apiResponse = (VitlApiWrapper.CitiesResponse) JSON.deserialize(responseBody, VitlApiWrapper.CitiesResponse.Class);
                 
-                return result;
+                return apiResponse;
                 
             } else {
                 Logger.error('Bad Response From API').setHttpRequestDetails(request).setHttpResponseDetails(response);
