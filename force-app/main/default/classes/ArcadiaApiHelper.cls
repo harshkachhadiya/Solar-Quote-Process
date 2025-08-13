@@ -46,7 +46,9 @@ public without sharing class ArcadiaApiHelper {
                 responseBody = response.getBody();
             }
             
-            if(statusCode == 200 || statusCode == 201) {
+            if(statusCode == 200 
+               || statusCode == 201) 
+            {
                 ArcadiaApiWrapper.CreateAccountResponse apiResponse = (ArcadiaApiWrapper.CreateAccountResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateAccountResponse.Class);
                 
                 if(apiResponse.status == 'Success') {
@@ -115,7 +117,9 @@ public without sharing class ArcadiaApiHelper {
                 responseBody = response.getBody();
             }
             
-            if(statusCode == 200 || statusCode == 201) {
+            if(statusCode == 200 
+               || statusCode == 201) 
+            {
                 ArcadiaApiWrapper.SetPropertyResponse apiResponse = (ArcadiaApiWrapper.SetPropertyResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.SetPropertyResponse.Class);
                 
                 if(apiResponse.status == 'Success') {
@@ -200,7 +204,9 @@ public without sharing class ArcadiaApiHelper {
                 responseBody = response.getBody();
             }
             
-            if(statusCode == 200 || statusCode == 201) {
+            if(statusCode == 200 
+               || statusCode == 201) 
+            {
                 ArcadiaApiWrapper.CalculateKwhResponse apiResponse = (ArcadiaApiWrapper.CalculateKwhResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CalculateKwhResponse.Class);
                 
                 if(apiResponse.status == 'Success') {
@@ -289,7 +295,9 @@ public without sharing class ArcadiaApiHelper {
                 responseBody = response.getBody();
             }
             
-            if(statusCode == 200 || statusCode == 201) {
+            if(statusCode == 200 
+               || statusCode == 201) 
+            {
                 ArcadiaApiWrapper.CreateElectricityProfileResponse apiResponse = (ArcadiaApiWrapper.CreateElectricityProfileResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateElectricityProfileResponse.Class);
                 
                 if(apiResponse.status == 'Success') {
@@ -338,8 +346,8 @@ public without sharing class ArcadiaApiHelper {
             }
             
             State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
-                                                                            + 'Loan_Panel__r.Production__c,'
-                                                                            + 'TPO_Panel__r.Production__c');
+                                                                          + 'Loan_Panel__r.Production__c,'
+                                                                          + 'TPO_Panel__r.Production__c');
             
             Decimal productionPerPanel = financeType == 'Cash' 
                 ? state.Cash_Panel__r.Production__c
@@ -353,14 +361,20 @@ public without sharing class ArcadiaApiHelper {
             Decimal totalBaselineMeasures;
             Decimal solarOffset;
             
-            if(productionPerPanel != null && productionPerPanel != 0) {
-                
-                if((financeType == 'Loan' || financeType == 'TPO') && productionPerPanel == state.Cash_Panel__r.Production__c) {
+            if(productionPerPanel != null 
+               && productionPerPanel != 0) 
+            {
+                if((financeType == 'Loan' 
+                    || financeType == 'TPO') 
+                   && productionPerPanel == state.Cash_Panel__r.Production__c) 
+                {
                     solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_Cash__c;
                     totalBaselineMeasures = solarEstimateAddress.Total_Baseline_Measures_Cash__c;
                     solarOffset = solarEstimateAddress.Solar_Offset_Cash__c;
                     
-                } else if(financeType == 'TPO' && productionPerPanel == state.Loan_Panel__r.Production__c) {
+                } else if(financeType == 'TPO' 
+                          && productionPerPanel == state.Loan_Panel__r.Production__c) 
+                {
                     solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_Loan__c;
                     totalBaselineMeasures = solarEstimateAddress.Total_Baseline_Measures_Loan__c;
                     solarOffset = solarEstimateAddress.Solar_Offset_Loan__c;
@@ -389,7 +403,9 @@ public without sharing class ArcadiaApiHelper {
                         solarEstimateAddress.Set_Best_Electrical_Offset__c = true;
                     }
                     
-                    Integer panelsCount = solarEstimateAddress.Set_Best_Electrical_Offset__c ? 8 : Integer.valueOf(solarEstimateAddress.Panels_Count__c);
+                    Integer panelsCount = solarEstimateAddress.Set_Best_Electrical_Offset__c 
+                        ? 8 
+                        : Integer.valueOf(solarEstimateAddress.Panels_Count__c);
                     Map<String, Object> result = new Map<String, Object>();
                     List<GoogleApiWrapper.RoofSegmentSummary> roofSegmentSummaries = SolarEstimateProcessHelper.prepareRoofSegmentSummaries(solarEstimateAddress, buildingInsightsResponse, panelsCount);
                     
@@ -404,13 +420,18 @@ public without sharing class ArcadiaApiHelper {
                                 
                                 Integer panelsCountStepSize = 0;
                                 
-                                if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') {
+                                if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' 
+                                   || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') 
+                                {
                                     panelsCountStepSize = 4;
+                                    
                                 } else {
                                     panelsCountStepSize = Integer.valueOf(Math.ceil(Decimal.valueOf(panelsCount) / electricalOffset)) - panelsCount;
                                 }
                                 
-                                if(solarEstimateAddress.Ground_Mount__c != 'Standard Ground Mount' && solarEstimateAddress.Ground_Mount__c != 'Shade Structure Ground Mount') {
+                                if(solarEstimateAddress.Ground_Mount__c != 'Standard Ground Mount' 
+                                   && solarEstimateAddress.Ground_Mount__c != 'Shade Structure Ground Mount') 
+                                {
                                     if(panelsCount + panelsCountStepSize > solarEstimateAddress.Max_Panels_Count__c) {
                                         panelsCountStepSize = Integer.valueOf(solarEstimateAddress.Max_Panels_Count__c) - panelsCount;
                                     }
@@ -431,10 +452,12 @@ public without sharing class ArcadiaApiHelper {
                                 needToBreak = true;
                             }
                             
-                            if(!needToBreak && electricalOffset > 1) {
-                                
-                                while(!needToBreak && electricalOffset > 1) {
-                                    
+                            if(!needToBreak 
+                               && electricalOffset > 1) 
+                            {
+                                while(!needToBreak 
+                                      && electricalOffset > 1) 
+                                {
                                     if(((solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' 
                                          || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') 
                                         && panelsCount - 4 < 8)
@@ -443,8 +466,11 @@ public without sharing class ArcadiaApiHelper {
                                         needToBreak = true;
                                         
                                     } else {
-                                        if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') {
+                                        if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' 
+                                           || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') 
+                                        {
                                             panelsCount -= 4;
+                                            
                                         } else {
                                             panelsCount --;
                                         }
@@ -673,47 +699,22 @@ public without sharing class ArcadiaApiHelper {
             }
             
             State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
-                                                                            + 'Loan_Panel__r.Production__c,'
-                                                                            + 'TPO_Panel__r.Production__c,'
-                                                                            + 'Cash_Battery__r.Standard_Price__c,'
-                                                                            + 'Loan_Battery__r.Standard_Price__c,'
-                                                                            + 'TPO_Battery__r.Standard_Price__c,'
-                                                                            + 'Cash_Preferred__r.Dealer_Fee__c,'
-                                                                            + 'Loan_Preferred__r.Dealer_Fee__c,'
-                                                                            + 'Cash_Preferred__r.Payment_Factor_1__c,'
-                                                                            + 'Loan_Preferred__r.Payment_Factor_1__c,'
-                                                                            + 'Loan_Preferred__r.APR__c,'
-                                                                            + 'Loan_Competitor__r.Dealer_Fee__c,'
-                                                                            + 'Loan_Competitor__r.Payment_Factor_1__c');
+                                                                          + 'Loan_Panel__r.Production__c,'
+                                                                          + 'TPO_Panel__r.Production__c,'
+                                                                          + 'Cash_Battery__r.Standard_Price__c,'
+                                                                          + 'Loan_Battery__r.Standard_Price__c,'
+                                                                          + 'TPO_Battery__r.Standard_Price__c,'
+                                                                          + 'Cash_Preferred__r.Dealer_Fee__c,'
+                                                                          + 'Loan_Preferred__r.Dealer_Fee__c,'
+                                                                          + 'Cash_Preferred__r.Payment_Factor_1__c,'
+                                                                          + 'Loan_Preferred__r.Payment_Factor_1__c,'
+                                                                          + 'Loan_Preferred__r.APR__c,'
+                                                                          + 'Loan_Competitor__r.Dealer_Fee__c,'
+                                                                          + 'Loan_Competitor__r.Payment_Factor_1__c');
             
             solarEstimateAddress.Run_Typical_Analysis__c = solarEstimateAddress.City_Tier__c == null 
                 || solarEstimateAddress.City_Tier__c < 1
-                || solarEstimateAddress.City_Tier__c > 3
-                || (!solarEstimateAddress.Finance_Type_Available_Cash__c
-                    && !solarEstimateAddress.Finance_Type_Available_Loan__c
-                    && !solarEstimateAddress.Finance_Type_Available_TPO__c);
-            
-            if(solarEstimateAddress.Run_Typical_Analysis__c || Test.isRunningTest()) {
-                
-                if(!Test.isRunningTest()) {
-                    solarEstimateAddress.Roof_Segment_Summaries__c = null;
-                    solarEstimateAddress.Average_Pitch_Degrees__c = null;
-                    solarEstimateAddress.Max_Panels_Count__c = null;
-                    solarEstimateAddress.Best_Panels_Count__c = null;
-                    solarEstimateAddress.Panels_Count__c = null;
-                    solarEstimateAddress.Finance_Type_Available_Cash__c = false;
-                    solarEstimateAddress.Finance_Type_Available_Loan__c = false;
-                    solarEstimateAddress.Finance_Type_Available_TPO__c = false;
-                }
-                
-                Map<String, Decimal> result = getTypicalAnalysis(solarEstimateAddress);
-                
-                solarEstimateAddress.Monthly_Savings_Typical__c = result.get('monthlySavings');
-                solarEstimateAddress.Yearly_Savings_Typical__c = result.get('yearlySavings');
-                solarEstimateAddress.Old_Lifetime_Utility_Cost_Typical__c = result.get('oldLifetimeUtilityCost');
-                solarEstimateAddress.New_Lifetime_Solar_Cost_Typical__c = result.get('newLifetimeSolarCost');
-                solarEstimateAddress.Total_Lifetime_Savings_Typical__c = result.get('totalLifetimeSavings');
-            } 
+                || solarEstimateAddress.City_Tier__c > 3;
             
             if(!solarEstimateAddress.Run_Typical_Analysis__c) {
                 
@@ -791,6 +792,35 @@ public without sharing class ArcadiaApiHelper {
                 }
             }
             
+            if(!solarEstimateAddress.Run_Typical_Analysis__c
+               && !solarEstimateAddress.Finance_Type_Available_Cash__c
+               && !solarEstimateAddress.Finance_Type_Available_Loan__c
+               && !solarEstimateAddress.Finance_Type_Available_TPO__c) 
+            {
+                solarEstimateAddress.Run_Typical_Analysis__c = true;
+            }
+            
+            if(solarEstimateAddress.Run_Typical_Analysis__c 
+               || Test.isRunningTest()) 
+            {
+                solarEstimateAddress.Roof_Segment_Summaries__c = null;
+                solarEstimateAddress.Average_Pitch_Degrees__c = null;
+                solarEstimateAddress.Max_Panels_Count__c = null;
+                solarEstimateAddress.Best_Panels_Count__c = null;
+                solarEstimateAddress.Panels_Count__c = null;
+                solarEstimateAddress.Finance_Type_Available_Cash__c = false;
+                solarEstimateAddress.Finance_Type_Available_Loan__c = false;
+                solarEstimateAddress.Finance_Type_Available_TPO__c = false;
+                
+                Map<String, Decimal> result = getTypicalAnalysis(solarEstimateAddress);
+                
+                solarEstimateAddress.Monthly_Savings_Typical__c = result.get('monthlySavings');
+                solarEstimateAddress.Yearly_Savings_Typical__c = result.get('yearlySavings');
+                solarEstimateAddress.Old_Lifetime_Utility_Cost_Typical__c = result.get('oldLifetimeUtilityCost');
+                solarEstimateAddress.New_Lifetime_Solar_Cost_Typical__c = result.get('newLifetimeSolarCost');
+                solarEstimateAddress.Total_Lifetime_Savings_Typical__c = result.get('totalLifetimeSavings');
+            } 
+            
             solarEstimateAddress.Completed_Analysis_Process__c = true;
             
             update solarEstimateAddress;
@@ -830,10 +860,15 @@ public without sharing class ArcadiaApiHelper {
             
             if(String.isNotBlank(productId)) {
                 
-                if((financeType == 'Loan' || financeType == 'TPO') && productId == state.Cash_Battery__c) {
+                if((financeType == 'Loan' 
+                    || financeType == 'TPO') 
+                   && productId == state.Cash_Battery__c) 
+                {
                     storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_Cash__c;
                     
-                } else if(financeType == 'TPO' && productId == state.Loan_Battery__c) {
+                } else if(financeType == 'TPO' 
+                          && productId == state.Loan_Battery__c) 
+                {
                     storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_Loan__c;
                     
                 } else {
@@ -935,7 +970,9 @@ public without sharing class ArcadiaApiHelper {
                         responseBody = response.getBody();
                     }
                     
-                    if(statusCode == 200 || statusCode == 201) {
+                    if(statusCode == 200 
+                       || statusCode == 201) 
+                    {
                         ArcadiaApiWrapper.CreateStorageProfileResponse apiResponse = (ArcadiaApiWrapper.CreateStorageProfileResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.CreateStorageProfileResponse.Class);
                         
                         if(apiResponse.status == 'Success') {
@@ -1279,7 +1316,9 @@ public without sharing class ArcadiaApiHelper {
                 responseBody = response.getBody();
             }
             
-            if(statusCode == 200 || statusCode == 201) {
+            if(statusCode == 200 
+               || statusCode == 201) 
+            {
                 ArcadiaApiWrapper.AnalysisResponse apiResponse = (ArcadiaApiWrapper.AnalysisResponse) JSON.deserialize(responseBody, ArcadiaApiWrapper.AnalysisResponse.Class);
                 
                 if(apiResponse.status == 'Success') {
