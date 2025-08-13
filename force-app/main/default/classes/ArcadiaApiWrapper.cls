@@ -12,7 +12,7 @@ public with sharing class ArcadiaApiWrapper {
     
     // getUtilities
     
-    public class GetUtilitiesResponse {
+    /* public class GetUtilitiesResponse {
         @AuraEnabled public String status {get; set;}
         @AuraEnabled public Integer count {get; set;}
         @AuraEnabled public List<GetUtilitiesResult> results {get; set;}
@@ -25,7 +25,7 @@ public with sharing class ArcadiaApiWrapper {
         @AuraEnabled public String name {get; set;}
         @AuraEnabled public String lseCode {get; set;}
         @AuraEnabled public String code {get; set;}
-    }
+    } */
     
     // createAccount
     
@@ -263,7 +263,7 @@ public with sharing class ArcadiaApiWrapper {
     
     // calculateCost
     
-    public class CalculateCostRequest {
+    /* public class CalculateCostRequest {
         @AuraEnabled public String fromDateTime {get; set;}
         @AuraEnabled public String toDateTime {get; set;}
         @AuraEnabled public String groupBy {get; set;}
@@ -293,7 +293,7 @@ public with sharing class ArcadiaApiWrapper {
         @AuraEnabled public Decimal cost {get; set;}
         @AuraEnabled public DateTime fromDateTime {get; set;}
         @AuraEnabled public DateTime toDateTime {get; set;}
-    }
+    } */
     
     // getAnalysis
     
