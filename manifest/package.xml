@@ -372,6 +372,7 @@
 	</types>
 	<types>
 		<members>genability_api</members>
+		<members>maps_googleapis</members>
 		<members>vitl_api</members>
 		<name>RemoteSiteSetting</name>
 	</types>
