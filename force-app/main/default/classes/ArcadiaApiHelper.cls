@@ -670,7 +670,7 @@ public without sharing class ArcadiaApiHelper {
         Logger.saveLog();
         
         if(String.isNotBlank(errorMessage)) {
-            throw new GenericException(errorMessage);        
+            throw new ApplicationException(errorMessage);        
         }
         
         Map<String, Object> result = new Map<String, Object>();
@@ -1014,7 +1014,7 @@ public without sharing class ArcadiaApiHelper {
         Logger.saveLog();
         
         if(String.isNotBlank(errorMessage)) {
-            throw new GenericException(errorMessage);        
+            throw new ApplicationException(errorMessage);        
         }
     }
     
@@ -1197,7 +1197,7 @@ public without sharing class ArcadiaApiHelper {
         }
         
         if(String.isNotBlank(errorMessage)) {
-            throw new GenericException(errorMessage); 
+            throw new ApplicationException(errorMessage); 
         }
         
         Logger.saveLog();
@@ -1361,7 +1361,7 @@ public without sharing class ArcadiaApiHelper {
         Logger.saveLog();
         
         if(String.isNotBlank(errorMessage)) {
-            throw new GenericException(errorMessage);        
+            throw new ApplicationException(errorMessage);        
         }
         
         return null;

@@ -4,11 +4,11 @@
         <members>ArcadiaApi</members>
         <members>ArcadiaApiHelper</members>
         <members>ArcadiaApiWrapper</members>
+		<members>AsyncJobDispatcher</members>
         <members>GoogleApi</members>
         <members>GoogleApiHelper</members>
         <members>GoogleApiTest</members>
         <members>GoogleApiWrapper</members>
-		<members>QueueableHelper</members>
         <members>SolarEstimateAddressTriggerHandler</members>
         <members>SolarEstimateAddressTriggerHelper</members>
         <members>SolarEstimateProcessHelper</members>

@@ -162,7 +162,7 @@ public without sharing class SolarEstimateProcessHelper {
                 
                 Logger.saveLog();
                 
-                throw new GenericException('Error: No matching ProviderAccountId found.');
+                throw new ApplicationException('Error: No matching ProviderAccountId found.');
             }
             
         } catch(Exception ex) {
@@ -691,7 +691,7 @@ public without sharing class SolarEstimateProcessHelper {
         Logger.saveLog();
         
         if(String.isNotBlank(errorMessage)) {
-            throw new GenericException(errorMessage); 
+            throw new ApplicationException(errorMessage); 
         }
         
         return 0;

@@ -1,4 +1,4 @@
-public without sharing class QueueableHelper implements Callable {
+public without sharing class AsyncJobDispatcher implements Callable {
     
     public Object call(String identifier, Map<String, Object> arguments) {
         

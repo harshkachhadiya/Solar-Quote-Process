@@ -74,7 +74,7 @@ public without sharing class GoogleApiHelper {
         Logger.saveLog();
         
         if(String.isNotBlank(errorMessage)) { 
-            throw new GenericException(errorMessage);        
+            throw new ApplicationException(errorMessage);        
         }
         
         return null;
