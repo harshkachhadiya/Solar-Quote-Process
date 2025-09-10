@@ -129,7 +129,6 @@
 		<members>Product2.Min_SoC__c</members>
 		<members>Product2.Module_Power__c</members>
 		<members>Product2.Power_Output__c</members>
-		<members>Product2.Product_ID__c</members>
 		<members>Product2.Product_Image_URL__c</members>
 		<members>Product2.Product_Image__c</members>
 		<members>Product2.Production__c</members>
