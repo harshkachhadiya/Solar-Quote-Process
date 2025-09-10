@@ -130,14 +130,12 @@
 		<members>Product2.Max_SoC__c</members>
 		<members>Product2.Min_SoC__c</members>
 		<members>Product2.Module_Power__c</members>
-		<members>Product2.Panel_Size__c</members>
 		<members>Product2.Power_Output__c</members>
 		<members>Product2.Product_ID__c</members>
 		<members>Product2.Product_Image_URL__c</members>
 		<members>Product2.Product_Image__c</members>
 		<members>Product2.Production__c</members>
 		<members>Product2.Rated_Output_Power__c</members>
-		<members>Product2.Recommended__c</members>
 		<members>Product2.Selectable_Item__c</members>
 		<members>Product2.Solar_DC_to_AC_Efficiency__c</members>
 		<members>Product2.Standard_Price__c</members>

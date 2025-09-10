@@ -3,7 +3,7 @@
     <fullName>Manufacturer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <label>Manufacturer</label>
-    <referenceTo>Manufacturer__c</referenceTo>
+    <referenceTo>Account</referenceTo>
     <relationshipLabel>Products</relationshipLabel>
     <relationshipName>Products</relationshipName>
     <required>false</required>

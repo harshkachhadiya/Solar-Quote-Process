@@ -72,17 +72,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Recommended__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Status__c</picklist>
         <values>
             <fullName>Active</fullName>
