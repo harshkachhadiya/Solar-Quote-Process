@@ -84,8 +84,6 @@
 		<members>Lead.Lse_Id__c</members>
 		<members>Lead.Solar_Estimate_Address__c</members>
 		<members>Lead.Utility_Company__c</members>
-		<members>Manufacturer__c.Logo__c</members>
-		<members>Manufacturer__c.Manufacturer_Type__c</members>
 		<members>Pricing_Cube__c.APR__c</members>
 		<members>Pricing_Cube__c.Active__c</members>
 		<members>Pricing_Cube__c.Battery__c</members>
@@ -306,7 +304,6 @@
 		<members>Genability_Monthly_Limit__c</members>
 		<members>Genability_Provider_Account_Id__c</members>
 		<members>Google_Api_Configuration__mdt</members>
-		<members>Manufacturer__c</members>
 		<members>Pricing_Cube__c</members>
 		<members>Solar_Estimate_Address__c</members>
 		<members>State__c</members>
@@ -344,7 +341,6 @@
 		<members>Discount_Config__c.All</members>
 		<members>Genability_Monthly_Limit__c.All</members>
 		<members>Google_Api_Configuration__mdt.All_Fields</members>
-		<members>Manufacturer__c.All</members>
 		<members>Pricing_Cube__c.All</members>
 		<members>Solar_Estimate_Address__c.All</members>
 		<members>State__c.All</members>
