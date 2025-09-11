@@ -244,7 +244,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             {
                 Map<String, Object> arguments = new Map<String, Object>();
                 arguments.put('solarEstimateAddressId', solarEstimateAddress.Id);
-                System.enqueueJob(new QueueableUtility('SolarEstimateProcessHelper.startGeneralProcess', arguments));
+                System.enqueueJob(new AsyncJobExecutor('SolarEstimateProcessHelper.startGeneralProcess', arguments));
             }
             
             if((Trigger.isInsert 
@@ -255,7 +255,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             {
                 Map<String, Object> arguments = new Map<String, Object>();
                 arguments.put('solarEstimateAddressId', solarEstimateAddress.Id);
-                System.enqueueJob(new QueueableUtility('ArcadiaApiHelper.createAccount', arguments));
+                System.enqueueJob(new AsyncJobExecutor('ArcadiaApiHelper.createAccount', arguments));
             }
             
             if((Trigger.isInsert 
@@ -267,7 +267,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
                 Map<String, Object> arguments = new Map<String, Object>();
                 arguments.put('solarEstimateAddressId', solarEstimateAddress.Id);
                 arguments.put('financeType', 'Cash');
-                System.enqueueJob(new QueueableUtility('ArcadiaApiHelper.createSolarProfiles', arguments));
+                System.enqueueJob(new AsyncJobExecutor('ArcadiaApiHelper.createSolarProfiles', arguments));
             }
             
             if((Trigger.isInsert 
@@ -279,7 +279,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
                 Map<String, Object> arguments = new Map<String, Object>();
                 arguments.put('solarEstimateAddressId', solarEstimateAddress.Id);
                 arguments.put('financeType', 'Loan');
-                System.enqueueJob(new QueueableUtility('ArcadiaApiHelper.createSolarProfiles', arguments));
+                System.enqueueJob(new AsyncJobExecutor('ArcadiaApiHelper.createSolarProfiles', arguments));
             }
             
             if((Trigger.isInsert 
@@ -291,7 +291,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
                 Map<String, Object> arguments = new Map<String, Object>();
                 arguments.put('solarEstimateAddressId', solarEstimateAddress.Id);
                 arguments.put('financeType', 'TPO');
-                System.enqueueJob(new QueueableUtility('ArcadiaApiHelper.createSolarProfiles', arguments));
+                System.enqueueJob(new AsyncJobExecutor('ArcadiaApiHelper.createSolarProfiles', arguments));
             }
             
             if((Trigger.isInsert 
@@ -302,7 +302,7 @@ public without sharing class SolarEstimateAddressTriggerHelper {
             {
                 Map<String, Object> arguments = new Map<String, Object>();
                 arguments.put('solarEstimateAddressId', solarEstimateAddress.Id);
-                System.enqueueJob(new QueueableUtility('ArcadiaApiHelper.getAnalysis', arguments));
+                System.enqueueJob(new AsyncJobExecutor('ArcadiaApiHelper.getAnalysis', arguments));
             }
         }
     }
