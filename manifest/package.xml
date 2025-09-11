@@ -319,7 +319,7 @@
 		<name>GlobalValueSet</name>
 	</types>
 	<types>
-		<members>Arcadia_Api_Configuration__mdt.All_Fields</members
+		<members>Arcadia_Api_Configuration__mdt.All_Fields</members>
 		<members>Discount_Config__c.All</members>
 		<members>Genability_Monthly_Limit__c.All</members>
 		<members>Google_Api_Configuration__mdt.All_Fields</members>
