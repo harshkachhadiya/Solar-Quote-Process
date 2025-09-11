@@ -27,21 +27,6 @@
 		<members>Arcadia_Api_Configuration__mdt.Base_Endpoint__c</members>
 		<members>Arcadia_Api_Configuration__mdt.Password__c</members>
 		<members>Arcadia_Api_Configuration__mdt.Username__c</members>
-		<members>Baseline__c.Base_PPW__c</members>
-		<members>Baseline__c.Check_Base_PPW__c</members>
-		<members>Baseline__c.Effective_Date__c</members>
-		<members>Baseline__c.Finance_Company__c</members>
-		<members>Baseline__c.Finance_Key__c</members>
-		<members>Baseline__c.Is_Active__c</members>
-		<members>Baseline__c.Is_Default__c</members>
-		<members>Baseline__c.PPW__c</members>
-		<members>Baseline__c.Panel__c</members>
-		<members>Baseline__c.Sort_Order__c</members>
-		<members>Baseline__c.State_Base_PPW__c</members>
-		<members>Baseline__c.State_Finance__c</members>
-		<members>Baseline__c.State__c</members>
-		<members>Baseline__c.Type__c</members>
-		<members>Baseline__c.Utility__c</members>
 		<members>Discount_Config__c.Apply_to_All__c</members>
 		<members>Discount_Config__c.Cash__c</members>
 		<members>Discount_Config__c.Eligible_Financiers__c</members>
@@ -298,7 +283,6 @@
     </types>
 	<types>
 		<members>Arcadia_Api_Configuration__mdt</members>
-		<members>Baseline__c</members>
 		<members>Discount_Config__c</members>
 		<members>Genability_Monthly_Limit__c</members>
 		<members>Genability_Provider_Account_Id__c</members>
@@ -335,8 +319,7 @@
 		<name>GlobalValueSet</name>
 	</types>
 	<types>
-		<members>Arcadia_Api_Configuration__mdt.All_Fields</members>
-		<members>Baseline__c.All</members>
+		<members>Arcadia_Api_Configuration__mdt.All_Fields</members
 		<members>Discount_Config__c.All</members>
 		<members>Genability_Monthly_Limit__c.All</members>
 		<members>Google_Api_Configuration__mdt.All_Fields</members>
