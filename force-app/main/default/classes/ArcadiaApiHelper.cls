@@ -8,7 +8,9 @@ public without sharing class ArcadiaApiHelper {
         HttpRequest request;
         HttpResponse response;
         String errorMessage;
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId, 'Lead__r.Account_Name__c');
+
+        List<String> additionalFields = new List<String>{'Lead__r.Account_Name__c'};
+        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId, additionalFields);
         
         try {
             
@@ -345,9 +347,12 @@ public without sharing class ArcadiaApiHelper {
                 return;
             }
             
-            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
-                                                                          + 'Loan_Panel__r.Production__c,'
-                                                                          + 'TPO_Panel__r.Production__c');
+            List<String> additionalFields = new List<String>{
+                'Cash_Panel__r.Production__c', 
+                'Loan_Panel__r.Production__c', 
+                'TPO_Panel__r.Production__c'
+            };
+            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, additionalFields);
             
             Decimal productionPerPanel = financeType == 'Cash' 
                 ? state.Cash_Panel__r.Production__c
@@ -697,20 +702,24 @@ public without sharing class ArcadiaApiHelper {
             if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
                 return;
             }
+
+            List<String> additionalFields = new List<String>{
+                'Cash_Panel__r.Production__c', 
+                'Loan_Panel__r.Production__c', 
+                'TPO_Panel__r.Production__c',
+                'Cash_Battery__r.Standard_Price__c',
+                'Loan_Battery__r.Standard_Price__c',
+                'TPO_Battery__r.Standard_Price__c',
+                'Cash_Preferred__r.Dealer_Fee__c',
+                'Loan_Preferred__r.Dealer_Fee__c',
+                'Cash_Preferred__r.Payment_Factor_1__c',
+                'Loan_Preferred__r.Payment_Factor_1__c',
+                'Loan_Preferred__r.APR__c',
+                'Loan_Competitor__r.Dealer_Fee__c',
+                'Loan_Competitor__r.Payment_Factor_1__c'
+            };
             
-            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, 'Cash_Panel__r.Production__c,'
-                                                                          + 'Loan_Panel__r.Production__c,'
-                                                                          + 'TPO_Panel__r.Production__c,'
-                                                                          + 'Cash_Battery__r.Standard_Price__c,'
-                                                                          + 'Loan_Battery__r.Standard_Price__c,'
-                                                                          + 'TPO_Battery__r.Standard_Price__c,'
-                                                                          + 'Cash_Preferred__r.Dealer_Fee__c,'
-                                                                          + 'Loan_Preferred__r.Dealer_Fee__c,'
-                                                                          + 'Cash_Preferred__r.Payment_Factor_1__c,'
-                                                                          + 'Loan_Preferred__r.Payment_Factor_1__c,'
-                                                                          + 'Loan_Preferred__r.APR__c,'
-                                                                          + 'Loan_Competitor__r.Dealer_Fee__c,'
-                                                                          + 'Loan_Competitor__r.Payment_Factor_1__c');
+            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, additionalFields);
             
             solarEstimateAddress.Run_Typical_Analysis__c = solarEstimateAddress.City_Tier__c == null 
                 || solarEstimateAddress.City_Tier__c < 1

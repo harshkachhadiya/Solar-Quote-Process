@@ -1,47 +1,59 @@
 public without sharing class ArcadiaApi {
     
-    private static Arcadia_Api_Configuration__mdt configuration = Arcadia_Api_Configuration__mdt.getAll().values()[0];
+    private static Arcadia_Api_Configuration__mdt configuration;
     
+    public ArcadiaApi() {
+        if (configuration == null) {
+            Map<String, Arcadia_Api_Configuration__mdt> configurations = Arcadia_Api_Configuration__mdt.getAll();
+            
+            if (configurations.isEmpty()) {
+                throw new ApplicationException('No Arcadia Api configuration found. Please create an Arcadia_Api_Configuration__mdt record.');
+            }
+
+            configuration = configurations.values()[0];
+        }
+    }
+
     public HttpRequest publicLses(String urlParameters) {
-        return call('GET', ('public/lses?' + urlParameters).replace(' ', '%20'), null);
+        return buildRequest('GET', 'public/lses?' + EncodingUtil.urlEncode(urlParameters, 'UTF-8'), null);
     }
     
     public HttpRequest accounts(String payload) {
-        return call('PUT', 'v1/accounts', payload);
+        return buildRequest('PUT', 'v1/accounts', payload);
     }
     
     public HttpRequest properties(String providerAccountId, String payload) {
-        return call('PUT', 'v1/accounts/pid/' + providerAccountId + '/properties', payload);
+        return buildRequest('PUT', 'v1/accounts/pid/' + providerAccountId + '/properties', payload);
     }
     
     public HttpRequest profiles(String payload) {
-        return call('PUT', 'v1/profiles', payload);
+        return buildRequest('PUT', 'v1/profiles', payload);
     }
     
     public HttpRequest profilesStorage(String payload) {
-        return call('POST', 'v1/profiles/storage', payload);
+        return buildRequest('POST', 'v1/profiles/storage', payload);
     }
     
     public HttpRequest typicalBaselines(String urlParameters) {
-        return call('GET', ('v1/typicals/baselines/best?' + urlParameters).replace(' ', '%20'), null);
+        return buildRequest('GET', 'v1/typicals/baselines/best?' + EncodingUtil.urlEncode(urlParameters, 'UTF-8')), null);
     }
     
     public HttpRequest calculate(String providerAccountId, String payload) {
-        return call('POST', 'v1/accounts/pid/' + providerAccountId + '/calculate', payload);
+        return buildRequest('POST', 'v1/accounts/pid/' + providerAccountId + '/calculate', payload);
     }
     
     public HttpRequest analysis(String payload) {
-        return call('POST', 'v1/accounts/analysis', payload);
+        return buildRequest('POST', 'v1/accounts/analysis', payload);
     }
     
-    public static HttpRequest call(String method, String relativeEndpoint, String payload) {
+    public static HttpRequest buildRequest(String method, String relativeEndpoint, String payload) {
         
         HttpRequest request = new HttpRequest();
         
         request.setMethod(method);
         request.setEndpoint(configuration.Base_Endpoint__c + relativeEndpoint);
-        request.setHeader('Authorization', 'Basic ' + EncodingUtil.base64Encode(Blob.valueOf(configuration.Username__c + ':' + configuration.Password__c)));
         request.setTimeout(120000);
+        request.setHeader('Authorization', 'Basic ' + EncodingUtil.base64Encode(Blob.valueOf(configuration.Username__c + ':' + configuration.Password__c)));
         request.setHeader('Content-Type', 'application/json');
         
         if((method == 'PUT' 

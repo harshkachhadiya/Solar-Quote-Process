@@ -67,7 +67,6 @@
 		<members>Lead.Average_Monthly_Bill__c</members>
 		<members>Lead.Genability_Provider_Account_Id__c</members>
 		<members>Lead.Lse_Id__c</members>
-		<members>Lead.Solar_Estimate_Address__c</members>
 		<members>Lead.Utility_Company__c</members>
 		<members>Pricing_Cube__c.APR__c</members>
 		<members>Pricing_Cube__c.Active__c</members>
