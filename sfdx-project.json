@@ -5,7 +5,7 @@
       "default": true
     }
   ],
-  "name": "Solar Estimate Process",
+  "name": "Solar Quote Process",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "63.0"
