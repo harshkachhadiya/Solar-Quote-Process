@@ -322,7 +322,7 @@
 		<members>Pricing_Cube__c-Pricing Cube Layout</members>
 		<members>Solar_Quote__c-Solar Quote Layout</members>
 		<members>State__c-State Layout</members>
-		<name>ListView</name>
+		<name>Layout</name>
 	</types>
 	<types>
 		<members>Arcadia_Api_Configuration__mdt.All_Fields</members>
@@ -332,7 +332,7 @@
 		<members>Pricing_Cube__c.All</members>
 		<members>Solar_Quote__c.All</members>
 		<members>State__c.All</members>
-		<name>Layout</name>
+		<name>ListView</name>
 	</types>
 	<types>
         <members>Genability_Monthly_Limit__c.Generate_Provider_Account_Ids</members>
