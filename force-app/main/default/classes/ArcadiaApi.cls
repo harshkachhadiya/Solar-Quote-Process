@@ -35,7 +35,7 @@ public without sharing class ArcadiaApi {
     }
     
     public HttpRequest typicalBaselines(String urlParameters) {
-        return buildRequest('GET', 'v1/typicals/baselines/best?' + EncodingUtil.urlEncode(urlParameters, 'UTF-8')), null);
+        return buildRequest('GET', 'v1/typicals/baselines/best?' + EncodingUtil.urlEncode(urlParameters, 'UTF-8'), null);
     }
     
     public HttpRequest calculate(String providerAccountId, String payload) {
