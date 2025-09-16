@@ -9,10 +9,10 @@
         <members>GoogleApiHelper</members>
         <members>GoogleApiTest</members>
         <members>GoogleApiWrapper</members>
+		<members>SolarQuoteProcessHelper</members>
+        <members>SolarQuoteProcessHelperTest</members>
         <members>SolarQuoteTriggerHandler</members>
         <members>SolarQuoteTriggerHelper</members>
-        <members>SolarQuoteProcessHelper</members>
-        <members>SolarQuoteProcessHelperTest</members>
         <members>VitlApi</members>
         <members>VitlApiHelper</members>
         <members>VitlApiTest</members>
@@ -40,10 +40,10 @@
 		<members>Discount_Config__c.Min_Quantity__c</members>
 		<members>Discount_Config__c.Mosaic__c</members>
 		<members>Discount_Config__c.Price__c</members>
+		<members>Discount_Config__c.Product__c</members>
 		<members>Discount_Config__c.Product_Family__c</members>
 		<members>Discount_Config__c.Product_Image__c</members>
 		<members>Discount_Config__c.Product_Key__c</members>
-		<members>Discount_Config__c.Product__c</members>
 		<members>Discount_Config__c.State__c</members>
 		<members>Discount_Config__c.Sunrun__c</members>
 		<members>Discount_Config__c.Unit_Of_Measure__c</members>
@@ -68,8 +68,8 @@
 		<members>Lead.Genability_Provider_Account_Id__c</members>
 		<members>Lead.Lse_Id__c</members>
 		<members>Lead.Utility_Company__c</members>
-		<members>Pricing_Cube__c.APR__c</members>
 		<members>Pricing_Cube__c.Active__c</members>
+		<members>Pricing_Cube__c.APR__c</members>
 		<members>Pricing_Cube__c.Battery__c</members>
 		<members>Pricing_Cube__c.Dealer_Fee__c</members>
 		<members>Pricing_Cube__c.Description__c</members>
@@ -78,9 +78,9 @@
 		<members>Pricing_Cube__c.External_ID__c</members>
 		<members>Pricing_Cube__c.Financier__c</members>
 		<members>Pricing_Cube__c.Financier_text__c</members>
-		<members>Pricing_Cube__c.PPW__c</members>
 		<members>Pricing_Cube__c.Payment_Factor_1__c</members>
 		<members>Pricing_Cube__c.Payment_Factor_2__c</members>
+		<members>Pricing_Cube__c.PPW__c</members>
 		<members>Pricing_Cube__c.Price_per_kWh__c</members>
 		<members>Pricing_Cube__c.Source__c</members>
 		<members>Pricing_Cube__c.Start_Date__c</members>
@@ -113,8 +113,8 @@
 		<members>Product2.Min_SoC__c</members>
 		<members>Product2.Module_Power__c</members>
 		<members>Product2.Power_Output__c</members>
-		<members>Product2.Product_Image_URL__c</members>
 		<members>Product2.Product_Image__c</members>
+		<members>Product2.Product_Image_URL__c</members>
 		<members>Product2.Production__c</members>
 		<members>Product2.Rated_Output_Power__c</members>
 		<members>Product2.Selectable_Item__c</members>
@@ -154,12 +154,12 @@
 		<members>Solar_Quote__c.Completed_Analysis_Process__c</members>
 		<members>Solar_Quote__c.Completed_Electricity_Profile_Process__c</members>
 		<members>Solar_Quote__c.Completed_General_Process__c</members>
+		<members>Solar_Quote__c.Completed_kWh_Process__c</members>
 		<members>Solar_Quote__c.Completed_Properties_Process__c</members>
 		<members>Solar_Quote__c.Completed_Provider_Account_Id_Process__c</members>
 		<members>Solar_Quote__c.Completed_Solar_Profiles_Process_Cash__c</members>
 		<members>Solar_Quote__c.Completed_Solar_Profiles_Process_Loan__c</members>
 		<members>Solar_Quote__c.Completed_Solar_Profiles_Process_TPO__c</members>
-		<members>Solar_Quote__c.Completed_kWh_Process__c</members>
 		<members>Solar_Quote__c.Depreciation_Cash__c</members>
 		<members>Solar_Quote__c.Depreciation_Loan__c</members>
 		<members>Solar_Quote__c.Domestic_Content_Credit_Cash__c</members>
@@ -181,10 +181,12 @@
 		<members>Solar_Quote__c.Incentives_Cash__c</members>
 		<members>Solar_Quote__c.Incentives_Loan__c</members>
 		<members>Solar_Quote__c.Initiate_Solar_Quote_Process__c</members>
-		<members>Solar_Quote__c.LSE_Id__c</members>
+		<members>Solar_Quote__c.Last_Process_Run_Timestamp__c</members>
+		<members>Solar_Quote__c.Last_Successful_Process_Run_Timestamp__c</members>
 		<members>Solar_Quote__c.Latitude__c</members>
 		<members>Solar_Quote__c.Lead__c</members>
 		<members>Solar_Quote__c.Longitude__c</members>
+		<members>Solar_Quote__c.LSE_Id__c</members>
 		<members>Solar_Quote__c.Manual_Initiate_Solar_Quote_Process__c</members>
 		<members>Solar_Quote__c.Master_Tariff_Id__c</members>
 		<members>Solar_Quote__c.Max_Panels_Count__c</members>
@@ -209,8 +211,6 @@
 		<members>Solar_Quote__c.Run_Typical_Analysis__c</members>
 		<members>Solar_Quote__c.Safe_Streets__c</members>
 		<members>Solar_Quote__c.Set_Best_Electrical_Offset__c</members>
-		<members>Solar_Quote__c.Last_Process_Run_Timestamp__c</members>
-		<members>Solar_Quote__c.Last_Successful_Process_Run_Timestamp__c</members>
 		<members>Solar_Quote__c.Solar_Offset_Cash__c</members>
 		<members>Solar_Quote__c.Solar_Offset_Loan__c</members>
 		<members>Solar_Quote__c.Solar_Offset_TPO__c</members>
@@ -219,8 +219,8 @@
 		<members>Solar_Quote__c.Solar_Provider_Profile_Ids_Loan__c</members>
 		<members>Solar_Quote__c.Solar_Provider_Profile_Ids_TPO__c</members>
 		<members>Solar_Quote__c.Solar_Tax_Filing_Service__c</members>
-		<members>Solar_Quote__c.State_Lookup__c</members>
 		<members>Solar_Quote__c.State__c</members>
+		<members>Solar_Quote__c.State_Lookup__c</members>
 		<members>Solar_Quote__c.Storage_Profile_Id_Cash__c</members>
 		<members>Solar_Quote__c.Storage_Profile_Id_Loan__c</members>
 		<members>Solar_Quote__c.Storage_Profile_Id_TPO__c</members>
@@ -248,8 +248,8 @@
 		<members>State__c.Cash_Base_PPW__c</members>
 		<members>State__c.Cash_Battery__c</members>
 		<members>State__c.Cash_Margin__c</members>
-		<members>State__c.Cash_PPW__c</members>
 		<members>State__c.Cash_Panel__c</members>
+		<members>State__c.Cash_PPW__c</members>
 		<members>State__c.Cash_Preferred__c</members>
 		<members>State__c.Cash_Product__c</members>
 		<members>State__c.Competitor_Cash_PPW__c</members>
@@ -260,8 +260,8 @@
 		<members>State__c.Loan_Competitor_Product__c</members>
 		<members>State__c.Loan_Competitor__c</members>
 		<members>State__c.Loan_Margin__c</members>
-		<members>State__c.Loan_PPW__c</members>
 		<members>State__c.Loan_Panel__c</members>
+		<members>State__c.Loan_PPW__c</members>
 		<members>State__c.Loan_Preferred__c</members>
 		<members>State__c.Loan_Product__c</members>
 		<members>State__c.Start_Date__c</members>
@@ -270,8 +270,8 @@
 		<members>State__c.TPO_Battery__c</members>
 		<members>State__c.TPO_Financier__c</members>
 		<members>State__c.TPO_Margin__c</members>
-		<members>State__c.TPO_PPW__c</members>
 		<members>State__c.TPO_Panel__c</members>
+		<members>State__c.TPO_PPW__c</members>
 		<members>State__c.TPO_Type__c</members>
 		<name>CustomField</name>
 	</types>
@@ -330,8 +330,6 @@
         <name>QuickAction</name>
     </types>
 	<types>
-		<members>Account.Financier</members>
-		<members>Account.Utility_Company</members>
 		<members>Pricing_Cube__c.Cash</members>
 		<members>Pricing_Cube__c.Loan</members>
 		<members>Pricing_Cube__c.TPO</members>
