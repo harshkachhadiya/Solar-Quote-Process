@@ -33,7 +33,6 @@
 		<members>Discount_Config__c.EnFin__c</members>
 		<members>Discount_Config__c.Everbright__c</members>
 		<members>Discount_Config__c.Finance_Type__c</members>
-		<members>Discount_Config__c.Financier__c</members>
 		<members>Discount_Config__c.Goodleap__c</members>
 		<members>Discount_Config__c.Is_Active__c</members>
 		<members>Discount_Config__c.Max_Quantity__c</members>
@@ -75,8 +74,6 @@
 		<members>Pricing_Cube__c.End_Date__c</members>
 		<members>Pricing_Cube__c.Escalator__c</members>
 		<members>Pricing_Cube__c.External_ID__c</members>
-		<members>Pricing_Cube__c.Financier__c</members>
-		<members>Pricing_Cube__c.Financier_text__c</members>
 		<members>Pricing_Cube__c.Payment_Factor_1__c</members>
 		<members>Pricing_Cube__c.Payment_Factor_2__c</members>
 		<members>Pricing_Cube__c.PPW__c</members>
@@ -265,7 +262,6 @@
 		<members>State__c.State_Long_Name__c</members>
 		<members>State__c.TPO_Base_PPW__c</members>
 		<members>State__c.TPO_Battery__c</members>
-		<members>State__c.TPO_Financier__c</members>
 		<members>State__c.TPO_Margin__c</members>
 		<members>State__c.TPO_Panel__c</members>
 		<members>State__c.TPO_PPW__c</members>

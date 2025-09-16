@@ -4,7 +4,6 @@
     <columns>NAME</columns>
     <columns>Auto_Recommend_Battery__c</columns>
     <columns>TPO_Type__c</columns>
-    <columns>TPO_Financier__c</columns>
     <columns>TPO_Base_PPW__c</columns>
     <columns>TPO_PPW__c</columns>
     <columns>TPO_Panel__c</columns>

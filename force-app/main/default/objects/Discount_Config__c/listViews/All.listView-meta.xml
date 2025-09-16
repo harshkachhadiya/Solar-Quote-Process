@@ -10,7 +10,6 @@
     <columns>Min_Quantity__c</columns>
     <columns>Max_Quantity__c</columns>
     <columns>Apply_to_All__c</columns>
-    <columns>Financier__c</columns>
     <columns>Finance_Type__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>

@@ -298,16 +298,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.TPO_Financier__c</fieldItem>
-                <identifier>RecordTPO_Financier_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.TPO_Margin__c</fieldItem>
                 <identifier>RecordTPO_Margin_cField</identifier>
             </fieldInstance>
