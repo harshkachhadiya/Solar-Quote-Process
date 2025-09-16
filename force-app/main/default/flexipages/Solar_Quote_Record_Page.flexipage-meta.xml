@@ -1792,26 +1792,6 @@
                 <identifier>RecordCompleted_Analysis_Process_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Last_Successful_Process_Run_Timestamp__c</fieldItem>
-                <identifier>RecordLast_Successful_Process_Run_Timestamp_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Last_Process_Run_Timestamp__c</fieldItem>
-                <identifier>RecordLast_Process_Run_Timestamp_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-19a3e941-872b-4583-b8b3-e9fc60c0ff5c</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1834,6 +1814,26 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Failed_Solar_Quote_Process__c</fieldItem>
                 <identifier>RecordFailed_Solar_Quote_Process_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Last_Successful_Process_Run_Timestamp__c</fieldItem>
+                <identifier>RecordLast_Successful_Process_Run_Timestamp_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Last_Process_Run_Timestamp__c</fieldItem>
+                <identifier>RecordLast_Process_Run_Timestamp_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c8c4f376-a376-4caf-8606-56517a937a02</name>

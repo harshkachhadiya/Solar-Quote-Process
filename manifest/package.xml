@@ -314,6 +314,17 @@
 		<name>Flow</name>
 	</types>
 	<types>
+		<members>Arcadia_Api_Configuration__mdt-Arcadia Api Configuration Layout</members>
+		<members>Discount_Config__c-Discount Config Layout</members>
+		<members>Genability_Monthly_Limit__c-Genability Monthly Limit Layout</members>
+		<members>Genability_Provider_Account_Id__c-Genability Provider Account Id Layout</members>
+		<members>Google_Api_Configuration__mdt-Google Api Configuration Layout</members>
+		<members>Pricing_Cube__c-Pricing Cube Layout</members>
+		<members>Solar_Quote__c-Solar Quote Layout</members>
+		<members>State__c-State Layout</members>
+		<name>ListView</name>
+	</types>
+	<types>
 		<members>Arcadia_Api_Configuration__mdt.All_Fields</members>
 		<members>Discount_Config__c.All</members>
 		<members>Genability_Monthly_Limit__c.All</members>
@@ -321,7 +332,7 @@
 		<members>Pricing_Cube__c.All</members>
 		<members>Solar_Quote__c.All</members>
 		<members>State__c.All</members>
-		<name>ListView</name>
+		<name>Layout</name>
 	</types>
 	<types>
         <members>Genability_Monthly_Limit__c.Generate_Provider_Account_Ids</members>
