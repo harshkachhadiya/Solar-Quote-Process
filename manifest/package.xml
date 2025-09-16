@@ -85,8 +85,6 @@
 		<members>Pricing_Cube__c.Start_Date__c</members>
 		<members>Pricing_Cube__c.State__c</members>
 		<members>Pricing_Cube__c.Term__c</members>
-		<members>Pricing_Cube__c.Utility__c</members>
-		<members>Pricing_Cube__c.Utility_text__c</members>
 		<members>Pricing_Cube__c.Yield_Factor__c</members>
 		<members>Product2.AC_to_DC_Efficiency__c</members>
 		<members>Product2.Allow_Battery_to_Grid__c</members>
