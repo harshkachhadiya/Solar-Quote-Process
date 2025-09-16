@@ -341,7 +341,6 @@
 		<members>Pricing_Cube__c.TPO</members>
 		<members>Product2.Adder</members>
 		<members>Product2.Battery</members>
-		<members>Product2.Inverter</members>
 		<members>Product2.Panel</members>
 		<name>RecordType</name>
 	</types>
