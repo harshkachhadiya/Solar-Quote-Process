@@ -9,10 +9,10 @@
         <members>GoogleApiHelper</members>
         <members>GoogleApiTest</members>
         <members>GoogleApiWrapper</members>
-        <members>SolarEstimateAddressTriggerHandler</members>
-        <members>SolarEstimateAddressTriggerHelper</members>
-        <members>SolarEstimateProcessHelper</members>
-        <members>SolarEstimateProcessHelperTest</members>
+        <members>SolarQuoteTriggerHandler</members>
+        <members>SolarQuoteTriggerHelper</members>
+        <members>SolarQuoteProcessHelper</members>
+        <members>SolarQuoteProcessHelperTest</members>
         <members>VitlApi</members>
         <members>VitlApiHelper</members>
         <members>VitlApiTest</members>
@@ -20,7 +20,7 @@
         <name>ApexClass</name>
     </types>
 	<types>
-        <members>SolarEstimateAddressTrigger</members>
+        <members>SolarQuoteTrigger</members>
         <name>ApexTrigger</name>
     </types>
 	<types>
@@ -123,127 +123,127 @@
 		<members>Product2.Status__c</members>
 		<members>Product2.Warranty__c</members>
 		<members>Product2.Width__c</members>
-		<members>Solar_Estimate_Address__c.Account_Id__c</members>
-		<members>Solar_Estimate_Address__c.Additional_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Additional_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Additional_Cost_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Address__c</members>
-		<members>Solar_Estimate_Address__c.Annual_Bill__c</members>
-		<members>Solar_Estimate_Address__c.Annual_kWh_Arcadia__c</members>
-		<members>Solar_Estimate_Address__c.Average_Monthly_Bill__c</members>
-		<members>Solar_Estimate_Address__c.Average_Pitch_Degrees__c</members>
-		<members>Solar_Estimate_Address__c.Base_System_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Base_System_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Base_System_Cost_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Available_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Available_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Available_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Cost_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Count_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Count_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Batteries_Count_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Best_Panels_Count__c</members>
-		<members>Solar_Estimate_Address__c.City_Tier__c</members>
-		<members>Solar_Estimate_Address__c.Competitor_Final_Price_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Competitor_Final_Price_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Competitor_Incentives_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Competitor_Incentives_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Account_Process__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Analysis_Process__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Electricity_Profile_Process__c</members>
-		<members>Solar_Estimate_Address__c.Completed_General_Process__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Properties_Process__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Provider_Account_Id_Process__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Solar_Profiles_Process_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Solar_Profiles_Process_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Completed_Solar_Profiles_Process_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Completed_kWh_Process__c</members>
-		<members>Solar_Estimate_Address__c.Depreciation_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Depreciation_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Domestic_Content_Credit_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Domestic_Content_Credit_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Failed_Google_Building_Insights__c</members>
-		<members>Solar_Estimate_Address__c.Failed_Solar_Estimate_Process__c</members>
-		<members>Solar_Estimate_Address__c.Federal_ITC_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Federal_ITC_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Final_Price_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Final_Price_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Final_Price_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Finance_Type_Available_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Finance_Type_Available_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Finance_Type_Available_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Genability_Provider_Account_Id__c</members>
-		<members>Solar_Estimate_Address__c.Gross_System_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Gross_System_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Ground_Mount__c</members>
-		<members>Solar_Estimate_Address__c.Incentives_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Incentives_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Initiate_Solar_Estimate_Process__c</members>
-		<members>Solar_Estimate_Address__c.LSE_Id__c</members>
-		<members>Solar_Estimate_Address__c.Latitude__c</members>
-		<members>Solar_Estimate_Address__c.Lead__c</members>
-		<members>Solar_Estimate_Address__c.Longitude__c</members>
-		<members>Solar_Estimate_Address__c.Manual_Initiate_Solar_Estimate_Process__c</members>
-		<members>Solar_Estimate_Address__c.Master_Tariff_Id__c</members>
-		<members>Solar_Estimate_Address__c.Max_Panels_Count__c</members>
-		<members>Solar_Estimate_Address__c.Monthly_Savings_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Monthly_Savings_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Monthly_Savings_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Monthly_Savings_Typical__c</members>
-		<members>Solar_Estimate_Address__c.New_Lifetime_Solar_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.New_Lifetime_Solar_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.New_Lifetime_Solar_Cost_TPO__c</members>
-		<members>Solar_Estimate_Address__c.New_Lifetime_Solar_Cost_Typical__c</members>
-		<members>Solar_Estimate_Address__c.Old_Lifetime_Utility_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Old_Lifetime_Utility_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Old_Lifetime_Utility_Cost_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Old_Lifetime_Utility_Cost_Typical__c</members>
-		<members>Solar_Estimate_Address__c.Panels_Count__c</members>
-		<members>Solar_Estimate_Address__c.Postal_Code__c</members>
-		<members>Solar_Estimate_Address__c.Preferred_Finance_Type__c</members>
-		<members>Solar_Estimate_Address__c.Price_Per_kWh_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Provider_Account_Id__c</members>
-		<members>Solar_Estimate_Address__c.Roof_Segment_Summaries__c</members>
-		<members>Solar_Estimate_Address__c.Run_Typical_Analysis__c</members>
-		<members>Solar_Estimate_Address__c.Safe_Streets__c</members>
-		<members>Solar_Estimate_Address__c.Set_Best_Electrical_Offset__c</members>
-		<members>Solar_Estimate_Address__c.Last_Process_Run_Timestamp__c</members>
-		<members>Solar_Estimate_Address__c.Last_Successful_Process_Run_Timestamp__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Offset_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Offset_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Offset_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Production_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Provider_Profile_Ids_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Provider_Profile_Ids_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Provider_Profile_Ids_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Solar_Tax_Filing_Service__c</members>
-		<members>Solar_Estimate_Address__c.State_Lookup__c</members>
-		<members>Solar_Estimate_Address__c.State__c</members>
-		<members>Solar_Estimate_Address__c.Storage_Profile_Id_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Storage_Profile_Id_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Storage_Profile_Id_TPO__c</members>
-		<members>Solar_Estimate_Address__c.System_Size_kW_Cash__c</members>
-		<members>Solar_Estimate_Address__c.System_Size_kW_Loan__c</members>
-		<members>Solar_Estimate_Address__c.System_Size_kW_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Target_PPW_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Tariff_Code__c</members>
-		<members>Solar_Estimate_Address__c.Tariff_Name__c</members>
-		<members>Solar_Estimate_Address__c.Total_Baseline_Measures_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Total_Baseline_Measures_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Total_Baseline_Measures_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Total_Lifetime_Savings_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Total_Lifetime_Savings_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Total_Lifetime_Savings_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Total_Lifetime_Savings_Typical__c</members>
-		<members>Solar_Estimate_Address__c.Total_System_Cost_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Total_System_Cost_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Total_System_Cost_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Yearly_Savings_Cash__c</members>
-		<members>Solar_Estimate_Address__c.Yearly_Savings_Loan__c</members>
-		<members>Solar_Estimate_Address__c.Yearly_Savings_TPO__c</members>
-		<members>Solar_Estimate_Address__c.Yearly_Savings_Typical__c</members>
+		<members>Solar_Quote__c.Account_Id__c</members>
+		<members>Solar_Quote__c.Additional_Cost_Cash__c</members>
+		<members>Solar_Quote__c.Additional_Cost_Loan__c</members>
+		<members>Solar_Quote__c.Additional_Cost_TPO__c</members>
+		<members>Solar_Quote__c.Address__c</members>
+		<members>Solar_Quote__c.Annual_Bill__c</members>
+		<members>Solar_Quote__c.Annual_kWh_Arcadia__c</members>
+		<members>Solar_Quote__c.Average_Monthly_Bill__c</members>
+		<members>Solar_Quote__c.Average_Pitch_Degrees__c</members>
+		<members>Solar_Quote__c.Base_System_Cost_Cash__c</members>
+		<members>Solar_Quote__c.Base_System_Cost_Loan__c</members>
+		<members>Solar_Quote__c.Base_System_Cost_TPO__c</members>
+		<members>Solar_Quote__c.Batteries_Available_Cash__c</members>
+		<members>Solar_Quote__c.Batteries_Available_Loan__c</members>
+		<members>Solar_Quote__c.Batteries_Available_TPO__c</members>
+		<members>Solar_Quote__c.Batteries_Cost_Cash__c</members>
+		<members>Solar_Quote__c.Batteries_Cost_Loan__c</members>
+		<members>Solar_Quote__c.Batteries_Cost_TPO__c</members>
+		<members>Solar_Quote__c.Batteries_Count_Cash__c</members>
+		<members>Solar_Quote__c.Batteries_Count_Loan__c</members>
+		<members>Solar_Quote__c.Batteries_Count_TPO__c</members>
+		<members>Solar_Quote__c.Best_Panels_Count__c</members>
+		<members>Solar_Quote__c.City_Tier__c</members>
+		<members>Solar_Quote__c.Competitor_Final_Price_Cash__c</members>
+		<members>Solar_Quote__c.Competitor_Final_Price_Loan__c</members>
+		<members>Solar_Quote__c.Competitor_Incentives_Cash__c</members>
+		<members>Solar_Quote__c.Competitor_Incentives_Loan__c</members>
+		<members>Solar_Quote__c.Completed_Account_Process__c</members>
+		<members>Solar_Quote__c.Completed_Analysis_Process__c</members>
+		<members>Solar_Quote__c.Completed_Electricity_Profile_Process__c</members>
+		<members>Solar_Quote__c.Completed_General_Process__c</members>
+		<members>Solar_Quote__c.Completed_Properties_Process__c</members>
+		<members>Solar_Quote__c.Completed_Provider_Account_Id_Process__c</members>
+		<members>Solar_Quote__c.Completed_Solar_Profiles_Process_Cash__c</members>
+		<members>Solar_Quote__c.Completed_Solar_Profiles_Process_Loan__c</members>
+		<members>Solar_Quote__c.Completed_Solar_Profiles_Process_TPO__c</members>
+		<members>Solar_Quote__c.Completed_kWh_Process__c</members>
+		<members>Solar_Quote__c.Depreciation_Cash__c</members>
+		<members>Solar_Quote__c.Depreciation_Loan__c</members>
+		<members>Solar_Quote__c.Domestic_Content_Credit_Cash__c</members>
+		<members>Solar_Quote__c.Domestic_Content_Credit_Loan__c</members>
+		<members>Solar_Quote__c.Failed_Google_Building_Insights__c</members>
+		<members>Solar_Quote__c.Failed_Solar_Quote_Process__c</members>
+		<members>Solar_Quote__c.Federal_ITC_Cash__c</members>
+		<members>Solar_Quote__c.Federal_ITC_Loan__c</members>
+		<members>Solar_Quote__c.Final_Price_Cash__c</members>
+		<members>Solar_Quote__c.Final_Price_Loan__c</members>
+		<members>Solar_Quote__c.Final_Price_TPO__c</members>
+		<members>Solar_Quote__c.Finance_Type_Available_Cash__c</members>
+		<members>Solar_Quote__c.Finance_Type_Available_Loan__c</members>
+		<members>Solar_Quote__c.Finance_Type_Available_TPO__c</members>
+		<members>Solar_Quote__c.Genability_Provider_Account_Id__c</members>
+		<members>Solar_Quote__c.Gross_System_Cost_Cash__c</members>
+		<members>Solar_Quote__c.Gross_System_Cost_Loan__c</members>
+		<members>Solar_Quote__c.Ground_Mount__c</members>
+		<members>Solar_Quote__c.Incentives_Cash__c</members>
+		<members>Solar_Quote__c.Incentives_Loan__c</members>
+		<members>Solar_Quote__c.Initiate_Solar_Quote_Process__c</members>
+		<members>Solar_Quote__c.LSE_Id__c</members>
+		<members>Solar_Quote__c.Latitude__c</members>
+		<members>Solar_Quote__c.Lead__c</members>
+		<members>Solar_Quote__c.Longitude__c</members>
+		<members>Solar_Quote__c.Manual_Initiate_Solar_Quote_Process__c</members>
+		<members>Solar_Quote__c.Master_Tariff_Id__c</members>
+		<members>Solar_Quote__c.Max_Panels_Count__c</members>
+		<members>Solar_Quote__c.Monthly_Savings_Cash__c</members>
+		<members>Solar_Quote__c.Monthly_Savings_Loan__c</members>
+		<members>Solar_Quote__c.Monthly_Savings_TPO__c</members>
+		<members>Solar_Quote__c.Monthly_Savings_Typical__c</members>
+		<members>Solar_Quote__c.New_Lifetime_Solar_Cost_Cash__c</members>
+		<members>Solar_Quote__c.New_Lifetime_Solar_Cost_Loan__c</members>
+		<members>Solar_Quote__c.New_Lifetime_Solar_Cost_TPO__c</members>
+		<members>Solar_Quote__c.New_Lifetime_Solar_Cost_Typical__c</members>
+		<members>Solar_Quote__c.Old_Lifetime_Utility_Cost_Cash__c</members>
+		<members>Solar_Quote__c.Old_Lifetime_Utility_Cost_Loan__c</members>
+		<members>Solar_Quote__c.Old_Lifetime_Utility_Cost_TPO__c</members>
+		<members>Solar_Quote__c.Old_Lifetime_Utility_Cost_Typical__c</members>
+		<members>Solar_Quote__c.Panels_Count__c</members>
+		<members>Solar_Quote__c.Postal_Code__c</members>
+		<members>Solar_Quote__c.Preferred_Finance_Type__c</members>
+		<members>Solar_Quote__c.Price_Per_kWh_TPO__c</members>
+		<members>Solar_Quote__c.Provider_Account_Id__c</members>
+		<members>Solar_Quote__c.Roof_Segment_Summaries__c</members>
+		<members>Solar_Quote__c.Run_Typical_Analysis__c</members>
+		<members>Solar_Quote__c.Safe_Streets__c</members>
+		<members>Solar_Quote__c.Set_Best_Electrical_Offset__c</members>
+		<members>Solar_Quote__c.Last_Process_Run_Timestamp__c</members>
+		<members>Solar_Quote__c.Last_Successful_Process_Run_Timestamp__c</members>
+		<members>Solar_Quote__c.Solar_Offset_Cash__c</members>
+		<members>Solar_Quote__c.Solar_Offset_Loan__c</members>
+		<members>Solar_Quote__c.Solar_Offset_TPO__c</members>
+		<members>Solar_Quote__c.Solar_Production_TPO__c</members>
+		<members>Solar_Quote__c.Solar_Provider_Profile_Ids_Cash__c</members>
+		<members>Solar_Quote__c.Solar_Provider_Profile_Ids_Loan__c</members>
+		<members>Solar_Quote__c.Solar_Provider_Profile_Ids_TPO__c</members>
+		<members>Solar_Quote__c.Solar_Tax_Filing_Service__c</members>
+		<members>Solar_Quote__c.State_Lookup__c</members>
+		<members>Solar_Quote__c.State__c</members>
+		<members>Solar_Quote__c.Storage_Profile_Id_Cash__c</members>
+		<members>Solar_Quote__c.Storage_Profile_Id_Loan__c</members>
+		<members>Solar_Quote__c.Storage_Profile_Id_TPO__c</members>
+		<members>Solar_Quote__c.System_Size_kW_Cash__c</members>
+		<members>Solar_Quote__c.System_Size_kW_Loan__c</members>
+		<members>Solar_Quote__c.System_Size_kW_TPO__c</members>
+		<members>Solar_Quote__c.Target_PPW_TPO__c</members>
+		<members>Solar_Quote__c.Tariff_Code__c</members>
+		<members>Solar_Quote__c.Tariff_Name__c</members>
+		<members>Solar_Quote__c.Total_Baseline_Measures_Cash__c</members>
+		<members>Solar_Quote__c.Total_Baseline_Measures_Loan__c</members>
+		<members>Solar_Quote__c.Total_Baseline_Measures_TPO__c</members>
+		<members>Solar_Quote__c.Total_Lifetime_Savings_Cash__c</members>
+		<members>Solar_Quote__c.Total_Lifetime_Savings_Loan__c</members>
+		<members>Solar_Quote__c.Total_Lifetime_Savings_TPO__c</members>
+		<members>Solar_Quote__c.Total_Lifetime_Savings_Typical__c</members>
+		<members>Solar_Quote__c.Total_System_Cost_Cash__c</members>
+		<members>Solar_Quote__c.Total_System_Cost_Loan__c</members>
+		<members>Solar_Quote__c.Total_System_Cost_TPO__c</members>
+		<members>Solar_Quote__c.Yearly_Savings_Cash__c</members>
+		<members>Solar_Quote__c.Yearly_Savings_Loan__c</members>
+		<members>Solar_Quote__c.Yearly_Savings_TPO__c</members>
+		<members>Solar_Quote__c.Yearly_Savings_Typical__c</members>
 		<members>State__c.Auto_Recommend_Battery__c</members>
 		<members>State__c.Cash_Base_PPW__c</members>
 		<members>State__c.Cash_Battery__c</members>
@@ -287,7 +287,7 @@
 		<members>Genability_Provider_Account_Id__c</members>
 		<members>Google_Api_Configuration__mdt</members>
 		<members>Pricing_Cube__c</members>
-		<members>Solar_Estimate_Address__c</members>
+		<members>Solar_Quote__c</members>
 		<members>State__c</members>
 		<name>CustomObject</name>
 	</types>
@@ -295,7 +295,7 @@
 		<members>Discount_Config__c</members>
 		<members>Genability_Monthly_Limit__c</members>
 		<members>Pricing_Cube__c</members>
-		<members>Solar_Estimate_Address__c</members>
+		<members>Solar_Quote__c</members>
 		<members>State__c</members>
 		<name>CustomTab</name>
 	</types>
@@ -304,18 +304,14 @@
 		<members>Genability_Monthly_Limit_Record_Page</members>
 		<members>Genability_Provider_Account_Id_Record_Page</members>
 		<members>Pricing_Cube_Record_Page</members>
-		<members>Solar_Estimate_Address_Record_Page</members>
+		<members>Solar_Quote_Record_Page</members>
 		<members>State_Record_Page</members>
 		<name>FlexiPage</name>
 	</types>
 	<types>
 		<members>Genability_Monthly_Limit_Generate_Provider_Account_Ids</members>
-		<members>Solar_Estimate_Address_Initiate_Solar_Estimate_Process</members>
+		<!--members>Solar_Estimate_Address_Initiate_Solar_Estimate_Process</members-->
 		<name>Flow</name>
-	</types>
-	<types>
-		<members>Unit_Of_Measure</members>
-		<name>GlobalValueSet</name>
 	</types>
 	<types>
 		<members>Arcadia_Api_Configuration__mdt.All_Fields</members>
@@ -323,14 +319,14 @@
 		<members>Genability_Monthly_Limit__c.All</members>
 		<members>Google_Api_Configuration__mdt.All_Fields</members>
 		<members>Pricing_Cube__c.All</members>
-		<members>Solar_Estimate_Address__c.All</members>
+		<members>Solar_Quote__c.All</members>
 		<members>State__c.All</members>
 		<name>ListView</name>
 	</types>
 	<types>
         <members>Genability_Monthly_Limit__c.Generate_Provider_Account_Ids</members>
-        <members>Lead.Initiate_Solar_Estimate_Process</members>
-		<members>Solar_Estimate_Address__c.Initiate_Solar_Estimate_Process</members>
+        <!--members>Lead.Initiate_Solar_Estimate_Process</members>
+		<members>Solar_Quote__c.Initiate_Solar_Estimate_Process</members-->
         <name>QuickAction</name>
     </types>
 	<types>
@@ -345,7 +341,7 @@
 		<name>RecordType</name>
 	</types>
 	<types>
-		<members>genability_api</members>
+		<members>arcadia_api</members>
 		<members>maps_googleapis</members>
 		<members>vitl_api</members>
 		<name>RemoteSiteSetting</name>
