@@ -3,23 +3,23 @@ public without sharing class ArcadiaApiHelper {
     private static ArcadiaApi arcadiaApi = new ArcadiaApi();
     
     @AuraEnabled
-    public static void createAccount(Id solarEstimateAddressId) {
+    public static void createAccount(Id solarQuoteId) {
         
         HttpRequest request;
         HttpResponse response;
         String errorMessage;
 
         List<String> additionalFields = new List<String>{'Lead__r.Account_Name__c'};
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId, additionalFields);
+        Solar_Quote__c solarQuote = (Solar_Quote__c) SObjectUtil.getSObjectDetailsById(solarQuoteId, additionalFields);
         
         try {
             
-            if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
+            if(solarQuote.Failed_Solar_Quote_Process__c) {
                 return;
             }
             
             ArcadiaApiWrapper.Address address = new ArcadiaApiWrapper.Address();
-            address.addressString = solarEstimateAddress.Address__c;
+            address.addressString = solarQuote.Address__c;
             
             ArcadiaApiWrapper.PropertyInput customerClass = new ArcadiaApiWrapper.PropertyInput();
             customerClass.keyName = 'customerClass';
@@ -29,10 +29,10 @@ public without sharing class ArcadiaApiHelper {
             property.customerClass = customerClass;
             
             ArcadiaApiWrapper.CreateAccountRequest apiPayload = new ArcadiaApiWrapper.CreateAccountRequest();
-            apiPayload.providerAccountId = solarEstimateAddress.Provider_Account_Id__c;
-            apiPayload.accountName = String.isNotBlank(solarEstimateAddress.Lead__c) 
-                ? solarEstimateAddress.Lead__r.Account_Name__c 
-                : solarEstimateAddress.Provider_Account_Id__c;
+            apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
+            apiPayload.accountName = String.isNotBlank(solarQuote.Lead__c) 
+                ? solarQuote.Lead__r.Account_Name__c 
+                : solarQuote.Provider_Account_Id__c;
             apiPayload.address = address;
             apiPayload.properties = property;
             
@@ -55,42 +55,42 @@ public without sharing class ArcadiaApiHelper {
                 
                 if(apiResponse.status == 'Success') {
                     
-                    solarEstimateAddress.Account_Id__c = apiResponse.results[0].accountId;
-                    solarEstimateAddress.Master_Tariff_Id__c = apiResponse.results[0].tariffs[0].masterTariffId;
-                    solarEstimateAddress.Tariff_Name__c = apiResponse.results[0].tariffs[0].tariffName;
-                    solarEstimateAddress.Tariff_Code__c = apiResponse.results[0].tariffs[0].tariffCode;
-                    solarEstimateAddress.Completed_Account_Process__c  = true;
+                    solarQuote.Account_Id__c = apiResponse.results[0].accountId;
+                    solarQuote.Master_Tariff_Id__c = apiResponse.results[0].tariffs[0].masterTariffId;
+                    solarQuote.Tariff_Name__c = apiResponse.results[0].tariffs[0].tariffName;
+                    solarQuote.Tariff_Code__c = apiResponse.results[0].tariffs[0].tariffCode;
+                    solarQuote.Completed_Account_Process__c  = true;
                     
-                    setProperties(solarEstimateAddress);
+                    setProperties(solarQuote);
                     
                 } else {
-                    Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                    Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                     
                     errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                 }
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;              
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
         
         Logger.saveLog();      
     }
     
-    public static void setProperties(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static void setProperties(Solar_Quote__c solarQuote) {
         
         HttpRequest request;
         HttpResponse response;
@@ -98,16 +98,16 @@ public without sharing class ArcadiaApiHelper {
         
         try {
             
-            if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
+            if(solarQuote.Failed_Solar_Quote_Process__c) {
                 return;
             }
             
             ArcadiaApiWrapper.SetPropertyRequest apiPayload = new ArcadiaApiWrapper.SetPropertyRequest();
             apiPayload.keyName = 'lseId';
-            apiPayload.dataValue = solarEstimateAddress.LSE_Id__c;
+            apiPayload.dataValue = solarQuote.LSE_Id__c;
             apiPayload.accuracy = 100;
             
-            request = arcadiaApi.properties(solarEstimateAddress.Provider_Account_Id__c, JSON.serialize(apiPayload, true));
+            request = arcadiaApi.properties(solarQuote.Provider_Account_Id__c, JSON.serialize(apiPayload, true));
             
             Integer statusCode = 200;
             String responseBody = '{"status":"Success"}';
@@ -126,38 +126,38 @@ public without sharing class ArcadiaApiHelper {
                 
                 if(apiResponse.status == 'Success') {
                     
-                    solarEstimateAddress.Completed_Properties_Process__c = true;
+                    solarQuote.Completed_Properties_Process__c = true;
                     
-                    calculateKwh(solarEstimateAddress);
+                    calculateKwh(solarQuote);
                     
                 } else {
-                    Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                    Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                     
                     errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                 }
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
         
         Logger.saveLog();
     }
     
-    public static void calculateKwh(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static void calculateKwh(Solar_Quote__c solarQuote) {
         
         HttpRequest request;
         HttpResponse response;
@@ -165,7 +165,7 @@ public without sharing class ArcadiaApiHelper {
         
         try {
             
-            if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
+            if(solarQuote.Failed_Solar_Quote_Process__c) {
                 return;
             }
             
@@ -177,7 +177,7 @@ public without sharing class ArcadiaApiHelper {
             
             ArcadiaApiWrapper.PropertyInput propertyInput = new ArcadiaApiWrapper.PropertyInput();
             propertyInput.keyName = 'total';
-            propertyInput.dataValue = String.valueOf(solarEstimateAddress.Average_Monthly_Bill__c * 12);
+            propertyInput.dataValue = String.valueOf(solarQuote.Average_Monthly_Bill__c * 12);
             propertyInput.unit = 'cost';
             propertyInputs.add(propertyInput);
             
@@ -194,7 +194,7 @@ public without sharing class ArcadiaApiHelper {
             apiPayload.detailLevel = 'CHARGE_TYPE';
             apiPayload.propertyInputs = propertyInputs;
             
-            request = arcadiaApi.calculate(solarEstimateAddress.Provider_Account_Id__c, JSON.serialize(apiPayload, true)); 
+            request = arcadiaApi.calculate(solarQuote.Provider_Account_Id__c, JSON.serialize(apiPayload, true)); 
             
             Integer statusCode = 200;
             String responseBody = '{"status":"Success","results":[{"summary":{"kWh":100,"totalCost":100}}]}';
@@ -213,40 +213,40 @@ public without sharing class ArcadiaApiHelper {
                 
                 if(apiResponse.status == 'Success') {
                     
-                    solarEstimateAddress.Annual_kWh_Arcadia__c = apiResponse.results[0].summary.kWh;
-                    solarEstimateAddress.Annual_Bill__c = apiResponse.results[0].summary.totalCost;
-                    solarEstimateAddress.Completed_kWh_Process__c = true;
+                    solarQuote.Annual_kWh_Arcadia__c = apiResponse.results[0].summary.kWh;
+                    solarQuote.Annual_Bill__c = apiResponse.results[0].summary.totalCost;
+                    solarQuote.Completed_kWh_Process__c = true;
                     
-                    createElectricityProfile(solarEstimateAddress);
+                    createElectricityProfile(solarQuote);
                     
                 } else {
-                    Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                    Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                     
                     errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                 }
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
         
         Logger.saveLog();
     }
     
-    public static void createElectricityProfile(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static void createElectricityProfile(Solar_Quote__c solarQuote) {
         
         HttpRequest request;
         HttpResponse response;
@@ -254,7 +254,7 @@ public without sharing class ArcadiaApiHelper {
         
         try {
             
-            if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
+            if(solarQuote.Failed_Solar_Quote_Process__c) {
                 return;
             }
             
@@ -273,11 +273,11 @@ public without sharing class ArcadiaApiHelper {
             readingData.fromDateTime = fromDateTime;
             readingData.toDateTime = toDateTime;
             readingData.quantityUnit = 'kWh';
-            readingData.quantityValue = String.valueOf(solarEstimateAddress.Annual_kWh_Arcadia__c);
+            readingData.quantityValue = String.valueOf(solarQuote.Annual_kWh_Arcadia__c);
             
             ArcadiaApiWrapper.CreateElectricityProfileRequest apiPayload = new ArcadiaApiWrapper.CreateElectricityProfileRequest();
-            apiPayload.providerAccountId = solarEstimateAddress.Provider_Account_Id__c;
-            apiPayload.providerProfileId = solarEstimateAddress.Provider_Account_Id__c + '-bills';
+            apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
+            apiPayload.providerProfileId = solarQuote.Provider_Account_Id__c + '-bills';
             apiPayload.profileName = 'Electricity Bills';
             apiPayload.isDefault = true;
             apiPayload.serviceTypes = 'ELECTRICITY';
@@ -304,46 +304,46 @@ public without sharing class ArcadiaApiHelper {
                 
                 if(apiResponse.status == 'Success') {
                     
-                    solarEstimateAddress.Completed_Electricity_Profile_Process__c = true;
+                    solarQuote.Completed_Electricity_Profile_Process__c = true;
                     
-                    update solarEstimateAddress; 
+                    update solarQuote; 
                     
                 } else {
-                    Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                    Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                     
                     errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                 }
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
         
         Logger.saveLog();
     }
     
     @AuraEnabled
-    public static void createSolarProfiles(Id solarEstimateAddressId, String financeType) {
+    public static void createSolarProfiles(Id solarQuoteId, String financeType) {
         
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId);
+        Solar_Quote__c solarQuote = (Solar_Quote__c) SObjectUtil.getSObjectDetailsById(solarQuoteId);
         String errorMessage;
         
         try {
             
-            if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
+            if(solarQuote.Failed_Solar_Quote_Process__c) {
                 return;
             }
             
@@ -352,7 +352,7 @@ public without sharing class ArcadiaApiHelper {
                 'Loan_Panel__r.Production__c', 
                 'TPO_Panel__r.Production__c'
             };
-            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, additionalFields);
+            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarQuote.State_Lookup__c, additionalFields);
             
             Decimal productionPerPanel = financeType == 'Cash' 
                 ? state.Cash_Panel__r.Production__c
@@ -373,48 +373,48 @@ public without sharing class ArcadiaApiHelper {
                     || financeType == 'TPO') 
                    && productionPerPanel == state.Cash_Panel__r.Production__c) 
                 {
-                    solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_Cash__c;
-                    totalBaselineMeasures = solarEstimateAddress.Total_Baseline_Measures_Cash__c;
-                    solarOffset = solarEstimateAddress.Solar_Offset_Cash__c;
+                    solarProviderProfileIds = solarQuote.Solar_Provider_Profile_Ids_Cash__c;
+                    totalBaselineMeasures = solarQuote.Total_Baseline_Measures_Cash__c;
+                    solarOffset = solarQuote.Solar_Offset_Cash__c;
                     
                 } else if(financeType == 'TPO' 
                           && productionPerPanel == state.Loan_Panel__r.Production__c) 
                 {
-                    solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_Loan__c;
-                    totalBaselineMeasures = solarEstimateAddress.Total_Baseline_Measures_Loan__c;
-                    solarOffset = solarEstimateAddress.Solar_Offset_Loan__c;
+                    solarProviderProfileIds = solarQuote.Solar_Provider_Profile_Ids_Loan__c;
+                    totalBaselineMeasures = solarQuote.Total_Baseline_Measures_Loan__c;
+                    solarOffset = solarQuote.Solar_Offset_Loan__c;
                     
                 } else {
                     
                     GoogleApiWrapper.BuildingInsightsResponse buildingInsightsResponse;
                     
                     try {
-                        buildingInsightsResponse = GoogleApiHelper.getBuildingInsights(solarEstimateAddress.Latitude__c, solarEstimateAddress.Longitude__c);
+                        buildingInsightsResponse = GoogleApiHelper.getBuildingInsights(solarQuote.Latitude__c, solarQuote.Longitude__c);
                         
-                        solarEstimateAddress.Max_Panels_Count__c = 0;
+                        solarQuote.Max_Panels_Count__c = 0;
                         
                         for(GoogleApiWrapper.SolarPanelConfig solarPanelConfig : buildingInsightsResponse.solarPotential.solarPanelConfigs) {
-                            if(solarPanelConfig.panelsCount > solarEstimateAddress.Max_Panels_Count__c) {
-                                solarEstimateAddress.Max_Panels_Count__c = solarPanelConfig.panelsCount;
+                            if(solarPanelConfig.panelsCount > solarQuote.Max_Panels_Count__c) {
+                                solarQuote.Max_Panels_Count__c = solarPanelConfig.panelsCount;
                             }
                         }
                         
                     } catch(Exception ex) {
-                        solarEstimateAddress.Failed_Google_Building_Insights__c = true;
-                        solarEstimateAddress.Max_Panels_Count__c = 100;
+                        solarQuote.Failed_Google_Building_Insights__c = true;
+                        solarQuote.Max_Panels_Count__c = 100;
                     }
                     
-                    if(solarEstimateAddress.Panels_Count__c == null) {
-                        solarEstimateAddress.Set_Best_Electrical_Offset__c = true;
+                    if(solarQuote.Panels_Count__c == null) {
+                        solarQuote.Set_Best_Electrical_Offset__c = true;
                     }
                     
-                    Integer panelsCount = solarEstimateAddress.Set_Best_Electrical_Offset__c 
+                    Integer panelsCount = solarQuote.Set_Best_Electrical_Offset__c 
                         ? 8 
-                        : Integer.valueOf(solarEstimateAddress.Panels_Count__c);
+                        : Integer.valueOf(solarQuote.Panels_Count__c);
                     Map<String, Object> result = new Map<String, Object>();
-                    List<GoogleApiWrapper.RoofSegmentSummary> roofSegmentSummaries = SolarEstimateProcessHelper.prepareRoofSegmentSummaries(solarEstimateAddress, buildingInsightsResponse, panelsCount);
+                    List<GoogleApiWrapper.RoofSegmentSummary> roofSegmentSummaries = SolarQuoteProcessHelper.prepareRoofSegmentSummaries(solarQuote, buildingInsightsResponse, panelsCount);
                     
-                    if(solarEstimateAddress.Set_Best_Electrical_Offset__c) {
+                    if(solarQuote.Set_Best_Electrical_Offset__c) {
                         
                         Boolean needToBreak = false;
                         Decimal electricalOffset = 0;
@@ -425,8 +425,8 @@ public without sharing class ArcadiaApiHelper {
                                 
                                 Integer panelsCountStepSize = 0;
                                 
-                                if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' 
-                                   || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') 
+                                if(solarQuote.Ground_Mount__c == 'Standard Ground Mount' 
+                                   || solarQuote.Ground_Mount__c == 'Shade Structure Ground Mount') 
                                 {
                                     panelsCountStepSize = 4;
                                     
@@ -434,26 +434,26 @@ public without sharing class ArcadiaApiHelper {
                                     panelsCountStepSize = Integer.valueOf(Math.ceil(Decimal.valueOf(panelsCount) / electricalOffset)) - panelsCount;
                                 }
                                 
-                                if(solarEstimateAddress.Ground_Mount__c != 'Standard Ground Mount' 
-                                   && solarEstimateAddress.Ground_Mount__c != 'Shade Structure Ground Mount') 
+                                if(solarQuote.Ground_Mount__c != 'Standard Ground Mount' 
+                                   && solarQuote.Ground_Mount__c != 'Shade Structure Ground Mount') 
                                 {
-                                    if(panelsCount + panelsCountStepSize > solarEstimateAddress.Max_Panels_Count__c) {
-                                        panelsCountStepSize = Integer.valueOf(solarEstimateAddress.Max_Panels_Count__c) - panelsCount;
+                                    if(panelsCount + panelsCountStepSize > solarQuote.Max_Panels_Count__c) {
+                                        panelsCountStepSize = Integer.valueOf(solarQuote.Max_Panels_Count__c) - panelsCount;
                                     }
                                 }
                                 
-                                if(panelsCount + panelsCountStepSize <= solarEstimateAddress.Max_Panels_Count__c) {
+                                if(panelsCount + panelsCountStepSize <= solarQuote.Max_Panels_Count__c) {
                                     panelsCount += panelsCountStepSize;
                                 }
                                 
-                                roofSegmentSummaries = SolarEstimateProcessHelper.prepareRoofSegmentSummaries(solarEstimateAddress, buildingInsightsResponse, panelsCount);
+                                roofSegmentSummaries = SolarQuoteProcessHelper.prepareRoofSegmentSummaries(solarQuote, buildingInsightsResponse, panelsCount);
                             }
                             
-                            result = createSolarProfiles(solarEstimateAddress, productionPerPanel, roofSegmentSummaries);
+                            result = createSolarProfiles(solarQuote, productionPerPanel, roofSegmentSummaries);
                             
-                            electricalOffset = ((Decimal) result.get('totalBaselineMeasures') / solarEstimateAddress.Annual_kWh_Arcadia__c);
+                            electricalOffset = ((Decimal) result.get('totalBaselineMeasures') / solarQuote.Annual_kWh_Arcadia__c);
                             
-                            if(panelsCount == solarEstimateAddress.Max_Panels_Count__c) {
+                            if(panelsCount == solarQuote.Max_Panels_Count__c) {
                                 needToBreak = true;
                             }
                             
@@ -463,16 +463,16 @@ public without sharing class ArcadiaApiHelper {
                                 while(!needToBreak 
                                       && electricalOffset > 1) 
                                 {
-                                    if(((solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' 
-                                         || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') 
+                                    if(((solarQuote.Ground_Mount__c == 'Standard Ground Mount' 
+                                         || solarQuote.Ground_Mount__c == 'Shade Structure Ground Mount') 
                                         && panelsCount - 4 < 8)
                                        || panelsCount - 1 < 8) 
                                     {
                                         needToBreak = true;
                                         
                                     } else {
-                                        if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount' 
-                                           || solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') 
+                                        if(solarQuote.Ground_Mount__c == 'Standard Ground Mount' 
+                                           || solarQuote.Ground_Mount__c == 'Shade Structure Ground Mount') 
                                         {
                                             panelsCount -= 4;
                                             
@@ -480,11 +480,11 @@ public without sharing class ArcadiaApiHelper {
                                             panelsCount --;
                                         }
                                         
-                                        roofSegmentSummaries = SolarEstimateProcessHelper.prepareRoofSegmentSummaries(solarEstimateAddress, buildingInsightsResponse, panelsCount);
+                                        roofSegmentSummaries = SolarQuoteProcessHelper.prepareRoofSegmentSummaries(solarQuote, buildingInsightsResponse, panelsCount);
                                         
-                                        result = createSolarProfiles(solarEstimateAddress, productionPerPanel, roofSegmentSummaries);
+                                        result = createSolarProfiles(solarQuote, productionPerPanel, roofSegmentSummaries);
                                         
-                                        electricalOffset = ((Decimal) result.get('totalBaselineMeasures') / solarEstimateAddress.Annual_kWh_Arcadia__c);
+                                        electricalOffset = ((Decimal) result.get('totalBaselineMeasures') / solarQuote.Annual_kWh_Arcadia__c);
                                     }
                                 }
                                 
@@ -492,12 +492,12 @@ public without sharing class ArcadiaApiHelper {
                             }
                         }
                         
-                        solarEstimateAddress.Set_Best_Electrical_Offset__c = false;
-                        solarEstimateAddress.Best_Panels_Count__c = panelsCount;
-                        solarEstimateAddress.Panels_Count__c = panelsCount;
+                        solarQuote.Set_Best_Electrical_Offset__c = false;
+                        solarQuote.Best_Panels_Count__c = panelsCount;
+                        solarQuote.Panels_Count__c = panelsCount;
                         
                     } else {
-                        result = createSolarProfiles(solarEstimateAddress, productionPerPanel, roofSegmentSummaries);
+                        result = createSolarProfiles(solarQuote, productionPerPanel, roofSegmentSummaries);
                     }
                     
                     if(result.containsKey('solarProviderProfileIds')) {
@@ -506,7 +506,7 @@ public without sharing class ArcadiaApiHelper {
                     
                     if(result.containsKey('totalBaselineMeasures')) {
                         totalBaselineMeasures = (Decimal) result.get('totalBaselineMeasures');
-                        solarOffset = (totalBaselineMeasures / solarEstimateAddress.Annual_kWh_Arcadia__c) * 100;
+                        solarOffset = (totalBaselineMeasures / solarQuote.Annual_kWh_Arcadia__c) * 100;
                     }
                     
                     Decimal sumOfPitchDegrees = 0;
@@ -517,50 +517,50 @@ public without sharing class ArcadiaApiHelper {
                         }
                     }
                     
-                    solarEstimateAddress.Roof_Segment_Summaries__c = JSON.serialize(roofSegmentSummaries);
-                    solarEstimateAddress.Average_Pitch_Degrees__c  = sumOfPitchDegrees / roofSegmentSummaries.size();
+                    solarQuote.Roof_Segment_Summaries__c = JSON.serialize(roofSegmentSummaries);
+                    solarQuote.Average_Pitch_Degrees__c  = sumOfPitchDegrees / roofSegmentSummaries.size();
                 }
             }
             
             if(financeType == 'Cash') {                
-                solarEstimateAddress.Solar_Provider_Profile_Ids_Cash__c = solarProviderProfileIds;
-                solarEstimateAddress.Total_Baseline_Measures_Cash__c = totalBaselineMeasures;
-                solarEstimateAddress.Solar_Offset_Cash__c = solarOffset;
-                solarEstimateAddress.Completed_Solar_Profiles_Process_Cash__c = true;
+                solarQuote.Solar_Provider_Profile_Ids_Cash__c = solarProviderProfileIds;
+                solarQuote.Total_Baseline_Measures_Cash__c = totalBaselineMeasures;
+                solarQuote.Solar_Offset_Cash__c = solarOffset;
+                solarQuote.Completed_Solar_Profiles_Process_Cash__c = true;
             }
             
             if(financeType == 'Loan') {
-                solarEstimateAddress.Solar_Provider_Profile_Ids_Loan__c = solarProviderProfileIds;
-                solarEstimateAddress.Total_Baseline_Measures_Loan__c = totalBaselineMeasures;
-                solarEstimateAddress.Solar_Offset_Loan__c = solarOffset;
-                solarEstimateAddress.Completed_Solar_Profiles_Process_Loan__c = true;
+                solarQuote.Solar_Provider_Profile_Ids_Loan__c = solarProviderProfileIds;
+                solarQuote.Total_Baseline_Measures_Loan__c = totalBaselineMeasures;
+                solarQuote.Solar_Offset_Loan__c = solarOffset;
+                solarQuote.Completed_Solar_Profiles_Process_Loan__c = true;
             }
             
             if(financeType == 'TPO') {
-                solarEstimateAddress.Solar_Provider_Profile_Ids_TPO__c = solarProviderProfileIds;
-                solarEstimateAddress.Total_Baseline_Measures_TPO__c = totalBaselineMeasures;
-                solarEstimateAddress.Solar_Offset_TPO__c = solarOffset;
-                solarEstimateAddress.Completed_Solar_Profiles_Process_TPO__c = true;
+                solarQuote.Solar_Provider_Profile_Ids_TPO__c = solarProviderProfileIds;
+                solarQuote.Total_Baseline_Measures_TPO__c = totalBaselineMeasures;
+                solarQuote.Solar_Offset_TPO__c = solarOffset;
+                solarQuote.Completed_Solar_Profiles_Process_TPO__c = true;
             }
             
-            update solarEstimateAddress;
+            update solarQuote;
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex);
+            Logger.error('Exception', solarQuote.Id, ex);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
         
         Logger.saveLog();
     }    
     
-    public static Map<String, Object> createSolarProfiles(Solar_Estimate_Address__c solarEstimateAddress, Decimal productionPerPanel, List<GoogleApiWrapper.RoofSegmentSummary> roofSegmentSummaries) { 
+    public static Map<String, Object> createSolarProfiles(Solar_Quote__c solarQuote, Decimal productionPerPanel, List<GoogleApiWrapper.RoofSegmentSummary> roofSegmentSummaries) { 
         
         String errorMessage;
         List<String> solarProviderProfileIds = new List<String>();
@@ -625,8 +625,8 @@ public without sharing class ArcadiaApiHelper {
                 property.soiling = soiling;
                 
                 ArcadiaApiWrapper.CreateSolarProfileRequest apiPayload = new ArcadiaApiWrapper.CreateSolarProfileRequest();
-                apiPayload.providerAccountId = solarEstimateAddress.Provider_Account_Id__c;
-                apiPayload.providerProfileId = solarEstimateAddress.Provider_Account_Id__c + '-pvwatts-' + roofSegmentSummary.azimuthDegrees + '-' + productionPerPanel;
+                apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
+                apiPayload.providerProfileId = solarQuote.Provider_Account_Id__c + '-pvwatts-' + roofSegmentSummary.azimuthDegrees + '-' + productionPerPanel;
                 apiPayload.groupBy = 'YEAR';
                 apiPayload.serviceTypes = 'SOLAR_PV';
                 apiPayload.source = source;
@@ -692,14 +692,14 @@ public without sharing class ArcadiaApiHelper {
     }
     
     @AuraEnabled
-    public static void getAnalysis(Id solarEstimateAddressId) {
+    public static void getAnalysis(Id solarQuoteId) {
         
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId);
+        Solar_Quote__c solarQuote = (Solar_Quote__c) SObjectUtil.getSObjectDetailsById(solarQuoteId);
         String errorMessage;
         
         try {
             
-            if(solarEstimateAddress.Failed_Solar_Estimate_Process__c) {
+            if(solarQuote.Failed_Solar_Quote_Process__c) {
                 return;
             }
 
@@ -719,137 +719,137 @@ public without sharing class ArcadiaApiHelper {
                 'Loan_Competitor__r.Payment_Factor_1__c'
             };
             
-            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c, additionalFields);
+            State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarQuote.State_Lookup__c, additionalFields);
             
-            solarEstimateAddress.Run_Typical_Analysis__c = solarEstimateAddress.City_Tier__c == null 
-                || solarEstimateAddress.City_Tier__c < 1
-                || solarEstimateAddress.City_Tier__c > 3;
+            solarQuote.Run_Typical_Analysis__c = solarQuote.City_Tier__c == null 
+                || solarQuote.City_Tier__c < 1
+                || solarQuote.City_Tier__c > 3;
             
-            if(!solarEstimateAddress.Run_Typical_Analysis__c) {
+            if(!solarQuote.Run_Typical_Analysis__c) {
                 
                 if(state.Auto_Recommend_Battery__c 
-                   && solarEstimateAddress.Last_Successful_Process_Run_Timestamp__c == null) 
+                   && solarQuote.Last_Successful_Process_Run_Timestamp__c == null) 
                 {
-                    if(solarEstimateAddress.Batteries_Count_Cash__c == null) {
-                        solarEstimateAddress.Batteries_Count_Cash__c = 1;
+                    if(solarQuote.Batteries_Count_Cash__c == null) {
+                        solarQuote.Batteries_Count_Cash__c = 1;
                     }
                     
-                    if(solarEstimateAddress.Batteries_Count_Loan__c == null) {
-                        solarEstimateAddress.Batteries_Count_Loan__c = 1;
+                    if(solarQuote.Batteries_Count_Loan__c == null) {
+                        solarQuote.Batteries_Count_Loan__c = 1;
                     }
                     
-                    if(solarEstimateAddress.Batteries_Count_TPO__c == null) {
-                        solarEstimateAddress.Batteries_Count_TPO__c = 1;
+                    if(solarQuote.Batteries_Count_TPO__c == null) {
+                        solarQuote.Batteries_Count_TPO__c = 1;
                     }
                 }
                 
-                Decimal cityTierCost = SolarEstimateProcessHelper.getCityTierCost(solarEstimateAddress);
-                Decimal pitchDegreesCost = SolarEstimateProcessHelper.getPitchDegreesCost(solarEstimateAddress);
-                Decimal solarTaxFilingServiceCost = SolarEstimateProcessHelper.getSolarTaxFilingServiceCost(solarEstimateAddress);
-                Map<String, List<Decimal>> backupBatteryPrices = SolarEstimateProcessHelper.getBackupBatteryPrices(state);
+                Decimal cityTierCost = SolarQuoteProcessHelper.getCityTierCost(solarQuote);
+                Decimal pitchDegreesCost = SolarQuoteProcessHelper.getPitchDegreesCost(solarQuote);
+                Decimal solarTaxFilingServiceCost = SolarQuoteProcessHelper.getSolarTaxFilingServiceCost(solarQuote);
+                Map<String, List<Decimal>> backupBatteryPrices = SolarQuoteProcessHelper.getBackupBatteryPrices(state);
                 
-                SolarEstimateProcessHelper.doCashCalculation(solarEstimateAddress, state, backupBatteryPrices, 
+                SolarQuoteProcessHelper.doCashCalculation(solarQuote, state, backupBatteryPrices, 
                                                              cityTierCost, pitchDegreesCost, solarTaxFilingServiceCost);
-                SolarEstimateProcessHelper.doLoanCalculation(solarEstimateAddress, state, backupBatteryPrices, 
+                SolarQuoteProcessHelper.doLoanCalculation(solarQuote, state, backupBatteryPrices, 
                                                              cityTierCost, pitchDegreesCost, solarTaxFilingServiceCost);
-                SolarEstimateProcessHelper.doTPOCalculation(solarEstimateAddress, state, backupBatteryPrices, 
+                SolarQuoteProcessHelper.doTPOCalculation(solarQuote, state, backupBatteryPrices, 
                                                             cityTierCost, pitchDegreesCost, solarTaxFilingServiceCost);
                 
-                if(solarEstimateAddress.Finance_Type_Available_Cash__c) {
+                if(solarQuote.Finance_Type_Available_Cash__c) {
                     
-                    if(solarEstimateAddress.Batteries_Available_Cash__c) {
-                        createStorageProfile(solarEstimateAddress, state, 'Cash');
+                    if(solarQuote.Batteries_Available_Cash__c) {
+                        createStorageProfile(solarQuote, state, 'Cash');
                     }
                     
-                    Map<String, Decimal> result = getAnalysis(solarEstimateAddress, 'Cash');
+                    Map<String, Decimal> result = getAnalysis(solarQuote, 'Cash');
                     
-                    solarEstimateAddress.Monthly_Savings_Cash__c = result.get('monthlySavings');
-                    solarEstimateAddress.Yearly_Savings_Cash__c = result.get('yearlySavings');
-                    solarEstimateAddress.Old_Lifetime_Utility_Cost_Cash__c = result.get('oldLifetimeUtilityCost');
-                    solarEstimateAddress.New_Lifetime_Solar_Cost_Cash__c = result.get('newLifetimeSolarCost');
-                    solarEstimateAddress.Total_Lifetime_Savings_Cash__c = result.get('totalLifetimeSavings');
+                    solarQuote.Monthly_Savings_Cash__c = result.get('monthlySavings');
+                    solarQuote.Yearly_Savings_Cash__c = result.get('yearlySavings');
+                    solarQuote.Old_Lifetime_Utility_Cost_Cash__c = result.get('oldLifetimeUtilityCost');
+                    solarQuote.New_Lifetime_Solar_Cost_Cash__c = result.get('newLifetimeSolarCost');
+                    solarQuote.Total_Lifetime_Savings_Cash__c = result.get('totalLifetimeSavings');
                 }
                 
-                if(solarEstimateAddress.Finance_Type_Available_Loan__c) {
+                if(solarQuote.Finance_Type_Available_Loan__c) {
                     
-                    if(solarEstimateAddress.Batteries_Available_Loan__c) {
-                        createStorageProfile(solarEstimateAddress, state, 'Loan');
+                    if(solarQuote.Batteries_Available_Loan__c) {
+                        createStorageProfile(solarQuote, state, 'Loan');
                     }
                     
-                    Map<String, Decimal> result = getAnalysis(solarEstimateAddress, 'Loan');
+                    Map<String, Decimal> result = getAnalysis(solarQuote, 'Loan');
                     
-                    solarEstimateAddress.Monthly_Savings_Loan__c = result.get('monthlySavings');
-                    solarEstimateAddress.Yearly_Savings_Loan__c = result.get('yearlySavings');
-                    solarEstimateAddress.Old_Lifetime_Utility_Cost_Loan__c = result.get('oldLifetimeUtilityCost');
-                    solarEstimateAddress.New_Lifetime_Solar_Cost_Loan__c = result.get('newLifetimeSolarCost');
-                    solarEstimateAddress.Total_Lifetime_Savings_Loan__c = result.get('totalLifetimeSavings');
+                    solarQuote.Monthly_Savings_Loan__c = result.get('monthlySavings');
+                    solarQuote.Yearly_Savings_Loan__c = result.get('yearlySavings');
+                    solarQuote.Old_Lifetime_Utility_Cost_Loan__c = result.get('oldLifetimeUtilityCost');
+                    solarQuote.New_Lifetime_Solar_Cost_Loan__c = result.get('newLifetimeSolarCost');
+                    solarQuote.Total_Lifetime_Savings_Loan__c = result.get('totalLifetimeSavings');
                 }
                 
-                if(solarEstimateAddress.Finance_Type_Available_TPO__c) {
+                if(solarQuote.Finance_Type_Available_TPO__c) {
                     
-                    if(solarEstimateAddress.Batteries_Available_TPO__c) {
-                        createStorageProfile(solarEstimateAddress, state, 'TPO');
+                    if(solarQuote.Batteries_Available_TPO__c) {
+                        createStorageProfile(solarQuote, state, 'TPO');
                     }
                     
-                    Map<String, Decimal> result = getAnalysis(solarEstimateAddress, 'TPO');
+                    Map<String, Decimal> result = getAnalysis(solarQuote, 'TPO');
                     
-                    solarEstimateAddress.Monthly_Savings_TPO__c = result.get('monthlySavings');
-                    solarEstimateAddress.Yearly_Savings_TPO__c = result.get('yearlySavings');
-                    solarEstimateAddress.Old_Lifetime_Utility_Cost_TPO__c = result.get('oldLifetimeUtilityCost');
-                    solarEstimateAddress.New_Lifetime_Solar_Cost_TPO__c = result.get('newLifetimeSolarCost');
-                    solarEstimateAddress.Total_Lifetime_Savings_TPO__c = result.get('totalLifetimeSavings');
+                    solarQuote.Monthly_Savings_TPO__c = result.get('monthlySavings');
+                    solarQuote.Yearly_Savings_TPO__c = result.get('yearlySavings');
+                    solarQuote.Old_Lifetime_Utility_Cost_TPO__c = result.get('oldLifetimeUtilityCost');
+                    solarQuote.New_Lifetime_Solar_Cost_TPO__c = result.get('newLifetimeSolarCost');
+                    solarQuote.Total_Lifetime_Savings_TPO__c = result.get('totalLifetimeSavings');
                 }
             }
             
-            if(!solarEstimateAddress.Run_Typical_Analysis__c
-               && !solarEstimateAddress.Finance_Type_Available_Cash__c
-               && !solarEstimateAddress.Finance_Type_Available_Loan__c
-               && !solarEstimateAddress.Finance_Type_Available_TPO__c) 
+            if(!solarQuote.Run_Typical_Analysis__c
+               && !solarQuote.Finance_Type_Available_Cash__c
+               && !solarQuote.Finance_Type_Available_Loan__c
+               && !solarQuote.Finance_Type_Available_TPO__c) 
             {
-                solarEstimateAddress.Run_Typical_Analysis__c = true;
+                solarQuote.Run_Typical_Analysis__c = true;
             }
             
-            if(solarEstimateAddress.Run_Typical_Analysis__c 
+            if(solarQuote.Run_Typical_Analysis__c 
                || Test.isRunningTest()) 
             {
-                solarEstimateAddress.Roof_Segment_Summaries__c = null;
-                solarEstimateAddress.Average_Pitch_Degrees__c = null;
-                solarEstimateAddress.Max_Panels_Count__c = null;
-                solarEstimateAddress.Best_Panels_Count__c = null;
-                solarEstimateAddress.Panels_Count__c = null;
-                solarEstimateAddress.Finance_Type_Available_Cash__c = false;
-                solarEstimateAddress.Finance_Type_Available_Loan__c = false;
-                solarEstimateAddress.Finance_Type_Available_TPO__c = false;
+                solarQuote.Roof_Segment_Summaries__c = null;
+                solarQuote.Average_Pitch_Degrees__c = null;
+                solarQuote.Max_Panels_Count__c = null;
+                solarQuote.Best_Panels_Count__c = null;
+                solarQuote.Panels_Count__c = null;
+                solarQuote.Finance_Type_Available_Cash__c = false;
+                solarQuote.Finance_Type_Available_Loan__c = false;
+                solarQuote.Finance_Type_Available_TPO__c = false;
                 
-                Map<String, Decimal> result = getTypicalAnalysis(solarEstimateAddress);
+                Map<String, Decimal> result = getTypicalAnalysis(solarQuote);
                 
-                solarEstimateAddress.Monthly_Savings_Typical__c = result.get('monthlySavings');
-                solarEstimateAddress.Yearly_Savings_Typical__c = result.get('yearlySavings');
-                solarEstimateAddress.Old_Lifetime_Utility_Cost_Typical__c = result.get('oldLifetimeUtilityCost');
-                solarEstimateAddress.New_Lifetime_Solar_Cost_Typical__c = result.get('newLifetimeSolarCost');
-                solarEstimateAddress.Total_Lifetime_Savings_Typical__c = result.get('totalLifetimeSavings');
+                solarQuote.Monthly_Savings_Typical__c = result.get('monthlySavings');
+                solarQuote.Yearly_Savings_Typical__c = result.get('yearlySavings');
+                solarQuote.Old_Lifetime_Utility_Cost_Typical__c = result.get('oldLifetimeUtilityCost');
+                solarQuote.New_Lifetime_Solar_Cost_Typical__c = result.get('newLifetimeSolarCost');
+                solarQuote.Total_Lifetime_Savings_Typical__c = result.get('totalLifetimeSavings');
             } 
             
-            solarEstimateAddress.Completed_Analysis_Process__c = true;
+            solarQuote.Completed_Analysis_Process__c = true;
             
-            update solarEstimateAddress;
+            update solarQuote;
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex);
+            Logger.error('Exception', solarQuote.Id, ex);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
         
         Logger.saveLog();
     }
     
-    public static void createStorageProfile(Solar_Estimate_Address__c solarEstimateAddress, State__c state, String financeType) {
+    public static void createStorageProfile(Solar_Quote__c solarQuote, State__c state, String financeType) {
         
         HttpRequest request;
         HttpResponse response;
@@ -873,12 +873,12 @@ public without sharing class ArcadiaApiHelper {
                     || financeType == 'TPO') 
                    && productId == state.Cash_Battery__c) 
                 {
-                    storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_Cash__c;
+                    storageProviderProfileId = solarQuote.Storage_Profile_Id_Cash__c;
                     
                 } else if(financeType == 'TPO' 
                           && productId == state.Loan_Battery__c) 
                 {
-                    storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_Loan__c;
+                    storageProviderProfileId = solarQuote.Storage_Profile_Id_Loan__c;
                     
                 } else {
                     
@@ -890,7 +890,7 @@ public without sharing class ArcadiaApiHelper {
                                         WHERE Id = :productId];
                     
                     ArcadiaApiWrapper.Consumption consumption = new ArcadiaApiWrapper.Consumption();
-                    consumption.providerProfileId = solarEstimateAddress.Provider_Account_Id__c + '-bills';
+                    consumption.providerProfileId = solarQuote.Provider_Account_Id__c + '-bills';
                     
                     ArcadiaApiWrapper.DispatchStrategy dispatchStrategy = new ArcadiaApiWrapper.DispatchStrategy();
                     dispatchStrategy.optimize = true;
@@ -912,15 +912,15 @@ public without sharing class ArcadiaApiHelper {
                     String solarProviderProfileIdsStr;
                     
                     if(financeType == 'Cash') {
-                        solarProviderProfileIdsStr = solarEstimateAddress.Solar_Provider_Profile_Ids_Cash__c;
+                        solarProviderProfileIdsStr = solarQuote.Solar_Provider_Profile_Ids_Cash__c;
                     }
                     
                     if(financeType == 'Loan') {
-                        solarProviderProfileIdsStr = solarEstimateAddress.Solar_Provider_Profile_Ids_Loan__c;
+                        solarProviderProfileIdsStr = solarQuote.Solar_Provider_Profile_Ids_Loan__c;
                     }
                     
                     if(financeType == 'TPO') {
-                        solarProviderProfileIdsStr = solarEstimateAddress.Solar_Provider_Profile_Ids_TPO__c;
+                        solarProviderProfileIdsStr = solarQuote.Solar_Provider_Profile_Ids_TPO__c;
                     }
                     
                     if(String.isNotBlank(solarProviderProfileIdsStr)) {
@@ -940,7 +940,7 @@ public without sharing class ArcadiaApiHelper {
                     }
                     
                     ArcadiaApiWrapper.Storage storage = new ArcadiaApiWrapper.Storage();
-                    storage.mainTariffId = solarEstimateAddress.Master_Tariff_Id__c;
+                    storage.mainTariffId = solarQuote.Master_Tariff_Id__c;
                     storage.dispatchStrategy = dispatchStrategy;
                     storage.batteryNameplatePower = Decimal.valueOf(battery.Rated_Output_Power__c);
                     storage.batteryNameplateCapacity = Decimal.valueOf(battery.Energy_Capacity__c);
@@ -960,8 +960,8 @@ public without sharing class ArcadiaApiHelper {
                     storage.tariffPropertyInputs = propertyInputs;
                     
                     ArcadiaApiWrapper.CreateStorageProfileRequest apiPayload = new ArcadiaApiWrapper.CreateStorageProfileRequest();
-                    apiPayload.providerAccountId = solarEstimateAddress.Provider_Account_Id__c;
-                    apiPayload.providerProfileId = solarEstimateAddress.Provider_Account_Id__c + '-storage-' + String.valueof(Datetime.now()).replace(' ', '').replace(':', '').replace('-', '');
+                    apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
+                    apiPayload.providerProfileId = solarQuote.Provider_Account_Id__c + '-storage-' + String.valueof(Datetime.now()).replace(' ', '').replace(':', '').replace('-', '');
                     apiPayload.fromDateTime = fromDateTime;
                     apiPayload.consumption = consumption;
                     apiPayload.solar = solars;
@@ -989,13 +989,13 @@ public without sharing class ArcadiaApiHelper {
                             storageProviderProfileId = apiResponse.results[0].usageProfile.providerProfileId;
                             
                         } else {
-                            Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                            Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                             
                             errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                         }
                         
                     } else {
-                        Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                        Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                         
                         errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                     }
@@ -1003,19 +1003,19 @@ public without sharing class ArcadiaApiHelper {
             }
             
             if(financeType == 'Cash') {
-                solarEstimateAddress.Storage_Profile_Id_Cash__c = storageProviderProfileId;
+                solarQuote.Storage_Profile_Id_Cash__c = storageProviderProfileId;
             }
             
             if(financeType == 'Loan') {
-                solarEstimateAddress.Storage_Profile_Id_Loan__c = storageProviderProfileId;
+                solarQuote.Storage_Profile_Id_Loan__c = storageProviderProfileId;
             }
             
             if(financeType == 'TPO') {
-                solarEstimateAddress.Storage_Profile_Id_TPO__c = storageProviderProfileId;
+                solarQuote.Storage_Profile_Id_TPO__c = storageProviderProfileId;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
@@ -1027,7 +1027,7 @@ public without sharing class ArcadiaApiHelper {
         }
     }
     
-    public static Map<String, Decimal> getAnalysis(Solar_Estimate_Address__c solarEstimateAddress, String financeType) {
+    public static Map<String, Decimal> getAnalysis(Solar_Quote__c solarQuote, String financeType) {
         
         HttpRequest request;
         HttpResponse response;
@@ -1040,15 +1040,15 @@ public without sharing class ArcadiaApiHelper {
             ArcadiaApiWrapper.RateBand rateBand = new ArcadiaApiWrapper.RateBand();
             
             if(financeType == 'Cash') {
-                rateBand.rateAmount = solarEstimateAddress.Final_Price_Cash__c;
+                rateBand.rateAmount = solarQuote.Final_Price_Cash__c;
             }
             
             if(financeType == 'Loan') {
-                rateBand.rateAmount = solarEstimateAddress.Final_Price_Loan__c;
+                rateBand.rateAmount = solarQuote.Final_Price_Loan__c;
             }
             
             if(financeType == 'TPO') {
-                rateBand.rateAmount = solarEstimateAddress.Final_Price_TPO__c;
+                rateBand.rateAmount = solarQuote.Final_Price_TPO__c;
             }
             
             ArcadiaApiWrapper.RateInput rateInput = new ArcadiaApiWrapper.RateInput();
@@ -1061,14 +1061,14 @@ public without sharing class ArcadiaApiHelper {
             ArcadiaApiWrapper.PropertyInput propertyInput = new ArcadiaApiWrapper.PropertyInput();
             propertyInput.scenarios = 'before';
             propertyInput.keyName = 'masterTariffId';
-            propertyInput.dataValue = solarEstimateAddress.Master_Tariff_Id__c;
+            propertyInput.dataValue = solarQuote.Master_Tariff_Id__c;
             
             propertyInputs.add(propertyInput);
             
             propertyInput = new ArcadiaApiWrapper.PropertyInput();
             propertyInput.scenarios = 'after';
             propertyInput.keyName = 'masterTariffId';
-            propertyInput.dataValue = solarEstimateAddress.Master_Tariff_Id__c;
+            propertyInput.dataValue = solarQuote.Master_Tariff_Id__c;
             
             propertyInputs.add(propertyInput);
             
@@ -1094,22 +1094,22 @@ public without sharing class ArcadiaApiHelper {
             propertyInput = new ArcadiaApiWrapper.PropertyInput();
             propertyInput.scenarios = 'before,after';
             propertyInput.keyName = 'providerProfileId';
-            propertyInput.dataValue = solarEstimateAddress.Provider_Account_Id__c + '-bills';
+            propertyInput.dataValue = solarQuote.Provider_Account_Id__c + '-bills';
             
             propertyInputs.add(propertyInput);
             
             String solarProviderProfileIds;
             
             if(financeType == 'Cash') {
-                solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_Cash__c;
+                solarProviderProfileIds = solarQuote.Solar_Provider_Profile_Ids_Cash__c;
             }
             
             if(financeType == 'Loan') {
-                solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_Loan__c;
+                solarProviderProfileIds = solarQuote.Solar_Provider_Profile_Ids_Loan__c;
             }
             
             if(financeType == 'TPO') {
-                solarProviderProfileIds = solarEstimateAddress.Solar_Provider_Profile_Ids_TPO__c;
+                solarProviderProfileIds = solarQuote.Solar_Provider_Profile_Ids_TPO__c;
             }
             
             for(String solarProviderProfileId : solarProviderProfileIds.split(',')) {
@@ -1124,15 +1124,15 @@ public without sharing class ArcadiaApiHelper {
             String storageProviderProfileId;
             
             if(financeType == 'Cash') {
-                storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_Cash__c;
+                storageProviderProfileId = solarQuote.Storage_Profile_Id_Cash__c;
             }
             
             if(financeType == 'Loan') {
-                storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_Loan__c;
+                storageProviderProfileId = solarQuote.Storage_Profile_Id_Loan__c;
             }
             
             if(financeType == 'TPO') {
-                storageProviderProfileId = solarEstimateAddress.Storage_Profile_Id_TPO__c;
+                storageProviderProfileId = solarQuote.Storage_Profile_Id_TPO__c;
             }
             
             if(String.isNotBlank(storageProviderProfileId)) {
@@ -1145,7 +1145,7 @@ public without sharing class ArcadiaApiHelper {
             }
             
             ArcadiaApiWrapper.AnalysisRequest apiPayload = new ArcadiaApiWrapper.AnalysisRequest();
-            apiPayload.providerAccountId = solarEstimateAddress.Provider_Account_Id__c;
+            apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
             apiPayload.fromDateTime = fromDateTime;
             apiPayload.autoBaseline = true;
             apiPayload.useIntelligentBaselining = true;
@@ -1188,19 +1188,19 @@ public without sharing class ArcadiaApiHelper {
                     return analysisResult;
                     
                 } else {
-                    Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                    Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                     
                     errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                 }
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
@@ -1214,7 +1214,7 @@ public without sharing class ArcadiaApiHelper {
         return null;
     }
     
-    public static Map<String, Decimal> getTypicalAnalysis(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static Map<String, Decimal> getTypicalAnalysis(Solar_Quote__c solarQuote) {
         
         HttpRequest request;
         HttpResponse response;
@@ -1302,13 +1302,13 @@ public without sharing class ArcadiaApiHelper {
             propertyInput = new ArcadiaApiWrapper.PropertyInput();
             propertyInput.keyName = 'masterTariffId';
             propertyInput.dataType = 'INTEGER';
-            propertyInput.dataValue = solarEstimateAddress.Master_Tariff_Id__c;
+            propertyInput.dataValue = solarQuote.Master_Tariff_Id__c;
             propertyInput.scenarios = 'before';
             
             propertyInputs.add(propertyInput);
             
             ArcadiaApiWrapper.AnalysisRequest apiPayload = new ArcadiaApiWrapper.AnalysisRequest();
-            apiPayload.providerAccountId = solarEstimateAddress.Provider_Account_Id__c;
+            apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
             apiPayload.fromDateTime = fromDateTime;
             apiPayload.propertyInputs = propertyInputs;
             apiPayload.rateInputs = new List<ArcadiaApiWrapper.RateInput>{rateInput};
@@ -1350,19 +1350,19 @@ public without sharing class ArcadiaApiHelper {
                     return analysisResult;
                     
                 } else {
-                    Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                    Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                     
                     errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
                 }
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }

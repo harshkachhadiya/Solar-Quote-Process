@@ -10,6 +10,28 @@
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
-        <valueSetName>Unit_Of_Measure</valueSetName>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Each</fullName>
+                <default>false</default>
+                <label>Each</label>
+            </value>
+            <value>
+                <fullName>Flat Fee</fullName>
+                <default>false</default>
+                <label>Flat Fee</label>
+            </value>
+            <value>
+                <fullName>Per Watt</fullName>
+                <default>false</default>
+                <label>Per Watt</label>
+            </value>
+            <value>
+                <fullName>Bid Price</fullName>
+                <default>false</default>
+                <label>Bid Price</label>
+            </value>
+        </valueSetDefinition>
     </valueSet>
 </CustomField>

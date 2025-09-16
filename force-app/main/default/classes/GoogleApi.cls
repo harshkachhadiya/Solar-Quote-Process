@@ -2,7 +2,7 @@ public without sharing class GoogleApi {
 
     private static Google_Api_Configuration__mdt configuration;
     
-    public ArcadiaApi() {
+    public GoogleApi() {
         if (configuration == null) {
             Map<String, Google_Api_Configuration__mdt> configurations = Google_Api_Configuration__mdt.getAll();
             
@@ -13,8 +13,6 @@ public without sharing class GoogleApi {
             configuration = configurations.values()[0];
         }
     }
-    
-    private static Google_Api_Configuration__mdt configuration = Google_Api_Configuration__mdt.getAll().values()[0];
     
     public HttpRequest geocode(String address) {
         return buildRequest('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=' + EncodingUtil.urlEncode(address, 'UTF-8'), null);

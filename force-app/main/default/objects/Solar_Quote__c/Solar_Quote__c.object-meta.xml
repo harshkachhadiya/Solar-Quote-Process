@@ -129,7 +129,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Solar_Estimate_Address_Record_Page</content>
+        <content>Solar_Quote_Record_Page</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -137,7 +137,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Solar_Estimate_Address_Record_Page</content>
+        <content>Solar_Quote_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -159,13 +159,13 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Solar Estimate Address</label>
+    <label>Solar Quote</label>
     <nameField>
-        <displayFormat>SEA-{0000000}</displayFormat>
-        <label>Solar Estimate Address Name</label>
+        <displayFormat>SQ-{0000000}</displayFormat>
+        <label>Solar Quote Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Solar Estimate Addresses</pluralLabel>
+    <pluralLabel>Solar Quotes</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

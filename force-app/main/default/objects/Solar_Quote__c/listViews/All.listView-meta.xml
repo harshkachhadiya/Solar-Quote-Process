@@ -7,8 +7,8 @@
     <columns>Postal_Code__c</columns>
     <columns>LSE_Id__c</columns>
     <columns>Average_Monthly_Bill__c</columns>
-    <columns>Initiate_Solar_Estimate_Process__c</columns>
-    <columns>Failed_Solar_Estimate_Process__c</columns>
+    <columns>Initiate_Solar_Quote_Process__c</columns>
+    <columns>Failed_Solar_Quote_Process__c</columns>
     <columns>Last_Process_Run_Timestamp__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>

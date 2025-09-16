@@ -4,15 +4,15 @@ public with sharing class GoogleApiTest {
     @IsTest
     static void getGeocodeTest() {
         
-        TestMockCallouts callouts = new TestMockCallouts();
+        HttpCalloutMockUtility callouts = new HttpCalloutMockUtility();
         
-        TestMockCallouts.ResponseMock callout = new TestMockCallouts.ResponseMock(
+        HttpCalloutMockUtility.ResponseMock callout = new HttpCalloutMockUtility.ResponseMock(
             'https://maps.googleapis.com/maps/api/geocode/json',
             200, 
             '{"results":[{"geometry":{"location":{"lat":1,"lng":1}}}]}'
         );
         
-        callout.setEndpointStartsWithEnabled(true);
+        callout.withMatchingStrategy(HttpCalloutMockUtility.MatchingStrategy.STARTS_WITH);
         
         callouts.add(callout);
         
@@ -37,15 +37,15 @@ public with sharing class GoogleApiTest {
     @IsTest
     static void buildingInsightsTest() {
         
-        TestMockCallouts callouts = new TestMockCallouts();
+        HttpCalloutMockUtility callouts = new HttpCalloutMockUtility();
         
-        TestMockCallouts.ResponseMock callout = new TestMockCallouts.ResponseMock(
+        HttpCalloutMockUtility.ResponseMock callout = new HttpCalloutMockUtility.ResponseMock(
             'https://solar.googleapis.com/v1/buildingInsights:findClosest',
             200, 
             '{"solarPotential":{"maxSunshineHoursPerYear":10,"maxArrayPanelsCount":10,"carbonOffsetFactorKgPerMwh":10,"maxArrayAreaMeters2":10, "solarPanelConfigs":[{"panelsCount":10,"yearlyEnergyDcKwh":10,"roofSegmentSummaries":[{"panelsCount":10,"pitchDegrees":10,"azimuthDegrees":10}]}]}}'
         );
         
-        callout.setEndpointStartsWithEnabled(true);
+        callout.withMatchingStrategy(HttpCalloutMockUtility.MatchingStrategy.STARTS_WITH);
         
         callouts.add(callout);
         

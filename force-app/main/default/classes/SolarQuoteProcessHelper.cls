@@ -1,9 +1,9 @@
-public without sharing class SolarEstimateProcessHelper {
+public without sharing class SolarQuoteProcessHelper {
     
     private static Integer maxBatteriesCount = 3;
     
     @AuraEnabled
-    public static Map<String, String> getDefaultValuesForSolarEstimate() {
+    public static Map<String, String> getDefaultValuesForSolarQuoteProcess() {
         
         Map<String, String> result = new Map<String, String>();
         
@@ -51,7 +51,7 @@ public without sharing class SolarEstimateProcessHelper {
     }
     
     @AuraEnabled
-    public static Solar_Estimate_Address__c upsertSolarEstimateAddress(Id recordId) {
+    public static Solar_Quote__c upsertSolarQuote(Id recordId) {
         
         String sObjectApiName = SObjectUtil.getSObjectApiNameById(recordId);
         
@@ -59,52 +59,52 @@ public without sharing class SolarEstimateProcessHelper {
             
             Lead ld = (Lead) SObjectUtil.getSObjectDetailsById(recordId);
             
-            Solar_Estimate_Address__c solarEstimateAddress = new Solar_Estimate_Address__c();
-            solarEstimateAddress.Id = ld.Solar_Estimate_Address__c;
-            solarEstimateAddress.Lead__c = ld.Id;
-            solarEstimateAddress.Address__c = ld.Address_Formula__c;
+            Solar_Quote__c solarQuote = new Solar_Quote__c();
+            // solarQuote.Id = ld.Solar_Quote__c;
+            solarQuote.Lead__c = ld.Id;
+            solarQuote.Address__c = ld.Address_Formula__c;
             
             if(ld.Latitude != null
                && ld.Longitude!= null) 
             {
-                solarEstimateAddress.Latitude__c = ld.Latitude;
-                solarEstimateAddress.Longitude__c = ld.Longitude;
+                solarQuote.Latitude__c = ld.Latitude;
+                solarQuote.Longitude__c = ld.Longitude;
             }
             
-            solarEstimateAddress.State__c = ld.State;
-            solarEstimateAddress.Postal_Code__c = ld.PostalCode;
-            solarEstimateAddress.LSE_Id__c = ld.Lse_Id__c;
-            solarEstimateAddress.Average_Monthly_Bill__c = ld.Average_Monthly_Bill__c;
-            solarEstimateAddress.Preferred_Finance_Type__c = 'TPO';
-            upsert solarEstimateAddress;
+            solarQuote.State__c = ld.State;
+            solarQuote.Postal_Code__c = ld.PostalCode;
+            solarQuote.LSE_Id__c = ld.Lse_Id__c;
+            solarQuote.Average_Monthly_Bill__c = ld.Average_Monthly_Bill__c;
+            solarQuote.Preferred_Finance_Type__c = 'TPO';
+            upsert solarQuote;
             
-            return solarEstimateAddress;
+            return solarQuote;
         }
         
         return null;
     }
     
     @AuraEnabled
-    public static void startGeneralProcess(Id solarEstimateAddressId) { 
+    public static void startGeneralProcess(Id solarQuoteId) { 
         
-        Solar_Estimate_Address__c solarEstimateAddress = (Solar_Estimate_Address__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddressId);
+        Solar_Quote__c solarQuote = (Solar_Quote__c) SObjectUtil.getSObjectDetailsById(solarQuoteId);
         String errorMessage;
         
         try {
             
             List<Genability_Provider_Account_Id__c> genabilityProviderAccountIds = new List<Genability_Provider_Account_Id__c>();
             
-            if(String.isNotBlank(solarEstimateAddress.Genability_Provider_Account_Id__c)) {
+            if(String.isNotBlank(solarQuote.Genability_Provider_Account_Id__c)) {
                 
                 genabilityProviderAccountIds = [SELECT Id, Provider_Account_Id__c, First_Used_Date_Time__c 
                                                 FROM Genability_Provider_Account_Id__c 
-                                                WHERE Id = :solarEstimateAddress.Genability_Provider_Account_Id__c
+                                                WHERE Id = :solarQuote.Genability_Provider_Account_Id__c
                                                 LIMIT 1];
             } 
             
             if(genabilityProviderAccountIds.isEmpty()) { 
                 
-                State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarEstimateAddress.State_Lookup__c);
+                State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarQuote.State_Lookup__c);
                 
                 if(state.Auto_Recommend_Battery__c) {
                     genabilityProviderAccountIds = [SELECT Id, Provider_Account_Id__c, First_Used_Date_Time__c 
@@ -134,31 +134,31 @@ public without sharing class SolarEstimateProcessHelper {
                 
                 genabilityProviderAccountIds[0].Last_Used_Date_Time__c = currentDateTime;    
                 
-                solarEstimateAddress.Genability_Provider_Account_Id__c = genabilityProviderAccountIds[0].Id;
+                solarQuote.Genability_Provider_Account_Id__c = genabilityProviderAccountIds[0].Id;
                 
-                if(solarEstimateAddress.City_Tier__c == null) {
-                    solarEstimateAddress.City_Tier__c = VitlApiHelper.getCitiesFromZip(solarEstimateAddress.Postal_Code__c).cities[0].tier;
+                if(solarQuote.City_Tier__c == null) {
+                    solarQuote.City_Tier__c = VitlApiHelper.getCitiesFromZip(solarQuote.Postal_Code__c).cities[0].tier;
                 }
                 
-                if(solarEstimateAddress.Latitude__c == null 
-                   || solarEstimateAddress.Longitude__c == null)
+                if(solarQuote.Latitude__c == null 
+                   || solarQuote.Longitude__c == null)
                 {
-                    GoogleApiWrapper.Location location = GoogleApiHelper.getGeocode(solarEstimateAddress.Address__c);
+                    GoogleApiWrapper.Location location = GoogleApiHelper.getGeocode(solarQuote.Address__c);
                     
                     if(location != null) {
-                        solarEstimateAddress.Latitude__c = location.lat;
-                        solarEstimateAddress.Longitude__c = location.lng;
+                        solarQuote.Latitude__c = location.lat;
+                        solarQuote.Longitude__c = location.lng;
                     }
                 }
                 
-                solarEstimateAddress.Completed_General_Process__c = true;
+                solarQuote.Completed_General_Process__c = true;
                 
                 update genabilityProviderAccountIds[0];
                 
-                update solarEstimateAddress;
+                update solarQuote;
                 
             } else {
-                Logger.error('Error: No matching ProviderAccountId found.', solarEstimateAddress.Id);
+                Logger.error('Error: No matching ProviderAccountId found.', solarQuote.Id);
                 
                 Logger.saveLog();
                 
@@ -166,23 +166,23 @@ public without sharing class SolarEstimateProcessHelper {
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex);
+            Logger.error('Exception', solarQuote.Id, ex);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }
         
         if(String.isNotBlank(errorMessage)) {
-            solarEstimateAddress.Failed_Solar_Estimate_Process__c = true;
+            solarQuote.Failed_Solar_Quote_Process__c = true;
             
-            update solarEstimateAddress; 
+            update solarQuote; 
         }
     }
     
-    public static List<GoogleApiWrapper.RoofSegmentSummary> prepareRoofSegmentSummaries(Solar_Estimate_Address__c solarEstimateAddress, GoogleApiWrapper.BuildingInsightsResponse buildingInsightsResponse, Integer panelsCount) {
+    public static List<GoogleApiWrapper.RoofSegmentSummary> prepareRoofSegmentSummaries(Solar_Quote__c solarQuote, GoogleApiWrapper.BuildingInsightsResponse buildingInsightsResponse, Integer panelsCount) {
         
         List<GoogleApiWrapper.RoofSegmentSummary> roofSegmentSummaries = new List<GoogleApiWrapper.RoofSegmentSummary>();
         
-        if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount') {
+        if(solarQuote.Ground_Mount__c == 'Standard Ground Mount') {
             GoogleApiWrapper.RoofSegmentSummary roofSegmentSummary = new GoogleApiWrapper.RoofSegmentSummary();
             roofSegmentSummary.azimuthDegrees = 180;
             roofSegmentSummary.pitchDegrees = 20;
@@ -190,7 +190,7 @@ public without sharing class SolarEstimateProcessHelper {
             
             roofSegmentSummaries.add(roofSegmentSummary);
             
-        } else if(solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') {
+        } else if(solarQuote.Ground_Mount__c == 'Shade Structure Ground Mount') {
             GoogleApiWrapper.RoofSegmentSummary roofSegmentSummary = new GoogleApiWrapper.RoofSegmentSummary();
             roofSegmentSummary.azimuthDegrees = 180;
             roofSegmentSummary.pitchDegrees = 0;
@@ -198,7 +198,7 @@ public without sharing class SolarEstimateProcessHelper {
             
             roofSegmentSummaries.add(roofSegmentSummary);
             
-        } else if(solarEstimateAddress.Failed_Google_Building_Insights__c) {
+        } else if(solarQuote.Failed_Google_Building_Insights__c) {
             
             Integer baseCount = panelsCount / 3;
             Integer remainder = panelsCount - (3 * baseCount);
@@ -227,46 +227,46 @@ public without sharing class SolarEstimateProcessHelper {
         return roofSegmentSummaries;
     }
     
-    public static void doCashCalculation(Solar_Estimate_Address__c solarEstimateAddress, State__c state, Map<String, List<Decimal>> backupBatteryPrices,
+    public static void doCashCalculation(Solar_Quote__c solarQuote, State__c state, Map<String, List<Decimal>> backupBatteryPrices,
                                          Decimal cityTierCost, Decimal pitchDegreesCost, Decimal solarTaxFilingServiceCost)
     {
-        solarEstimateAddress.Finance_Type_Available_Cash__c = String.isNotBlank(state.Cash_Panel__c) 
+        solarQuote.Finance_Type_Available_Cash__c = String.isNotBlank(state.Cash_Panel__c) 
             && state.Cash_Panel__r.Production__c > 0
             && state.Cash_PPW__c > 0
             && state.Cash_Preferred__r.Dealer_Fee__c > 0 
             && state.Cash_Preferred__r.Dealer_Fee__c != 100;
         
-        if(solarEstimateAddress.Finance_Type_Available_Cash__c) {
-            solarEstimateAddress.Batteries_Available_Cash__c =  backupBatteryPrices.containsKey('Cash');
+        if(solarQuote.Finance_Type_Available_Cash__c) {
+            solarQuote.Batteries_Available_Cash__c =  backupBatteryPrices.containsKey('Cash');
             
-            solarEstimateAddress.System_Size_kW_Cash__c = (solarEstimateAddress.Panels_Count__c * state.Cash_Panel__r.Production__c) / 1000;
-            solarEstimateAddress.Additional_Cost_Cash__c = SolarEstimateProcessHelper.doAdditionalCostCalculation(solarEstimateAddress, backupBatteryPrices, 'Cash');
-            solarEstimateAddress.Base_System_Cost_Cash__c = solarEstimateAddress.System_Size_kW_Cash__c * state.Cash_PPW__c * 1000;
-            solarEstimateAddress.Total_System_Cost_Cash__c = solarEstimateAddress.Base_System_Cost_Cash__c + solarEstimateAddress.Additional_Cost_Cash__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
-            solarEstimateAddress.Gross_System_Cost_Cash__c = solarEstimateAddress.Total_System_Cost_Cash__c / (1 - (state.Cash_Preferred__r.Dealer_Fee__c / 100));
-            solarEstimateAddress.Federal_ITC_Cash__c = solarEstimateAddress.Gross_System_Cost_Cash__c * 0.3;
-            solarEstimateAddress.Domestic_Content_Credit_Cash__c = solarEstimateAddress.Gross_System_Cost_Cash__c * 0.1;
-            solarEstimateAddress.Depreciation_Cash__c = solarEstimateAddress.Solar_Tax_Filing_Service__c
-                ? getDepreciation(solarEstimateAddress, state, 'Cash')
+            solarQuote.System_Size_kW_Cash__c = (solarQuote.Panels_Count__c * state.Cash_Panel__r.Production__c) / 1000;
+            solarQuote.Additional_Cost_Cash__c = SolarQuoteProcessHelper.doAdditionalCostCalculation(solarQuote, backupBatteryPrices, 'Cash');
+            solarQuote.Base_System_Cost_Cash__c = solarQuote.System_Size_kW_Cash__c * state.Cash_PPW__c * 1000;
+            solarQuote.Total_System_Cost_Cash__c = solarQuote.Base_System_Cost_Cash__c + solarQuote.Additional_Cost_Cash__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
+            solarQuote.Gross_System_Cost_Cash__c = solarQuote.Total_System_Cost_Cash__c / (1 - (state.Cash_Preferred__r.Dealer_Fee__c / 100));
+            solarQuote.Federal_ITC_Cash__c = solarQuote.Gross_System_Cost_Cash__c * 0.3;
+            solarQuote.Domestic_Content_Credit_Cash__c = solarQuote.Gross_System_Cost_Cash__c * 0.1;
+            solarQuote.Depreciation_Cash__c = solarQuote.Solar_Tax_Filing_Service__c
+                ? getDepreciation(solarQuote, state, 'Cash')
                 : 0;
-            solarEstimateAddress.Incentives_Cash__c = solarEstimateAddress.Federal_ITC_Cash__c + solarEstimateAddress.Domestic_Content_Credit_Cash__c + solarEstimateAddress.Depreciation_Cash__c;
-            solarEstimateAddress.Final_Price_Cash__c = solarEstimateAddress.Gross_System_Cost_Cash__c - solarEstimateAddress.Incentives_Cash__c;
+            solarQuote.Incentives_Cash__c = solarQuote.Federal_ITC_Cash__c + solarQuote.Domestic_Content_Credit_Cash__c + solarQuote.Depreciation_Cash__c;
+            solarQuote.Final_Price_Cash__c = solarQuote.Gross_System_Cost_Cash__c - solarQuote.Incentives_Cash__c;
             
-            Decimal competitorBaseSystemCostCash = solarEstimateAddress.System_Size_kW_Cash__c * state.Competitor_Cash_PPW__c * 1000;
-            Decimal competitorSystemCostCash = competitorBaseSystemCostCash + solarEstimateAddress.Additional_Cost_Cash__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
+            Decimal competitorBaseSystemCostCash = solarQuote.System_Size_kW_Cash__c * state.Competitor_Cash_PPW__c * 1000;
+            Decimal competitorSystemCostCash = competitorBaseSystemCostCash + solarQuote.Additional_Cost_Cash__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
             Decimal competitorGrossSystemCostCash = competitorSystemCostCash / (1 - (state.Cash_Preferred__r.Dealer_Fee__c / 100));
             Decimal competitorFederalITCCash = competitorGrossSystemCostCash * 0.3;
             Decimal competitorIncentivesCash = competitorFederalITCCash;
             
-            solarEstimateAddress.Competitor_Incentives_Cash__c = competitorIncentivesCash;
-            solarEstimateAddress.Competitor_Final_Price_Cash__c = competitorGrossSystemCostCash - competitorIncentivesCash;
+            solarQuote.Competitor_Incentives_Cash__c = competitorIncentivesCash;
+            solarQuote.Competitor_Final_Price_Cash__c = competitorGrossSystemCostCash - competitorIncentivesCash;
         }
     }
     
-    public static void doLoanCalculation(Solar_Estimate_Address__c solarEstimateAddress, State__c state, Map<String, List<Decimal>> backupBatteryPrices,
+    public static void doLoanCalculation(Solar_Quote__c solarQuote, State__c state, Map<String, List<Decimal>> backupBatteryPrices,
                                          Decimal cityTierCost, Decimal pitchDegreesCost, Decimal solarTaxFilingServiceCost) 
     {
-        solarEstimateAddress.Finance_Type_Available_Loan__c = String.isNotBlank(state.Loan_Panel__c) 
+        solarQuote.Finance_Type_Available_Loan__c = String.isNotBlank(state.Loan_Panel__c) 
             && state.Loan_Panel__r.Production__c > 0
             && state.Loan_PPW__c > 0
             && String.isNotBlank(state.Loan_Panel__c) 
@@ -274,76 +274,76 @@ public without sharing class SolarEstimateProcessHelper {
             && state.Loan_Preferred__r.Dealer_Fee__c != 100
             && state.Loan_Preferred__r.Payment_Factor_1__c > 0;
         
-        if(solarEstimateAddress.Finance_Type_Available_Loan__c) {
-            solarEstimateAddress.Batteries_Available_Loan__c =  backupBatteryPrices.containsKey('Loan');
+        if(solarQuote.Finance_Type_Available_Loan__c) {
+            solarQuote.Batteries_Available_Loan__c =  backupBatteryPrices.containsKey('Loan');
             
-            solarEstimateAddress.System_Size_kW_Loan__c = (solarEstimateAddress.Panels_Count__c * state.Loan_Panel__r.Production__c) / 1000;
-            solarEstimateAddress.Additional_Cost_Loan__c = SolarEstimateProcessHelper.doAdditionalCostCalculation(solarEstimateAddress, backupBatteryPrices, 'Loan');
-            solarEstimateAddress.Base_System_Cost_Loan__c = solarEstimateAddress.System_Size_kW_Loan__c * state.Loan_PPW__c * 1000;
-            solarEstimateAddress.Total_System_Cost_Loan__c = solarEstimateAddress.Base_System_Cost_Loan__c + solarEstimateAddress.Additional_Cost_Loan__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
-            solarEstimateAddress.Gross_System_Cost_Loan__c = solarEstimateAddress.Total_System_Cost_Loan__c / (1 - (state.Loan_Preferred__r.Dealer_Fee__c / 100));
-            solarEstimateAddress.Federal_ITC_Loan__c = solarEstimateAddress.Gross_System_Cost_Loan__c * 0.3;
-            solarEstimateAddress.Domestic_Content_Credit_Loan__c = solarEstimateAddress.Gross_System_Cost_Loan__c * 0.1;
-            solarEstimateAddress.Depreciation_Loan__c = solarEstimateAddress.Solar_Tax_Filing_Service__c
-                ? getDepreciation(solarEstimateAddress, state, 'Loan')
+            solarQuote.System_Size_kW_Loan__c = (solarQuote.Panels_Count__c * state.Loan_Panel__r.Production__c) / 1000;
+            solarQuote.Additional_Cost_Loan__c = SolarQuoteProcessHelper.doAdditionalCostCalculation(solarQuote, backupBatteryPrices, 'Loan');
+            solarQuote.Base_System_Cost_Loan__c = solarQuote.System_Size_kW_Loan__c * state.Loan_PPW__c * 1000;
+            solarQuote.Total_System_Cost_Loan__c = solarQuote.Base_System_Cost_Loan__c + solarQuote.Additional_Cost_Loan__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
+            solarQuote.Gross_System_Cost_Loan__c = solarQuote.Total_System_Cost_Loan__c / (1 - (state.Loan_Preferred__r.Dealer_Fee__c / 100));
+            solarQuote.Federal_ITC_Loan__c = solarQuote.Gross_System_Cost_Loan__c * 0.3;
+            solarQuote.Domestic_Content_Credit_Loan__c = solarQuote.Gross_System_Cost_Loan__c * 0.1;
+            solarQuote.Depreciation_Loan__c = solarQuote.Solar_Tax_Filing_Service__c
+                ? getDepreciation(solarQuote, state, 'Loan')
                 : 0;
-            solarEstimateAddress.Incentives_Loan__c = solarEstimateAddress.Federal_ITC_Loan__c + solarEstimateAddress.Domestic_Content_Credit_Loan__c + solarEstimateAddress.Depreciation_Loan__c;
-            solarEstimateAddress.Final_Price_Loan__c = solarEstimateAddress.Gross_System_Cost_Loan__c * state.Loan_Preferred__r.Payment_Factor_1__c;
+            solarQuote.Incentives_Loan__c = solarQuote.Federal_ITC_Loan__c + solarQuote.Domestic_Content_Credit_Loan__c + solarQuote.Depreciation_Loan__c;
+            solarQuote.Final_Price_Loan__c = solarQuote.Gross_System_Cost_Loan__c * state.Loan_Preferred__r.Payment_Factor_1__c;
             
-            Decimal competitorBaseSystemCostLoan = solarEstimateAddress.System_Size_kW_Loan__c * state.Competitor_Cash_PPW__c * 1000;
-            Decimal competitorSystemCostLoan = competitorBaseSystemCostLoan + solarEstimateAddress.Additional_Cost_Loan__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
+            Decimal competitorBaseSystemCostLoan = solarQuote.System_Size_kW_Loan__c * state.Competitor_Cash_PPW__c * 1000;
+            Decimal competitorSystemCostLoan = competitorBaseSystemCostLoan + solarQuote.Additional_Cost_Loan__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
             Decimal competitorGrossSystemCostLoan = competitorSystemCostLoan / (1 - (state.Loan_Competitor__r.Dealer_Fee__c / 100));
             Decimal competitorFederalITCLoan = competitorGrossSystemCostLoan * 0.3;
             Decimal competitorIncentivesLoan = competitorFederalITCLoan;
             Decimal competitorFinalPriceLoan = competitorGrossSystemCostLoan * state.Loan_Competitor__r.Payment_Factor_1__c;
             
-            solarEstimateAddress.Competitor_Incentives_Loan__c = competitorIncentivesLoan;
-            solarEstimateAddress.Competitor_Final_Price_Loan__c = competitorFinalPriceLoan;
+            solarQuote.Competitor_Incentives_Loan__c = competitorIncentivesLoan;
+            solarQuote.Competitor_Final_Price_Loan__c = competitorFinalPriceLoan;
         }
     }
     
-    public static void doTPOCalculation(Solar_Estimate_Address__c solarEstimateAddress, State__c state, Map<String, List<Decimal>> backupBatteryPrices,
+    public static void doTPOCalculation(Solar_Quote__c solarQuote, State__c state, Map<String, List<Decimal>> backupBatteryPrices,
                                         Decimal cityTierCost, Decimal pitchDegreesCost, Decimal solarTaxFilingServiceCost) 
     {
-        solarEstimateAddress.Finance_Type_Available_TPO__c = String.isNotBlank(state.TPO_Panel__c) 
+        solarQuote.Finance_Type_Available_TPO__c = String.isNotBlank(state.TPO_Panel__c) 
             && state.TPO_Panel__r.Production__c > 0
             && state.TPO_PPW__c > 0;
         
-        if(solarEstimateAddress.Finance_Type_Available_TPO__c) {
-            solarEstimateAddress.Batteries_Available_TPO__c =  backupBatteryPrices.containsKey('TPO');
+        if(solarQuote.Finance_Type_Available_TPO__c) {
+            solarQuote.Batteries_Available_TPO__c =  backupBatteryPrices.containsKey('TPO');
             
-            solarEstimateAddress.System_Size_kW_TPO__c = (solarEstimateAddress.Panels_Count__c * state.TPO_Panel__r.Production__c) / 1000;
-            solarEstimateAddress.Additional_Cost_TPO__c = SolarEstimateProcessHelper.doAdditionalCostCalculation(solarEstimateAddress, backupBatteryPrices, 'TPO');
-            solarEstimateAddress.Base_System_Cost_TPO__c = solarEstimateAddress.System_Size_kW_TPO__c * state.TPO_PPW__c * 1000;
-            solarEstimateAddress.Total_System_Cost_TPO__c = solarEstimateAddress.Base_System_Cost_TPO__c + solarEstimateAddress.Additional_Cost_TPO__c + cityTierCost + pitchDegreesCost + (state.TPO_Type__c == 'Lease' ? solarTaxFilingServiceCost : 0);
-            solarEstimateAddress.Target_PPW_TPO__c = solarEstimateAddress.Total_System_Cost_TPO__c / (solarEstimateAddress.System_Size_kW_TPO__c * 1000);
-            solarEstimateAddress.Solar_Production_TPO__c = roundDownToNearest(solarEstimateAddress.Annual_kWh_Arcadia__c / solarEstimateAddress.System_Size_kW_TPO__c, 50);
+            solarQuote.System_Size_kW_TPO__c = (solarQuote.Panels_Count__c * state.TPO_Panel__r.Production__c) / 1000;
+            solarQuote.Additional_Cost_TPO__c = SolarQuoteProcessHelper.doAdditionalCostCalculation(solarQuote, backupBatteryPrices, 'TPO');
+            solarQuote.Base_System_Cost_TPO__c = solarQuote.System_Size_kW_TPO__c * state.TPO_PPW__c * 1000;
+            solarQuote.Total_System_Cost_TPO__c = solarQuote.Base_System_Cost_TPO__c + solarQuote.Additional_Cost_TPO__c + cityTierCost + pitchDegreesCost + (state.TPO_Type__c == 'Lease' ? solarTaxFilingServiceCost : 0);
+            solarQuote.Target_PPW_TPO__c = solarQuote.Total_System_Cost_TPO__c / (solarQuote.System_Size_kW_TPO__c * 1000);
+            solarQuote.Solar_Production_TPO__c = roundDownToNearest(solarQuote.Annual_kWh_Arcadia__c / solarQuote.System_Size_kW_TPO__c, 50);
             
             List<Pricing_Cube__c> priceCubes = [SELECT Id, Price_per_kWh__c 
                                                 FROM Pricing_Cube__c 
-                                                WHERE Yield_Factor__c = :solarEstimateAddress.Solar_Production_TPO__c
-                                                AND Battery__c = :(solarEstimateAddress.Batteries_Available_TPO__c && solarEstimateAddress.Batteries_Count_TPO__c > 0)
-                                                AND PPW__c >= :solarEstimateAddress.Target_PPW_TPO__c
+                                                WHERE Yield_Factor__c = :solarQuote.Solar_Production_TPO__c
+                                                AND Battery__c = :(solarQuote.Batteries_Available_TPO__c && solarQuote.Batteries_Count_TPO__c > 0)
+                                                AND PPW__c >= :solarQuote.Target_PPW_TPO__c
                                                 ORDER BY PPW__c ASC 
                                                 LIMIT 1];
             
             if(priceCubes.isEmpty()) {
-                solarEstimateAddress.Finance_Type_Available_TPO__c = false;
+                solarQuote.Finance_Type_Available_TPO__c = false;
                 
             } else {
-                solarEstimateAddress.Price_Per_kWh_TPO__c = priceCubes[0].Price_per_kWh__c;
-                solarEstimateAddress.Final_Price_TPO__c = (solarEstimateAddress.Solar_Production_TPO__c * solarEstimateAddress.System_Size_kW_TPO__c * solarEstimateAddress.Price_Per_kWh_TPO__c) / 12;
+                solarQuote.Price_Per_kWh_TPO__c = priceCubes[0].Price_per_kWh__c;
+                solarQuote.Final_Price_TPO__c = (solarQuote.Solar_Production_TPO__c * solarQuote.System_Size_kW_TPO__c * solarQuote.Price_Per_kWh_TPO__c) / 12;
             }
         }
     }
     
-    public static Decimal getCityTierCost(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static Decimal getCityTierCost(Solar_Quote__c solarQuote) {
         
         List<Discount_Config__c> discountConfigs = [SELECT Price__c
                                                     FROM Discount_Config__c
                                                     WHERE Product__r.Name = 'Distance Adder'
-                                                    AND Min_Quantity__c = :solarEstimateAddress.City_Tier__c
-                                                    AND Max_Quantity__c = :solarEstimateAddress.City_Tier__c
+                                                    AND Min_Quantity__c = :solarQuote.City_Tier__c
+                                                    AND Max_Quantity__c = :solarQuote.City_Tier__c
                                                     LIMIT 1];
         
         return !discountConfigs.isEmpty() 
@@ -351,9 +351,9 @@ public without sharing class SolarEstimateProcessHelper {
             : 0;
     }
     
-    public static Decimal getPitchDegreesCost(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static Decimal getPitchDegreesCost(Solar_Quote__c solarQuote) {
         
-        if(solarEstimateAddress.Average_Pitch_Degrees__c <= 10) {
+        if(solarQuote.Average_Pitch_Degrees__c <= 10) {
             return 0;
         }
         
@@ -367,7 +367,7 @@ public without sharing class SolarEstimateProcessHelper {
             : 0;
     }
     
-    public static Decimal getSolarTaxFilingServiceCost(Solar_Estimate_Address__c solarEstimateAddress) {
+    public static Decimal getSolarTaxFilingServiceCost(Solar_Quote__c solarQuote) {
         
         List<Discount_Config__c> discountConfigs = [SELECT Price__c 
                                                     FROM Discount_Config__c 
@@ -379,28 +379,28 @@ public without sharing class SolarEstimateProcessHelper {
             : 0;
     }
     
-    private static Decimal doAdditionalCostCalculation(Solar_Estimate_Address__c solarEstimateAddress, Map<String, List<Decimal>> backupBatteryPrices, String financeType) {
+    private static Decimal doAdditionalCostCalculation(Solar_Quote__c solarQuote, Map<String, List<Decimal>> backupBatteryPrices, String financeType) {
         
         Decimal systemSize;
         Boolean batteriesAvailable;
         Decimal batteriesCount;
         
         if(financeType == 'Cash') {
-            systemSize = solarEstimateAddress.System_Size_kW_Cash__c;
-            batteriesAvailable = solarEstimateAddress.Batteries_Available_Cash__c;
-            batteriesCount = solarEstimateAddress.Batteries_Count_Cash__c;
+            systemSize = solarQuote.System_Size_kW_Cash__c;
+            batteriesAvailable = solarQuote.Batteries_Available_Cash__c;
+            batteriesCount = solarQuote.Batteries_Count_Cash__c;
         }
         
         if(financeType == 'Loan') {
-            systemSize = solarEstimateAddress.System_Size_kW_Loan__c;
-            batteriesAvailable = solarEstimateAddress.Batteries_Available_Loan__c;
-            batteriesCount = solarEstimateAddress.Batteries_Count_Loan__c;
+            systemSize = solarQuote.System_Size_kW_Loan__c;
+            batteriesAvailable = solarQuote.Batteries_Available_Loan__c;
+            batteriesCount = solarQuote.Batteries_Count_Loan__c;
         }
         
         if(financeType == 'TPO') {
-            systemSize = solarEstimateAddress.System_Size_kW_TPO__c;
-            batteriesAvailable = solarEstimateAddress.Batteries_Available_TPO__c;
-            batteriesCount = solarEstimateAddress.Batteries_Count_TPO__c;
+            systemSize = solarQuote.System_Size_kW_TPO__c;
+            batteriesAvailable = solarQuote.Batteries_Available_TPO__c;
+            batteriesCount = solarQuote.Batteries_Count_TPO__c;
         }
         
         Decimal additionalCost = 0;
@@ -418,18 +418,18 @@ public without sharing class SolarEstimateProcessHelper {
         }
         
         if(financeType == 'Cash') {
-            solarEstimateAddress.Batteries_Cost_Cash__c = additionalCost;
+            solarQuote.Batteries_Cost_Cash__c = additionalCost;
         }
         
         if(financeType == 'Loan') {
-            solarEstimateAddress.Batteries_Cost_Loan__c = additionalCost;
+            solarQuote.Batteries_Cost_Loan__c = additionalCost;
         }
         
         if(financeType == 'TPO') {
-            solarEstimateAddress.Batteries_Cost_TPO__c = additionalCost;
+            solarQuote.Batteries_Cost_TPO__c = additionalCost;
         }
         
-        if(solarEstimateAddress.Ground_Mount__c == 'Standard Ground Mount') {
+        if(solarQuote.Ground_Mount__c == 'Standard Ground Mount') {
             List<Discount_Config__c> discountConfigs = [SELECT Min_Quantity__c, Max_Quantity__c, Price__c
                                                         FROM Discount_Config__c
                                                         WHERE Product__r.Name = 'Ground Mount'
@@ -441,7 +441,7 @@ public without sharing class SolarEstimateProcessHelper {
                 additionalCost += discountConfigs[0].Price__c * systemSize * 1000;
             }
             
-        } else if(solarEstimateAddress.Ground_Mount__c == 'Shade Structure Ground Mount') {
+        } else if(solarQuote.Ground_Mount__c == 'Shade Structure Ground Mount') {
             List<Discount_Config__c> discountConfigs = [SELECT Price__c
                                                         FROM Discount_Config__c
                                                         WHERE Product__r.Name = 'Shade Structure Ground Mount'];
@@ -451,11 +451,11 @@ public without sharing class SolarEstimateProcessHelper {
             }
         }
         
-        if(String.isNotBlank(solarEstimateAddress.Safe_Streets__c)) {
+        if(String.isNotBlank(solarQuote.Safe_Streets__c)) {
             
             List<Discount_Config__c> discountConfigs = [SELECT Price__c 
                                                         FROM Discount_Config__c 
-                                                        WHERE Product__r.Name = :('SafeStreets / Google Smart Home: ' + solarEstimateAddress.Safe_Streets__c)
+                                                        WHERE Product__r.Name = :('SafeStreets / Google Smart Home: ' + solarQuote.Safe_Streets__c)
                                                         LIMIT 1];
             
             if(!discountConfigs.isEmpty()) {
@@ -463,7 +463,7 @@ public without sharing class SolarEstimateProcessHelper {
             }
         }
         
-        if(solarEstimateAddress.Solar_Tax_Filing_Service__c) {
+        if(solarQuote.Solar_Tax_Filing_Service__c) {
             List<Discount_Config__c> discountConfigs = [SELECT Price__c
                                                         FROM Discount_Config__c 
                                                         WHERE Product__r.Name = 'Solar Tax Filing Service'
@@ -603,7 +603,7 @@ public without sharing class SolarEstimateProcessHelper {
         return result;
     }
     
-    public static Decimal getDepreciation(Solar_Estimate_Address__c solarEstimateAddress, State__c state, String financeType) {
+    public static Decimal getDepreciation(Solar_Quote__c solarQuote, State__c state, String financeType) {
         
         HttpRequest request;
         HttpResponse response;
@@ -618,8 +618,8 @@ public without sharing class SolarEstimateProcessHelper {
             apiPayload.key = 'a53dbdd6-46be-ef11-96cd-002248041955';
             
             if(financeType == 'Cash') {
-                apiPayload.systemprice = solarEstimateAddress.Gross_System_Cost_Cash__c;
-                apiPayload.kilowatts = solarEstimateAddress.System_Size_kW_Cash__c ;
+                apiPayload.systemprice = solarQuote.Gross_System_Cost_Cash__c;
+                apiPayload.kilowatts = solarQuote.System_Size_kW_Cash__c ;
                 apiPayload.purchased = true;
                 apiPayload.amountfinanced = 0; 
                 apiPayload.interestrate = 0;
@@ -627,17 +627,17 @@ public without sharing class SolarEstimateProcessHelper {
             }
             
             if(financeType == 'Loan') {
-                apiPayload.systemprice = solarEstimateAddress.Gross_System_Cost_Loan__c;
-                apiPayload.kilowatts = solarEstimateAddress.System_Size_kW_Loan__c;
+                apiPayload.systemprice = solarQuote.Gross_System_Cost_Loan__c;
+                apiPayload.kilowatts = solarQuote.System_Size_kW_Loan__c;
                 apiPayload.purchased = true;
-                apiPayload.amountfinanced = solarEstimateAddress.Gross_System_Cost_Loan__c; 
+                apiPayload.amountfinanced = solarQuote.Gross_System_Cost_Loan__c; 
                 apiPayload.interestrate = state.Loan_Preferred__r.APR__c;
                 apiPayload.loanterm = 25;
             }
             
             if(financeType == 'TPO') {
-                apiPayload.systemprice = solarEstimateAddress.Final_Price_TPO__c;
-                apiPayload.kilowatts = solarEstimateAddress.System_Size_kW_TPO__c;
+                apiPayload.systemprice = solarQuote.Final_Price_TPO__c;
+                apiPayload.kilowatts = solarQuote.System_Size_kW_TPO__c;
                 apiPayload.purchased = false; 
                 apiPayload.leasepayment = 290; 
                 apiPayload.leaseyears = 25;
@@ -677,13 +677,13 @@ public without sharing class SolarEstimateProcessHelper {
                 }               
                 
             } else {
-                Logger.error('Bad Response From API', solarEstimateAddress.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
+                Logger.error('Bad Response From API', solarQuote.Id).setHttpRequestDetails(request).setHttpResponseDetails(response);
                 
                 errorMessage = 'Bad Response From API. Status Code: ' + statusCode + ', Response Body: ' + responseBody;
             }
             
         } catch(Exception ex) {
-            Logger.error('Exception', solarEstimateAddress.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
+            Logger.error('Exception', solarQuote.Id, ex).setHttpRequestDetails(request).setHttpResponseDetails(response);
             
             errorMessage = 'Exception: ' + ex.getMessage();
         }

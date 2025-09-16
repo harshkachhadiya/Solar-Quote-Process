@@ -7,9 +7,6 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Solar_Estimate_Address__c.Initiate_Solar_Estimate_Process</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
@@ -1639,8 +1636,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Initiate_Solar_Estimate_Process__c</fieldItem>
-                <identifier>RecordInitiate_Solar_Estimate_Process_cField</identifier>
+                <fieldItem>Record.Initiate_Solar_Quote_Process__c</fieldItem>
+                <identifier>RecordInitiate_Solar_Quote_Process_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e7cee003-13ef-4293-adfd-6658ae98d250</name>
@@ -1653,8 +1650,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Manual_Initiate_Solar_Estimate_Process__c</fieldItem>
-                <identifier>RecordManual_Initiate_Solar_Estimate_Process_cField</identifier>
+                <fieldItem>Record.Manual_Initiate_Solar_Quote_Process__c</fieldItem>
+                <identifier>RecordManual_Initiate_Solar_Quote_Process_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-1b849759-7c20-4551-b01e-0ce69d73557f</name>
@@ -1835,8 +1832,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Failed_Solar_Estimate_Process__c</fieldItem>
-                <identifier>RecordFailed_Solar_Estimate_Process_cField</identifier>
+                <fieldItem>Record.Failed_Solar_Quote_Process__c</fieldItem>
+                <identifier>RecordFailed_Solar_Quote_Process_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c8c4f376-a376-4caf-8606-56517a937a02</name>
@@ -2074,9 +2071,9 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Solar Estimate Address Record Page</masterLabel>
+    <masterLabel>Solar Quote Record Page</masterLabel>
     <parentFlexiPage>flexipage__default_rec_L</parentFlexiPage>
-    <sobjectType>Solar_Estimate_Address__c</sobjectType>
+    <sobjectType>Solar_Quote__c</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
     </template>

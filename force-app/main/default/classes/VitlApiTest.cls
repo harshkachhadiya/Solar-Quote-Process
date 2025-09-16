@@ -4,15 +4,15 @@ public with sharing class VitlApiTest {
     @IsTest
     static void getCitiesFromZipTest() {
         
-        TestMockCallouts callouts = new TestMockCallouts();
+        HttpCalloutMockUtility callouts = new HttpCalloutMockUtility();
         
-        TestMockCallouts.ResponseMock callout = new TestMockCallouts.ResponseMock(
+        HttpCalloutMockUtility.ResponseMock callout = new HttpCalloutMockUtility.ResponseMock(
             'https://vitl-api.onrender.com/projects/lightspeed/getCitiesFromZip',
             200,
             '{"cities":[{"label":"Test","tier":1}]}'
         );
         
-        callout.setEndpointStartsWithEnabled(true);
+        callout.withMatchingStrategy(HttpCalloutMockUtility.MatchingStrategy.STARTS_WITH);
         
         callouts.add(callout);
         

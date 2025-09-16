@@ -1,5 +1,5 @@
 @IsTest
-public with sharing class SolarEstimateProcessHelperTest {
+public with sharing class SolarQuoteProcessHelperTest {
     
     @TestSetup
     static void setup() {
@@ -139,7 +139,7 @@ public with sharing class SolarEstimateProcessHelperTest {
     }
     
     @IsTest
-    static void solarEstimateProcessTest() {
+    static void solarQuoteProcessTest() {
         
         Lead ld = [SELECT Id 
                    FROM Lead 
@@ -147,15 +147,15 @@ public with sharing class SolarEstimateProcessHelperTest {
         
         Test.startTest();
         
-        Map<String, String> defaultValues = SolarEstimateProcessHelper.getDefaultValuesForSolarEstimate();
+        Map<String, String> defaultValues = SolarQuoteProcessHelper.getDefaultValuesForSolarQuoteProcess();
         
-        Solar_Estimate_Address__c solarEstimateAddress = SolarEstimateProcessHelper.upsertSolarEstimateAddress(ld.Id);
+        Solar_Quote__c solarQuote = SolarQuoteProcessHelper.upsertSolarQuote(ld.Id);
         
-        solarEstimateAddress.Safe_Streets__c = 'Basics Package';
-        solarEstimateAddress.Solar_Tax_Filing_Service__c = true;
-        solarEstimateAddress.Initiate_Solar_Estimate_Process__c = true;
+        solarQuote.Safe_Streets__c = 'Basics Package';
+        solarQuote.Solar_Tax_Filing_Service__c = true;
+        solarQuote.Initiate_Solar_Quote_Process__c = true;
         
-        update solarEstimateAddress;
+        update solarQuote;
         
         Test.stopTest();
     }

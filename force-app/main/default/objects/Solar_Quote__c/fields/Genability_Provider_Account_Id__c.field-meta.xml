@@ -4,8 +4,8 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <label>Genability Provider Account Id</label>
     <referenceTo>Genability_Provider_Account_Id__c</referenceTo>
-    <relationshipLabel>Solar Estimate Addresses</relationshipLabel>
-    <relationshipName>Solar_Estimate_Addresses</relationshipName>
+    <relationshipLabel>Solar Quotes</relationshipLabel>
+    <relationshipName>Solar_Quotes</relationshipName>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
