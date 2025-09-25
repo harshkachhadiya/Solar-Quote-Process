@@ -15,7 +15,7 @@
     </lookupFilter>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>States (Loan Panel)</relationshipLabel>
-    <relationshipName>States_loan_panel</relationshipName>
+    <relationshipName>States_Loan_Panel</relationshipName>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
