@@ -112,7 +112,6 @@
 		<members>Product2.Selectable_Item__c</members>
 		<members>Product2.Solar_DC_to_AC_Efficiency__c</members>
 		<members>Product2.Standard_Price__c</members>
-		<members>Product2.Status__c</members>
 		<members>Product2.Warranty__c</members>
 		<members>Product2.Width__c</members>
 		<members>Solar_Quote__c.Account_Id__c</members>
