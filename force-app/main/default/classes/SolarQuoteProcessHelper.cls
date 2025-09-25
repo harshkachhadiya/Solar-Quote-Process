@@ -272,7 +272,7 @@ public without sharing class SolarQuoteProcessHelper {
             && String.isNotBlank(state.Loan_Panel__c) 
             && state.Loan_Preferred__r.Dealer_Fee__c > 0 
             && state.Loan_Preferred__r.Dealer_Fee__c != 100
-            && state.Loan_Preferred__r.Payment_Factor_1__c > 0;
+            && state.Loan_Preferred__r.Payment_Factor__c > 0;
         
         if(solarQuote.Finance_Type_Available_Loan__c) {
             solarQuote.Batteries_Available_Loan__c =  backupBatteryPrices.containsKey('Loan');
@@ -288,14 +288,14 @@ public without sharing class SolarQuoteProcessHelper {
                 ? getDepreciation(solarQuote, state, 'Loan')
                 : 0;
             solarQuote.Incentives_Loan__c = solarQuote.Federal_ITC_Loan__c + solarQuote.Domestic_Content_Credit_Loan__c + solarQuote.Depreciation_Loan__c;
-            solarQuote.Final_Price_Loan__c = solarQuote.Gross_System_Cost_Loan__c * state.Loan_Preferred__r.Payment_Factor_1__c;
+            solarQuote.Final_Price_Loan__c = solarQuote.Gross_System_Cost_Loan__c * state.Loan_Preferred__r.Payment_Factor__c;
             
             Decimal competitorBaseSystemCostLoan = solarQuote.System_Size_kW_Loan__c * state.Competitor_Cash_PPW__c * 1000;
             Decimal competitorSystemCostLoan = competitorBaseSystemCostLoan + solarQuote.Additional_Cost_Loan__c + cityTierCost + pitchDegreesCost + solarTaxFilingServiceCost;
             Decimal competitorGrossSystemCostLoan = competitorSystemCostLoan / (1 - (state.Loan_Competitor__r.Dealer_Fee__c / 100));
             Decimal competitorFederalITCLoan = competitorGrossSystemCostLoan * 0.3;
             Decimal competitorIncentivesLoan = competitorFederalITCLoan;
-            Decimal competitorFinalPriceLoan = competitorGrossSystemCostLoan * state.Loan_Competitor__r.Payment_Factor_1__c;
+            Decimal competitorFinalPriceLoan = competitorGrossSystemCostLoan * state.Loan_Competitor__r.Payment_Factor__c;
             
             solarQuote.Competitor_Incentives_Loan__c = competitorIncentivesLoan;
             solarQuote.Competitor_Final_Price_Loan__c = competitorFinalPriceLoan;
@@ -319,7 +319,7 @@ public without sharing class SolarQuoteProcessHelper {
             solarQuote.Target_PPW_TPO__c = solarQuote.Total_System_Cost_TPO__c / (solarQuote.System_Size_kW_TPO__c * 1000);
             solarQuote.Solar_Production_TPO__c = roundDownToNearest(solarQuote.Annual_kWh_Arcadia__c / solarQuote.System_Size_kW_TPO__c, 50);
             
-            List<Pricing_Cube__c> priceCubes = [SELECT Id, Price_per_kWh__c 
+            List<Pricing_Cube__c> priceCubes = [SELECT Id, Price_Per_kWh__c 
                                                 FROM Pricing_Cube__c 
                                                 WHERE Yield_Factor__c = :solarQuote.Solar_Production_TPO__c
                                                 AND Battery__c = :(solarQuote.Batteries_Available_TPO__c && solarQuote.Batteries_Count_TPO__c > 0)
@@ -331,7 +331,7 @@ public without sharing class SolarQuoteProcessHelper {
                 solarQuote.Finance_Type_Available_TPO__c = false;
                 
             } else {
-                solarQuote.Price_Per_kWh_TPO__c = priceCubes[0].Price_per_kWh__c;
+                solarQuote.Price_Per_kWh_TPO__c = priceCubes[0].Price_Per_kWh__c;
                 solarQuote.Final_Price_TPO__c = (solarQuote.Solar_Production_TPO__c * solarQuote.System_Size_kW_TPO__c * solarQuote.Price_Per_kWh_TPO__c) / 12;
             }
         }

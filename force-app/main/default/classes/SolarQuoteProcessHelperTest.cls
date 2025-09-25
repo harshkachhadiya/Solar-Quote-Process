@@ -71,7 +71,7 @@ public with sharing class SolarQuoteProcessHelperTest {
         Pricing_Cube__c loanPreferred = new Pricing_Cube__c();
         loanPreferred.RecordTypeId = SObjectUtil.getRecordTypeIdByName('Pricing_Cube__c', 'Loan');
         loanPreferred.Dealer_Fee__c = 1.5;
-        loanPreferred.Payment_Factor_1__c = 0.1;
+        loanPreferred.Payment_Factor__c = 0.1;
         insert loanPreferred;
         
         Discount_Config__c discountConfig1 = new Discount_Config__c();

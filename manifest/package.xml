@@ -53,14 +53,9 @@
 		<members>Pricing_Cube__c.Battery__c</members>
 		<members>Pricing_Cube__c.Dealer_Fee__c</members>
 		<members>Pricing_Cube__c.Description__c</members>
-		<members>Pricing_Cube__c.Escalator__c</members>
-		<members>Pricing_Cube__c.External_ID__c</members>
-		<members>Pricing_Cube__c.Payment_Factor_1__c</members>
-		<members>Pricing_Cube__c.Payment_Factor_2__c</members>
+		<members>Pricing_Cube__c.Payment_Factor__c</members>
 		<members>Pricing_Cube__c.PPW__c</members>
-		<members>Pricing_Cube__c.Price_per_kWh__c</members>
-		<members>Pricing_Cube__c.Source__c</members>
-		<members>Pricing_Cube__c.Start_Date__c</members>
+		<members>Pricing_Cube__c.Price_Per_kWh__c</members>
 		<members>Pricing_Cube__c.State__c</members>
 		<members>Pricing_Cube__c.Term__c</members>
 		<members>Pricing_Cube__c.Yield_Factor__c</members>

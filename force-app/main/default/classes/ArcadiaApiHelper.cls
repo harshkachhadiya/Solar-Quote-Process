@@ -709,11 +709,11 @@ public without sharing class ArcadiaApiHelper {
                 'TPO_Battery__r.Standard_Price__c',
                 'Cash_Preferred__r.Dealer_Fee__c',
                 'Loan_Preferred__r.Dealer_Fee__c',
-                'Cash_Preferred__r.Payment_Factor_1__c',
-                'Loan_Preferred__r.Payment_Factor_1__c',
+                'Cash_Preferred__r.Payment_Factor__c',
+                'Loan_Preferred__r.Payment_Factor__c',
                 'Loan_Preferred__r.APR__c',
                 'Loan_Competitor__r.Dealer_Fee__c',
-                'Loan_Competitor__r.Payment_Factor_1__c'
+                'Loan_Competitor__r.Payment_Factor__c'
             };
             
             State__c state = (State__c) SObjectUtil.getSObjectDetailsById(solarQuote.State_Lookup__c, additionalFields);
