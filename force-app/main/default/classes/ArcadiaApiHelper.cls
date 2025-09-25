@@ -9,8 +9,7 @@ public without sharing class ArcadiaApiHelper {
         HttpResponse response;
         String errorMessage;
 
-        List<String> additionalFields = new List<String>{'Lead__r.Account_Name__c'};
-        Solar_Quote__c solarQuote = (Solar_Quote__c) SObjectUtil.getSObjectDetailsById(solarQuoteId, additionalFields);
+        Solar_Quote__c solarQuote = (Solar_Quote__c) SObjectUtil.getSObjectDetailsById(solarQuoteId);
         
         try {
             
@@ -30,9 +29,7 @@ public without sharing class ArcadiaApiHelper {
             
             ArcadiaApiWrapper.CreateAccountRequest apiPayload = new ArcadiaApiWrapper.CreateAccountRequest();
             apiPayload.providerAccountId = solarQuote.Provider_Account_Id__c;
-            apiPayload.accountName = String.isNotBlank(solarQuote.Lead__c) 
-                ? solarQuote.Lead__r.Account_Name__c 
-                : solarQuote.Provider_Account_Id__c;
+            apiPayload.accountName = solarQuote.Provider_Account_Id__c;
             apiPayload.address = address;
             apiPayload.properties = property;
             

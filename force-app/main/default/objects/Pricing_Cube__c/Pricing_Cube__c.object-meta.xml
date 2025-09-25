@@ -169,7 +169,6 @@
     <pluralLabel>Pricing Cubes</pluralLabel>
     <searchLayouts>
         <searchResultsAdditionalFields>Description__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Active__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

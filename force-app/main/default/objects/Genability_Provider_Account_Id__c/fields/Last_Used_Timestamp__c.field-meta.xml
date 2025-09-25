@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>End_Date__c</fullName>
-    <inlineHelpText>The date when the pricing terms end (if applicable).</inlineHelpText>
-    <label>End Date</label>
+    <fullName>Last_Used_Timestamp__c</fullName>
+    <label>Last Used Timestamp</label>
     <required>false</required>
     <trackTrending>false</trackTrending>
-    <type>Date</type>
+    <type>DateTime</type>
 </CustomField>

@@ -287,19 +287,13 @@
                             <value>Provider_Account_Id__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Account_Name__c</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Storage_Account__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Usage_Count__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>First_Used_Date_Time__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Last_Used_Date_Time__c</value>
+                            <value>Last_Used_Timestamp__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

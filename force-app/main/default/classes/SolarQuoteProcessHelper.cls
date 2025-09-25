@@ -111,7 +111,7 @@ public without sharing class SolarQuoteProcessHelper {
                                                     FROM Genability_Provider_Account_Id__c 
                                                     WHERE Genability_Monthly_Limit__r.Is_Active__c = true
                                                     AND Storage_Account__c = true
-                                                    ORDER by Last_Used_Date_Time__c ASC NULLS FIRST
+                                                    ORDER by Last_Used_Timestamp__c ASC NULLS FIRST
                                                     LIMIT 1];
                     
                 } else {
@@ -119,7 +119,7 @@ public without sharing class SolarQuoteProcessHelper {
                                                     FROM Genability_Provider_Account_Id__c 
                                                     WHERE Genability_Monthly_Limit__r.Is_Active__c = true
                                                     AND Storage_Account__c = false
-                                                    ORDER by Last_Used_Date_Time__c ASC NULLS FIRST
+                                                    ORDER by Last_Used_Timestamp__c ASC NULLS FIRST
                                                     LIMIT 1];
                 }
             }
@@ -132,7 +132,7 @@ public without sharing class SolarQuoteProcessHelper {
                     genabilityProviderAccountIds[0].First_Used_Date_Time__c = currentDateTime;
                 }
                 
-                genabilityProviderAccountIds[0].Last_Used_Date_Time__c = currentDateTime;    
+                genabilityProviderAccountIds[0].Last_Used_Timestamp__c = currentDateTime;    
                 
                 solarQuote.Genability_Provider_Account_Id__c = genabilityProviderAccountIds[0].Id;
                 

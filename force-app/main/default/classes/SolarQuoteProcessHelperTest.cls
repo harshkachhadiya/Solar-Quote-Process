@@ -132,7 +132,6 @@ public with sharing class SolarQuoteProcessHelperTest {
         ld.Country = 'US';
         ld.Status = 'Open';
         ld.LeadSource = 'Web';
-        ld.Utility_Company__c = 'Test';
         ld.Lse_Id__c = '12345';
         ld.Average_Monthly_Bill__c = 100;
         insert ld;

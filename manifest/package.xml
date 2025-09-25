@@ -33,7 +33,6 @@
 		<members>Discount_Config__c.Price__c</members>
 		<members>Discount_Config__c.Product__c</members>
 		<members>Discount_Config__c.State__c</members>
-		<members>Discount_Config__c.Sunrun__c</members>
 		<members>Genability_Monthly_Limit__c.End_Date__c</members>
 		<members>Genability_Monthly_Limit__c.Is_Active__c</members>
 		<members>Genability_Monthly_Limit__c.Month__c</members>
@@ -41,25 +40,19 @@
 		<members>Genability_Monthly_Limit__c.Standard_Storage_Accounts_Limit__c</members>
 		<members>Genability_Monthly_Limit__c.Start_Date__c</members>
 		<members>Genability_Monthly_Limit__c.Year__c</members>
-		<members>Genability_Provider_Account_Id__c.Account_Name__c</members>
 		<members>Genability_Provider_Account_Id__c.First_Used_Date_Time__c</members>
 		<members>Genability_Provider_Account_Id__c.Genability_Monthly_Limit__c</members>
-		<members>Genability_Provider_Account_Id__c.Last_Used_Date_Time__c</members>
+		<members>Genability_Provider_Account_Id__c.Last_Used_Timestamp__c</members>
 		<members>Genability_Provider_Account_Id__c.Provider_Account_Id__c</members>
 		<members>Genability_Provider_Account_Id__c.Storage_Account__c</members>
-		<members>Genability_Provider_Account_Id__c.Usage_Count__c</members>
 		<members>Google_Api_Configuration__mdt.Api_Key__c</members>
-		<members>Lead.Account_Name__c</members>
 		<members>Lead.Address_Formula__c</members>
 		<members>Lead.Average_Monthly_Bill__c</members>
 		<members>Lead.Lse_Id__c</members>
-		<members>Lead.Utility_Company__c</members>
-		<members>Pricing_Cube__c.Active__c</members>
 		<members>Pricing_Cube__c.APR__c</members>
 		<members>Pricing_Cube__c.Battery__c</members>
 		<members>Pricing_Cube__c.Dealer_Fee__c</members>
 		<members>Pricing_Cube__c.Description__c</members>
-		<members>Pricing_Cube__c.End_Date__c</members>
 		<members>Pricing_Cube__c.Escalator__c</members>
 		<members>Pricing_Cube__c.External_ID__c</members>
 		<members>Pricing_Cube__c.Payment_Factor_1__c</members>
@@ -230,7 +223,6 @@
 		<members>State__c.Cash_Preferred__c</members>
 		<members>State__c.Cash_Product__c</members>
 		<members>State__c.Competitor_Cash_PPW__c</members>
-		<members>State__c.End_Date__c</members>
 		<members>State__c.Loan_Base_PPW__c</members>
 		<members>State__c.Loan_Battery__c</members>
 		<members>State__c.Loan_Competitor_Product__c</members>
