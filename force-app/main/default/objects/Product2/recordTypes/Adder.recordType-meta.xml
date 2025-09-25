@@ -4,17 +4,6 @@
     <active>true</active>
     <label>Adder</label>
     <picklistValues>
-        <picklist>Cost_Basis__c</picklist>
-        <values>
-            <fullName>Add-on</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Adjust Base PPW</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Family</picklist>
         <values>
             <fullName>Administrative</fullName>

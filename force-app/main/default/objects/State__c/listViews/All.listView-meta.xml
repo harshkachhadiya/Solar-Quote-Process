@@ -8,11 +8,9 @@
     <columns>TPO_PPW__c</columns>
     <columns>TPO_Panel__c</columns>
     <columns>TPO_Battery__c</columns>
-    <columns>Loan_Product__c</columns>
     <columns>Loan_Panel__c</columns>
     <columns>Cash_Panel__c</columns>
     <columns>Cash_Battery__c</columns>
-    <columns>Cash_Product__c</columns>
     <columns>Loan_Battery__c</columns>
     <columns>Loan_Competitor__c</columns>
     <filterScope>Everything</filterScope>

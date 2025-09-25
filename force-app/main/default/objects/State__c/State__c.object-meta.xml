@@ -170,7 +170,6 @@
     <searchLayouts>
         <searchResultsAdditionalFields>State_Long_Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>TPO_PPW__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Loan_Product__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Loan_PPW__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Cash_PPW__c</searchResultsAdditionalFields>
     </searchLayouts>

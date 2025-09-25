@@ -118,16 +118,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Cash_Product__c</fieldItem>
-                <identifier>RecordCash_Product_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Competitor_Cash_PPW__c</fieldItem>
                 <identifier>RecordCompetitor_Cash_PPW_cField</identifier>
             </fieldInstance>
@@ -178,16 +168,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Loan_Competitor_Product__c</fieldItem>
-                <identifier>RecordLoan_Competitor_Product_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Loan_Margin__c</fieldItem>
                 <identifier>RecordLoan_Margin_cField</identifier>
             </fieldInstance>
@@ -210,16 +190,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Loan_PPW__c</fieldItem>
                 <identifier>RecordLoan_PPW_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Loan_Product__c</fieldItem>
-                <identifier>RecordLoan_Product_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

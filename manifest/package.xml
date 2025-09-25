@@ -56,38 +56,25 @@
 		<members>Pricing_Cube__c.Payment_Factor__c</members>
 		<members>Pricing_Cube__c.PPW__c</members>
 		<members>Pricing_Cube__c.Price_Per_kWh__c</members>
-		<members>Pricing_Cube__c.State__c</members>
-		<members>Pricing_Cube__c.Term__c</members>
 		<members>Pricing_Cube__c.Yield_Factor__c</members>
 		<members>Product2.AC_to_DC_Efficiency__c</members>
 		<members>Product2.Allow_Battery_to_Grid__c</members>
 		<members>Product2.Allow_Grid_to_Battery__c</members>
 		<members>Product2.Allow_Solar_to_Battery__c</members>
 		<members>Product2.Allow_Solar_to_Grid__c</members>
-		<members>Product2.Battery_Size__c</members>
-		<members>Product2.Cost_Basis__c</members>
 		<members>Product2.DC_Coupled__c</members>
 		<members>Product2.DC_to_AC_Efficiency__c</members>
-		<members>Product2.Degredation_1st_Year__c</members>
-		<members>Product2.Degredation_annual__c</members>
-		<members>Product2.Depth__c</members>
-		<members>Product2.Efficiency__c</members>
 		<members>Product2.Energy_Capacity__c</members>
-		<members>Product2.Height__c</members>
 		<members>Product2.Initial_SoC__c</members>
 		<members>Product2.Input_Efficiency__c</members>
 		<members>Product2.Learn_More__c</members>
 		<members>Product2.Max_SoC__c</members>
 		<members>Product2.Min_SoC__c</members>
-		<members>Product2.Module_Power__c</members>
-		<members>Product2.Power_Output__c</members>
-		<members>Product2.Product_Image__c</members>
 		<members>Product2.Product_Image_URL__c</members>
 		<members>Product2.Production__c</members>
 		<members>Product2.Rated_Output_Power__c</members>
 		<members>Product2.Solar_DC_to_AC_Efficiency__c</members>
 		<members>Product2.Standard_Price__c</members>
-		<members>Product2.Width__c</members>
 		<members>Solar_Quote__c.Account_Id__c</members>
 		<members>Solar_Quote__c.Additional_Cost_Cash__c</members>
 		<members>Solar_Quote__c.Additional_Cost_Loan__c</members>
@@ -216,17 +203,14 @@
 		<members>State__c.Cash_Panel__c</members>
 		<members>State__c.Cash_PPW__c</members>
 		<members>State__c.Cash_Preferred__c</members>
-		<members>State__c.Cash_Product__c</members>
 		<members>State__c.Competitor_Cash_PPW__c</members>
 		<members>State__c.Loan_Base_PPW__c</members>
 		<members>State__c.Loan_Battery__c</members>
-		<members>State__c.Loan_Competitor_Product__c</members>
 		<members>State__c.Loan_Competitor__c</members>
 		<members>State__c.Loan_Margin__c</members>
 		<members>State__c.Loan_Panel__c</members>
 		<members>State__c.Loan_PPW__c</members>
 		<members>State__c.Loan_Preferred__c</members>
-		<members>State__c.Loan_Product__c</members>
 		<members>State__c.State_Long_Name__c</members>
 		<members>State__c.TPO_Base_PPW__c</members>
 		<members>State__c.TPO_Battery__c</members>
@@ -271,7 +255,6 @@
 	</types>
 	<types>
 		<members>Genability_Monthly_Limit_Generate_Provider_Account_Ids</members>
-		<!--members>Solar_Estimate_Address_Initiate_Solar_Estimate_Process</members-->
 		<name>Flow</name>
 	</types>
 	<types>
@@ -297,8 +280,6 @@
 	</types>
 	<types>
         <members>Genability_Monthly_Limit__c.Generate_Provider_Account_Ids</members>
-        <!--members>Lead.Initiate_Solar_Estimate_Process</members>
-		<members>Solar_Quote__c.Initiate_Solar_Estimate_Process</members-->
         <name>QuickAction</name>
     </types>
 	<types>
