@@ -171,7 +171,6 @@
     <searchLayouts>
         <searchResultsAdditionalFields>Product__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>State__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Eligible_Financiers__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Price__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Min_Quantity__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Max_Quantity__c</searchResultsAdditionalFields>

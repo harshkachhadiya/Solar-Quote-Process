@@ -6,7 +6,6 @@
     <columns>Product__c</columns>
     <columns>State__c</columns>
     <columns>Price__c</columns>
-    <columns>Unit_Of_Measure__c</columns>
     <columns>Min_Quantity__c</columns>
     <columns>Max_Quantity__c</columns>
     <columns>Finance_Type__c</columns>
