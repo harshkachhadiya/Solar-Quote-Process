@@ -101,8 +101,6 @@
 		<members>Product2.Initial_SoC__c</members>
 		<members>Product2.Input_Efficiency__c</members>
 		<members>Product2.Learn_More__c</members>
-		<members>Product2.Made_In__c</members>
-		<members>Product2.Manufacturer__c</members>
 		<members>Product2.Max_SoC__c</members>
 		<members>Product2.Min_SoC__c</members>
 		<members>Product2.Module_Power__c</members>

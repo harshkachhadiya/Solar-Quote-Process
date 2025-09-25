@@ -46,13 +46,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Made_In__c</picklist>
-        <values>
-            <fullName>USA</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>QuantityUnitOfMeasure</picklist>
         <values>
             <fullName>Bid Price</fullName>
