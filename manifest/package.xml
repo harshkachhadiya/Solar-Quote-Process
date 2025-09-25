@@ -27,7 +27,6 @@
 		<members>Arcadia_Api_Configuration__mdt.Base_Endpoint__c</members>
 		<members>Arcadia_Api_Configuration__mdt.Password__c</members>
 		<members>Arcadia_Api_Configuration__mdt.Username__c</members>
-		<members>Discount_Config__c.Apply_to_All__c</members>
 		<members>Discount_Config__c.Cash__c</members>
 		<members>Discount_Config__c.Eligible_Financiers__c</members>
 		<members>Discount_Config__c.EnFin__c</members>
