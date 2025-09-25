@@ -138,16 +138,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.End_Date__c</fieldItem>
-                <identifier>RecordEnd_Date_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Is_Active__c</fieldItem>
                 <identifier>RecordIs_Active_cField</identifier>
             </fieldInstance>
@@ -240,16 +230,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Loan_Product__c</fieldItem>
                 <identifier>RecordLoan_Product_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Start_Date__c</fieldItem>
-                <identifier>RecordStart_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

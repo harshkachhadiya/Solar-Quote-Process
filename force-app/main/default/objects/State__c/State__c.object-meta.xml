@@ -175,7 +175,6 @@
         <searchResultsAdditionalFields>Cash_PPW__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Start_Date__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>End_Date__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Is_Active__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

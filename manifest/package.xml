@@ -245,7 +245,6 @@
 		<members>State__c.Cash_Product__c</members>
 		<members>State__c.Competitor_Cash_PPW__c</members>
 		<members>State__c.End_Date__c</members>
-		<members>State__c.Is_Active__c</members>
 		<members>State__c.Loan_Base_PPW__c</members>
 		<members>State__c.Loan_Battery__c</members>
 		<members>State__c.Loan_Competitor_Product__c</members>
@@ -255,7 +254,6 @@
 		<members>State__c.Loan_PPW__c</members>
 		<members>State__c.Loan_Preferred__c</members>
 		<members>State__c.Loan_Product__c</members>
-		<members>State__c.Start_Date__c</members>
 		<members>State__c.State_Long_Name__c</members>
 		<members>State__c.TPO_Base_PPW__c</members>
 		<members>State__c.TPO_Battery__c</members>
