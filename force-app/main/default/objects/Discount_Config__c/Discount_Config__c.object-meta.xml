@@ -175,7 +175,6 @@
         <searchResultsAdditionalFields>Price__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Min_Quantity__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Max_Quantity__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Is_Active__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

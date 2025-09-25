@@ -33,7 +33,6 @@
 		<members>Discount_Config__c.Everbright__c</members>
 		<members>Discount_Config__c.Finance_Type__c</members>
 		<members>Discount_Config__c.Goodleap__c</members>
-		<members>Discount_Config__c.Is_Active__c</members>
 		<members>Discount_Config__c.Max_Quantity__c</members>
 		<members>Discount_Config__c.Min_Quantity__c</members>
 		<members>Discount_Config__c.Mosaic__c</members>

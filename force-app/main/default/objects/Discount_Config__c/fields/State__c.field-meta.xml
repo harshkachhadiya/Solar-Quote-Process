@@ -4,15 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <description>Name of the State record this applies to</description>
     <label>State</label>
-    <lookupFilter>
-        <active>true</active>
-        <filterItems>
-            <field>State__c.Is_Active__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-    </lookupFilter>
     <referenceTo>State__c</referenceTo>
     <relationshipLabel>Discount Configs</relationshipLabel>
     <relationshipName>Discount_Configs</relationshipName>
